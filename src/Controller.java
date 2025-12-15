@@ -15,18 +15,30 @@ public class Controller
 		this.imageLoader      = new ImageLoader(1200, 800);
 		this.framePrincipale  = new FramePrincipale(this);
 
-		//this.imageTransformer = new ImageTransformer();
-		//this.bucketTool       = new BucketTool();
+		this.imageTransformer = new ImageTransformer();
+		this.bucketTool       = new BucketTool();
 		//this.textTool         = new TextTool();
 	}
 
 	public void addImage(String filePath){this.imageLoader.loadImage(filePath);}
 	public BufferedImage getBufferedImage() {return this.imageLoader.getBufferedImage();}
 
-	public void updateDessin() {this.framePrincipale.repaint();}
+
+	public void peindre(BufferedImage img, int x, int y, int newColorRGB, int tolerance)
+	{
+		this.bucketTool.peindre(img, x, y, newColorRGB, tolerance);
+	}
+
+	public void rotation(double angle)
+	{
+		this.imageTransformer.rotation(this.getBufferedImage(), this.getBufferedImage(), angle);
+	}
+
+	public void updateDessin     (){this.framePrincipale.repaint();}
+	public void addMouseDessin   (){this.framePrincipale.addMouseDessin();}
+	public void removeMouseDessin(){this.framePrincipale.removeMouseDessin();}
 
 
-		
 	public static void main(String[] args)
 	{
 		new Controller();

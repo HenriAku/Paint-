@@ -27,8 +27,7 @@ public class FramePrincipale extends JFrame
 		this.setVisible(true);
 	}
 
-	public void repaint()
-	{
-		this.panelDessin.repaint();
-	}
+	public void repaint          (){this.panelDessin.repaint();}
+	public void addMouseDessin   (){this.panelDessin.addMouse();}
+	public void removeMouseDessin(){this.panelDessin.removeMouseDessin();}
 }	

@@ -6,6 +6,9 @@ import java.awt.Color;
 // Implémentation de la logique pour la transformation d'images
 public class ImageTransformer
 {
+	public ImageTransformer()
+	{}
+	
 	// Méthode pour ajuster le contraste d'une couleur
 	private static Color contraste(Color c, int contraste)
 	{
@@ -103,6 +106,41 @@ public class ImageTransformer
 				Color newColor = teinte(originalColor, rOffset, gOffset, bOffset);
 				image.setRGB(x, y, newColor.getRGB());
 			}
+		}
+	}
+
+	public void rotation(BufferedImage src, BufferedImage dest,double angle)
+	{	
+		try {
+			
+			int largeur = src.getWidth();
+			int hauteur = src.getHeight();
+
+			double a = Math.toRadians(angle);
+			double cosA = Math.cos(a);
+			double sinA = Math.sin(a);
+
+			int i0 = largeur/2;
+			int j0 = hauteur/2;
+
+			for (int i = 0; i < largeur; i++) {
+				for (int j = 0; j < hauteur; j++) {
+					double x = i-i0;
+					double y = j-j0;
+
+					double x2 = x * cosA + y * sinA;
+					double y2 = -x * sinA + y * cosA;
+
+					int i2 = (int) Math.round(x2+i0);
+					int j2 = (int) Math.round(y2+j0);
+
+					if (i2 >= 0 && i2 < largeur && j2 >= 0 && j2 < hauteur) {
+						dest.setRGB(i2, j2, src.getRGB(i, j));
+					}
+				}
+			}
+		} catch (Exception e) {
+			System.out.println(e);
 		}
 	}
 }

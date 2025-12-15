@@ -7,6 +7,9 @@ import java.awt.image.BufferedImage;
 // Implémentation de la logique pour l'outil de pot de peinture
 public class BucketTool
 {
+	public BucketTool()
+	{}
+	
 	// Méthode pour calculer la distance entre deux couleurs
 	private static double distance(int coul1, int coul2)
 	{
