@@ -98,8 +98,11 @@ public class PanelTools extends JPanel implements ActionListener
 			this.controller.addMouseDessin();
 		}
 		
-		if (this.contraste == e.getSource()) {
-			// Activer l'outil contraste
+		if (this.contraste == e.getSource()) 
+		{
+			Double contrastLevel = Double.parseDouble(this.txtAngle.getText());
+			this.controller.adjustContrast(contrastLevel);
+			this.controller.updateDessin();
 		}
 		
 		if (this.text == e.getSource()) {

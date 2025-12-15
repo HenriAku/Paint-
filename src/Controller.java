@@ -34,6 +34,11 @@ public class Controller
 		this.imageTransformer.rotation(this.getBufferedImage(), this.getBufferedImage(), angle);
 	}
 
+	public void adjustContrast(double contrastLevel)
+	{
+		this.imageTransformer.adjustContrast(this.getBufferedImage(), contrastLevel);
+	}
+
 	public void updateDessin     (){this.framePrincipale.repaint();}
 	public void addMouseDessin   (){this.framePrincipale.addMouseDessin();}
 	public void removeMouseDessin(){this.framePrincipale.removeMouseDessin();}
