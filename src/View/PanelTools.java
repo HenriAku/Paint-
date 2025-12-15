@@ -19,6 +19,7 @@ public class PanelTools extends JPanel implements ActionListener
 	private JMenuItem ouvrirImage;
 	private JMenuItem text;
 	private JMenuItem rotation;
+	private JMenuItem luminosité;
 
 	private JButton   btnSauvegarder;
 	private JButton   btnAnnuler;
@@ -40,7 +41,8 @@ public class PanelTools extends JPanel implements ActionListener
 		this.ouvrirImage  = new JMenuItem("Ouvrir une image");
 		this.text         = new JMenuItem("Texte");	
 		this.rotation	  = new JMenuItem("Rotation");
-
+		this.luminosité   = new JMenuItem("Luminosité");
+		
 		this.btnSauvegarder  = new JButton("Sauvegarder");
 		this.btnAnnuler      = new JButton("Annuler");
 
@@ -57,6 +59,7 @@ public class PanelTools extends JPanel implements ActionListener
 		menu.add(this.ouvrirImage);
 		menu.add(this.text);
 		menu.add(this.rotation);
+		menu.add(this.luminosité);
 
 		this.add(this.toolBar);
 
@@ -66,6 +69,7 @@ public class PanelTools extends JPanel implements ActionListener
 		this.ouvrirImage.addActionListener(this);
 		this.text       .addActionListener(this);
 		this.rotation   .addActionListener(this);
+		this.luminosité .addActionListener(this);
 
 		this.btnSauvegarder.addActionListener(this);
 		this.btnAnnuler    .addActionListener(this);
@@ -113,6 +117,13 @@ public class PanelTools extends JPanel implements ActionListener
 		{
 			Double angleText = Double.parseDouble(this.txtAngle.getText());
 			this.controller.rotation(angleText);
+			this.controller.updateDessin();
+		}
+
+		if (this.luminosité == e.getSource()) 
+		{
+			int brightnessLevel = Integer.parseInt(this.txtAngle.getText());
+			this.controller.adjustBrightness(brightnessLevel);
 			this.controller.updateDessin();
 		}
 
