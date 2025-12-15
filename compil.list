@@ -1,0 +1,16 @@
+# /compilList.txt
+
+# Controller
+src/Controller.java
+
+# Model
+src/Model/BucketTool.java
+src/Model/ImageLoader.java
+src/Model/ImageTransformer.java
+src/Model/Point.java
+src/Model/TextTool.java
+
+# View
+src/View/FramePrincipale.java
+src/View/PanelDessin.java
+src/View/PanelTools.java
