@@ -1,4 +1,6 @@
 import java.awt.image.BufferedImage;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 import Model.*;
 public class Controller 
@@ -10,15 +12,25 @@ public class Controller
 	private BucketTool       bucketTool;
 	private TextTool         textTool;
 	
+	private int width;
+	private int height;
+	
 	public Controller()
 	{
-		this.imageLoader      = new ImageLoader(1200, 800);
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		this.width = (int) screenSize.getWidth();
+		this.height = (int) screenSize.getHeight();
+		
 		this.framePrincipale  = new FramePrincipale(this);
-
+		this.imageLoader      = new ImageLoader(this.width, this.height);
+		
 		this.imageTransformer = new ImageTransformer();
 		this.bucketTool       = new BucketTool();
 		//this.textTool         = new TextTool();
 	}
+
+	public int getWidth () {return this.width ;}
+	public int getHeight() {return this.height;}
 
 	public void addImage(String filePath){this.imageLoader.loadImage(filePath);}
 	public BufferedImage getBufferedImage() {return this.imageLoader.getBufferedImage();}

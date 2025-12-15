@@ -9,13 +9,12 @@ public class PanelDessin extends JPanel implements MouseListener
 	private Controller    controller;
 
 	// Constructeur
-	public PanelDessin(Controller ctrl)
+	public PanelDessin(Controller ctrl ,int width, int height)
 	{
 		this.controller = ctrl;
 
-		this.image = this.controller.getBufferedImage();
-		this.setSize(1200, 800);
-
+		this.image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		this.setSize(this.controller.getWidth(), this.controller.getHeight());
 		this.setVisible(true);	
 	}
 
