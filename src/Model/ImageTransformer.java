@@ -15,6 +15,7 @@ public class ImageTransformer
 		int r = c.getRed();
 		int g = c.getGreen();
 		int b = c.getBlue();
+		int a = c.getAlpha();
 
 		r = (int)(r + contraste / 100.0 * (r - 127));
 		g = (int)(g + contraste / 100.0 * (g - 127));
@@ -25,7 +26,7 @@ public class ImageTransformer
 		g = Math.max(0, Math.min(255, g));
 		b = Math.max(0, Math.min(255, b));
 
-		return new Color(r, g, b);	
+		return new Color(r, g, b, a);
 	}
 
 	// Méthode pour modifier le contraste d'une image
@@ -37,7 +38,7 @@ public class ImageTransformer
 		// Parcourir chaque pixel de l'image
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
-				Color originalColor = new Color(image.getRGB(x, y));
+				Color originalColor = new Color(image.getRGB(x, y), true);
 				Color newColor = contraste(originalColor, (int)contrastLevel);
 				image.setRGB(x, y, newColor.getRGB());
 			}
