@@ -51,6 +51,7 @@ public class ImageTransformer
 		int r = c.getRed();
 		int g = c.getGreen();
 		int b = c.getBlue();
+		int a = c.getAlpha();
 
 		r = r + luminosite;
 		g = g + luminosite;
@@ -61,7 +62,7 @@ public class ImageTransformer
 		g = Math.max(0, Math.min(255, g));
 		b = Math.max(0, Math.min(255, b));
 
-		return new Color(r, g, b);
+		return new Color(r, g, b, a);
 	}
 
 	// Méthode pour modifier la lumière de l'image
@@ -73,7 +74,7 @@ public class ImageTransformer
 		// Parcourir chaque pixel de l'image
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
-				Color originalColor = new Color(image.getRGB(x, y));
+				Color originalColor = new Color(image.getRGB(x, y), true);
 				Color newColor = luminosite(originalColor, brightnessLevel);
 				image.setRGB(x, y, newColor.getRGB());
 			}
