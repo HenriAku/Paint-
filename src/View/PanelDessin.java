@@ -11,9 +11,19 @@ public class PanelDessin extends JPanel
 	public PanelDessin(Controller ctrl)
 	{
 		this.controller = ctrl;
-		
-		this.image = new BufferedImage(1200, 800, BufferedImage.TYPE_INT_ARGB);
-		this.image.getGraphics().fillRect(0, 0, 1200, 800);
+
+		this.image = this.controller.getBufferedImage();
 		this.setSize(1200, 800);
+
+		this.setVisible(true);	
+	}
+
+	public void paintComponent(java.awt.Graphics g)
+	{
+		super.paintComponent(g);
+		this.image = this.controller.getBufferedImage();
+		if (this.image != null) {
+			g.drawImage(this.image, 0, 0, null);
+		}
 	}
 }

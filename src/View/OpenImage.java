@@ -24,6 +24,7 @@ public class OpenImage extends JFrame
 		if (result == JFileChooser.APPROVE_OPTION) {
 			this.selectedFilePath = this.fileChooser.getSelectedFile().getAbsolutePath();
 			this.controller.addImage(this.selectedFilePath);
+			this.controller.updateDessin();
 			this.dispose();
 		}
 

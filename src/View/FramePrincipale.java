@@ -26,4 +26,9 @@ public class FramePrincipale extends JFrame
 
 		this.setVisible(true);
 	}
+
+	public void repaint()
+	{
+		this.panelDessin.repaint();
+	}
 }	
