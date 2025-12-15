@@ -8,10 +8,10 @@ public class ImageLoader
 {
 	private BufferedImage src;
 
-	public ImageLoader(int taille)
+	public ImageLoader(int largeur, int hauteur)
 	{
 		try {
-			src = new BufferedImage(taille, taille, BufferedImage.TYPE_INT_ARGB);
+			src = new BufferedImage(largeur, hauteur, BufferedImage.TYPE_INT_ARGB);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
