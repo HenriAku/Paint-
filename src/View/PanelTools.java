@@ -8,7 +8,7 @@ import javax.swing.JMenuItem;
 public class PanelTools extends JPanel
 {
 	// Attributs
-	private JMenuBar toolBar;
+	private JMenuBar  toolBar;
 	private JMenuItem potPeinture;
 	private JMenuItem contraste;
 	private JMenuItem ouvrireImage;
@@ -18,9 +18,8 @@ public class PanelTools extends JPanel
 	// Constructeur
 	public PanelTools()
 	{
-		JMenu menu = new JMenu("Outils");
+		JMenu menu   = new JMenu("Outils");
 		this.toolBar = new JMenuBar();
-		this.toolBar.add(menu);
 		
 		this.potPeinture  = new JMenuItem("Pot de peinture");
 		this.contraste    = new JMenuItem("Contraste");
@@ -28,11 +27,15 @@ public class PanelTools extends JPanel
 		this.text         = new JMenuItem("Texte");	
 		this.sauvegarder  = new JMenuItem("Sauvegarder");
 
+
+		// Ajout des composants
+		this.toolBar.add(menu);
+		this.toolBar.add(this.sauvegarder);
+
 		menu.add(this.potPeinture);
 		menu.add(this.contraste);
 		menu.add(this.ouvrireImage);
 		menu.add(this.text);
-		this.toolBar.add(this.sauvegarder);
 
 		this.add(this.toolBar);
 	}
