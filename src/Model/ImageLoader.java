@@ -26,6 +26,19 @@ public class ImageLoader
 		}
 	}
 
+	/**
+	 * Charge une image depuis le chemin spécifié
+	 * @param chemin
+	 */
+	public void loadImage(String chemin)
+	{
+		try {
+			src = ImageIO.read(new File(chemin));
+		} catch (IOException e) {
+			System.out.println(e);
+		}
+	}
+
 	public BufferedImage getBufferedImage()
 	{
 		return src;
