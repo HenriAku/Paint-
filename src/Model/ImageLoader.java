@@ -20,7 +20,12 @@ public class ImageLoader
 	public ImageLoader(String chemin)
 	{
 		try {
-			src = ImageIO.read(new File(chemin));
+			File file = new File(chemin);
+
+			if (file.getName().toLowerCase().endsWith(".png")) {
+				src = ImageIO.read(file);
+			}
+			
 		} catch (IOException e) {
 			System.out.println(e);
 		}
@@ -33,7 +38,11 @@ public class ImageLoader
 	public void loadImage(String chemin)
 	{
 		try {
-			src = ImageIO.read(new File(chemin));
+			File file = new File(chemin);
+
+			if (file.getName().toLowerCase().endsWith(".png")) {
+				src = ImageIO.read(file);
+			}
 		} catch (IOException e) {
 			System.out.println(e);
 		}
