@@ -2,6 +2,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JPanel;
 import javax.swing.JMenuBar;
@@ -54,8 +55,22 @@ public class PanelTools extends JPanel implements ActionListener
 
 	public void actionPerformed(java.awt.event.ActionEvent e) 
 	{
-		if (this.ouvrirImage == e.getSource()) {
-			OpenImage openImage = new OpenImage(this.controller);
+		if (this.ouvrirImage == e.getSource()) 
+		{
+			JFileChooser fileChooser = new JFileChooser();
+			fileChooser.setCurrentDirectory(new java.io.File("."));
+			fileChooser.setDialogTitle("Choisir une image");
+			fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+			fileChooser.setAcceptAllFileFilterUsed(false);
+
+			int result = fileChooser.showOpenDialog(this);
+			
+			if (result == JFileChooser.APPROVE_OPTION) {
+				String selectedFilePath = fileChooser.getSelectedFile().getAbsolutePath();
+				controller.addImage(selectedFilePath);
+				controller.updateDessin();
+			};
+
 		} else if (this.sauvegarder == e.getSource()) {
 			// Sauvegarder l'image
 		} else if (this.potPeinture == e.getSource()) {
