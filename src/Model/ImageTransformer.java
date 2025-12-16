@@ -86,7 +86,7 @@ public class ImageTransformer
 	}
 
 	// Méthode pour ajuster la teinte d'une couleur
-	private static Color teinte(Color c, int rOffset, int gOffset, int bOffset)
+	private static Color teinte(Color c, int rOffset, int gOffset, int bOffset, int a)
 	{
 		int r = c.getRed() + rOffset;
 		int g = c.getGreen() + gOffset;
@@ -97,7 +97,7 @@ public class ImageTransformer
 		g = Math.max(0, Math.min(255, g));
 		b = Math.max(0, Math.min(255, b));
 
-		return new Color(r, g, b);
+		return new Color(r, g, b, a);
 	}
 
 	// Méthode pour modifier la teinte de l'image
@@ -108,8 +108,8 @@ public class ImageTransformer
 		// Parcourir chaque pixel de l'image
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
-				Color originalColor = new Color(image.getRGB(x, y));
-				Color newColor = teinte(originalColor, rOffset, gOffset, bOffset);
+				Color originalColor = new Color(image.getRGB(x, y), true);
+				Color newColor = teinte(originalColor, rOffset, gOffset, bOffset, originalColor.getAlpha());
 				image.setRGB(x, y, newColor.getRGB());
 			}
 		}
