@@ -116,7 +116,7 @@ public class ImageTransformer
 	}
 
 	//Envoi de l'image de fond, à mettre au dessus, le fichier de sortie, la couleur transparente à supprimer pendant la fusion, ainsi que la position de l'image à mettre au dessus 
-    public void fusionner(BufferedImage fond, BufferedImage dessus, String nomFichierSortie, int couleurTransparente, int posX, int posY){
+    public void fusionner(BufferedImage fond, BufferedImage dessus, int couleurTransparente, int posX, int posY){
 
         try {
             //Vérification de la position de l'image à superposer
@@ -135,8 +135,6 @@ public class ImageTransformer
                     }
                 }
             }
-
-            ImageIO.write(fond, "png", new File(nomFichierSortie));
         } catch (Exception e) {
             e.printStackTrace();
             return;
