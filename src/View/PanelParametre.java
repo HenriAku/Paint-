@@ -32,6 +32,7 @@ public class PanelParametre extends JPanel implements ChangeListener, ActionList
 
 	private JButton btnHorizontal;
 	private JButton btnVertical;
+	private JButton btnFusion;
 
 	public PanelParametre(Controller ctrl)
 	{
