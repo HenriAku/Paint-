@@ -12,6 +12,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
@@ -33,6 +34,9 @@ public class PanelParametre extends JPanel implements ChangeListener, ActionList
 	private JButton btnHorizontal;
 	private JButton btnVertical;
 	private JButton btnFusion;
+
+	private JTextField txtFusionX;
+	private JTextField txtFusionY;
 
 	public PanelParametre(Controller ctrl)
 	{
@@ -181,6 +185,24 @@ public class PanelParametre extends JPanel implements ChangeListener, ActionList
 
 		this.add(panelMiroir, "Miroir");
 
+
+		// Fusion
+		JPanel panelFusion = new JPanel(new BorderLayout());
+
+		this.btnFusion = new JButton("Fusionner Images");
+		this.txtFusionX = new JTextField();
+		this.txtFusionY = new JTextField();
+
+		this.btnFusion.addActionListener(this);
+
+		JLabel titreFusion = new JLabel("Entrez les coordonnées", JLabel.CENTER);
+		panelFusion.add(titreFusion,BorderLayout.NORTH);
+		panelFusion.add(this.txtFusionX, BorderLayout.CENTER);
+		panelFusion.add(this.txtFusionY, BorderLayout.CENTER);
+		panelFusion.add(this.btnFusion, BorderLayout.CENTER);
+		
+		this.add(panelFusion, "Fusion");
+
 		// Panneau par défaut
 		JPanel panelDefault = new JPanel();
 		this.add(panelDefault, "Default");
@@ -206,6 +228,26 @@ public class PanelParametre extends JPanel implements ChangeListener, ActionList
 		{
 			this.controller.mirrorVertical(); 
 			this.controller.updateDessin();
+		}
+
+		if(this.btnFusion == e.getSource()) 
+		{
+			JFileChooser fileChooser = new JFileChooser();
+			fileChooser.setCurrentDirectory(new java.io.File("."));
+			fileChooser.setDialogTitle("Choisir une image");
+			fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+			fileChooser.setAcceptAllFileFilterUsed(false);
+
+			int result = fileChooser.showOpenDialog(this);
+			
+			if (result == JFileChooser.APPROVE_OPTION) 
+			{
+				int posX = Integer.parseInt(this.txtFusionX.getText());
+				int posY = Integer.parseInt(this.txtFusionY.getText());
+				String selectedFilePath = fileChooser.getSelectedFile().getAbsolutePath();
+				this.controller.fusionner(selectedFilePath, posX, posY);
+				this.controller.updateDessin();
+			};
 		}
 	}
 

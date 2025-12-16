@@ -54,6 +54,17 @@ public class Controller
 		this.imageLoader.setBufferedImage(imageRotee);
 	}
 
+	public void fusionner(String chemin , int x, int y)
+	{
+		this.imageLoader.loadImage2(chemin);
+		BufferedImage baseImg   = this.imageLoader.getBufferedImage ();
+		BufferedImage imgDessus = this.imageLoader.getBufferedImage2();
+
+		this.imageTransformer.fusionner(baseImg, imgDessus, 0xFFFFFF, x, y);
+		
+		this.imageLoader.setOriginalImage(this.getBufferedImage());
+	}
+
 	public void adjustContrast(double contrastLevel)
 	{
 		this.imageTransformer.adjustContrast(this.getBufferedImage(), contrastLevel);
