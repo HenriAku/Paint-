@@ -1,7 +1,6 @@
 import java.awt.image.BufferedImage;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.util.List;
 
 import Model.*;
 public class Controller 
@@ -15,7 +14,6 @@ public class Controller
 	
 	private int width;
 	private int height;
-	private int color;
 	
 	public Controller()
 	{
@@ -34,63 +32,39 @@ public class Controller
 	public int getWidth () {return this.width ;}
 	public int getHeight() {return this.height;}
 
-	public void                sauvegarder           (String filePath){this.imageLoader.sauvegarder(filePath);     }
-	public void                addImage              (String filePath){this.imageLoader.loadImage(filePath);       }
-	public void                addImageHistorique    ()               {this.imageLoader.addImageHistorique();      }
-	public BufferedImage       getBufferedImage      ()               {return this.imageLoader.getBufferedImage(); }
-	public List<BufferedImage> getImagesHistoriqueArriere   (){return this.imageLoader.getImagesHistoriqueArriere();   }
-	public BufferedImage       getLastImageHistoriqueArriere(){return this.imageLoader.getLastImageHistoriqueArriere();}
-	public List<BufferedImage> getImagesHistoriqueAvant     (){return this.imageLoader.getImagesHistoriqueAvant();     }
-	public BufferedImage       getNextImageHistoriqueAvant  (){return this.imageLoader.getNextImageHistoriqueAvant();  }
+	public void addImage(String filePath){this.imageLoader.loadImage(filePath);}
+	public BufferedImage getBufferedImage() {return this.imageLoader.getBufferedImage();}
 
 
-	public void updateDessin(){this.framePrincipale.repaint();}
-
-
-	public void peindre(BufferedImage img, int x, int y, int tolerance)
+	public void peindre(BufferedImage img, int x, int y, int newColorRGB, int tolerance)
 	{
-		this.addImageHistorique();
-		this.bucketTool.peindre(img, x, y, this.color, tolerance);
+		this.bucketTool.peindre(img, x, y, newColorRGB, tolerance);
 	}
 
 	public void rotation(double angle)
 	{
-		this.addImageHistorique();
-		this.imageTransformer.rotation(this.getBufferedImage(), angle);
+		this.imageTransformer.rotation(this.getBufferedImage(), this.getBufferedImage(), angle);
 	}
 
 	public void adjustContrast(double contrastLevel)
 	{
-		this.addImageHistorique();
 		this.imageTransformer.adjustContrast(this.getBufferedImage(), contrastLevel);
 	}
 
 	public void adjustBrightness(int brightnessLevel)
 	{
-		this.addImageHistorique();
 		this.imageTransformer.adjustBrightness(this.getBufferedImage(), brightnessLevel);
 	}
 
-	public void adjustHue(int rOffset, int gOffset, int bOffset)
-	{
-		this.addImageHistorique();
-		this.imageTransformer.adjustHue(this.getBufferedImage(), rOffset, gOffset, bOffset);
-	}
-
-	public void fusionner(String filePath, int x, int y)
-	{
-		this.addImageHistorique();
-		this.imageLoader.loadImage2(filePath);
-		this.imageTransformer.fusionner(this.getBufferedImage(), this.imageLoader.getBufferedImage2(), 0xFFFFFF, x, y);
-	}
-
-	public void addMouseDessin(int color)
-	{
-		this.color = color;
-		this.framePrincipale.addMouseDessin();
-	}
-
+	public void updateDessin     (){this.framePrincipale.repaint();}
+	public void addMouseDessin   (){this.framePrincipale.addMouseDessin();}
 	public void removeMouseDessin(){this.framePrincipale.removeMouseDessin();}
+
+	public void toolSelected(String toolName)
+	{
+		this.framePrincipale.showParametrePanel(toolName);
+	}
+
 
 	public static void main(String[] args)
 	{

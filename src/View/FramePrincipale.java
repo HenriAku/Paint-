@@ -29,7 +29,7 @@ public class FramePrincipale extends JFrame
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(new BorderLayout());
 
-		this.add(this.panelTools, BorderLayout.NORTH);
+		this.add(this.panelTools, BorderLayout.WEST);
 		this.add(this.panelDessin, BorderLayout.CENTER);
 
 		this.setVisible(true);
@@ -38,4 +38,8 @@ public class FramePrincipale extends JFrame
 	public void repaint          (){this.panelDessin.repaint();}
 	public void addMouseDessin   (){this.panelDessin.addMouse();}
 	public void removeMouseDessin(){this.panelDessin.removeMouseDessin();}
+	public void showParametrePanel(String toolName)
+	{
+		this.panelTools.showCard(toolName);
+	}
 }	

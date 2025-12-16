@@ -1,5 +1,7 @@
 package Model;
 
-public class TextTool {
+// Implémentation de la logique pour l'outil de texte avec motifs
+public class TextTool
+{
 	
 }

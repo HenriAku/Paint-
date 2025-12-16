@@ -1,5 +1,4 @@
-import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
+import java.awt.BorderLayout;
 
 import javax.print.attribute.standard.JobMessageFromOperator;
 import javax.swing.JButton;
@@ -16,7 +15,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.BoxLayout; // Import BoxLayout
 
-public class PanelTools extends JPanel implements ActionListener
+public class PanelTools extends JPanel
 {
 	// Attributs
 	private JMenuItem potPeinture;
@@ -38,6 +37,9 @@ public class PanelTools extends JPanel implements ActionListener
 
 
 	private Controller controller;
+
+	private PanelPalette   panelPalette;
+	private PanelParametre panelParametres;
 	
 	// Constructeur
 	public PanelTools(Controller ctrl)
