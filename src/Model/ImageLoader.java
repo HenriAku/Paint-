@@ -10,7 +10,8 @@ public class ImageLoader
 {
 	private BufferedImage src;
 	private BufferedImage src2;
-	private List<BufferedImage> imagesHistorique;
+	private List<BufferedImage> imagesHistoriqueArriere;
+	private List<BufferedImage> imagesHistoriqueAvant;
 
 	//Constructeur pour créer une image vide de la taille spécifiée
 	public ImageLoader(int largeur, int hauteur)
@@ -21,7 +22,8 @@ public class ImageLoader
 			System.out.println(e);
 		}
 
-		this.imagesHistorique = new ArrayList<BufferedImage>();
+		this.imagesHistoriqueArriere = new ArrayList<BufferedImage>();
+		this.imagesHistoriqueAvant = new ArrayList<BufferedImage>();
 	}
 
 	/**
@@ -41,7 +43,8 @@ public class ImageLoader
 			System.out.println(e);
 		}
 
-		this.imagesHistorique = new ArrayList<BufferedImage>();
+		this.imagesHistoriqueArriere = new ArrayList<BufferedImage>();
+		this.imagesHistoriqueAvant = new ArrayList<BufferedImage>();
 	}
 
 	/**
@@ -55,19 +58,34 @@ public class ImageLoader
 	 * Retourne la liste des images de l'historique
 	 * @return List<BufferedImage>
 	 */
-	public List<BufferedImage> getImagesHistorique(){return this.imagesHistorique;}
+	public List<BufferedImage> getImagesHistoriqueArriere(){return this.imagesHistoriqueArriere;}
+	public List<BufferedImage> getImagesHistoriqueAvant  (){return this.imagesHistoriqueAvant  ;}
 
 	/**
 	 * Retourne la dernière image de l'historique
 	 * @return BufferedImage
 	 */
-	public BufferedImage getLastImageHistorique(){return this.imagesHistorique.get(this.imagesHistorique.size() - 1);}
+	public BufferedImage getLastImageHistoriqueArriere()
+	{
+		BufferedImage img = this.imagesHistoriqueArriere.get(this.imagesHistoriqueArriere.size() - 1);
+		this.imagesHistoriqueArriere.remove(this.imagesHistoriqueArriere.size() - 1);
+		this.imagesHistoriqueAvant.add(img);
+		return img;
+	}
+
+	public BufferedImage getNextImageHistoriqueAvant()
+	{
+		BufferedImage img = this.imagesHistoriqueAvant.get(this.imagesHistoriqueAvant.size() - 1);
+		this.imagesHistoriqueAvant.remove(this.imagesHistoriqueAvant.size() - 1);
+		this.imagesHistoriqueArriere.add(img);
+		return img;
+	}
 
 	/**
 	 * Ajoute une image à l'historique
 	 * @param img
 	 */
-	public void addImageHistorique(){this.imagesHistorique.add(this.src);}
+	public void addImageHistorique(){this.imagesHistoriqueArriere.add(this.src);}
 
 
 	/**
