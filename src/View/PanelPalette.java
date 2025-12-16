@@ -66,6 +66,10 @@ public class PanelPalette extends JPanel implements ActionListener
 		this.add( this.btnAnnuler     );
 	}
 
+	/**
+	 * Gère les actions des boutons du panneau des outils.
+	 * @param e L'événement d'action déclenché.
+	 */
 	public void actionPerformed( ActionEvent e )
 	{
 		String toolName = null;
