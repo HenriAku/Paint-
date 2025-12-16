@@ -115,7 +115,7 @@ public class ImageTransformer
 		}
 	}
 
-	public void Fusionner(BufferedImage fond, BufferedImage dessus, String nomFichierSortie, int couleurTransparente, int posX, int posY){
+	public void fusionner(BufferedImage fond, BufferedImage dessus, String nomFichierSortie, int couleurTransparente, int posX, int posY){
         try {
             //Vérification de la position de l'image à superposer
             if (dessus.getWidth() + posX > fond.getWidth() ||
@@ -275,5 +275,9 @@ public class ImageTransformer
 				src.setRGB(x, mirrorY, topPixelColor);
 			}
 		}
+	}
+
+	public void redimensionner() {
+
 	}
 }
