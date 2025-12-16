@@ -75,6 +75,13 @@ public class Controller
 		this.imageTransformer.adjustHue(this.getBufferedImage(), rOffset, gOffset, bOffset);
 	}
 
+	public void fusionner(String filePath, int x, int y)
+	{
+		this.addImageHistorique();
+		this.imageLoader.loadImage2(filePath);
+		this.imageTransformer.fusionner(this.getBufferedImage(), this.imageLoader.getBufferedImage2(), 0xFFFFFF, x, y);
+	}
+
 	public void addMouseDessin(int color)
 	{
 		this.color = color;

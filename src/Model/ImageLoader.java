@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class ImageLoader 
 {
 	private BufferedImage src;
+	private BufferedImage src2;
 	private List<BufferedImage> imagesHistorique;
 
 	//Constructeur pour créer une image vide de la taille spécifiée
@@ -47,7 +48,8 @@ public class ImageLoader
 	 * Retourne l'image chargée
 	 * @return BufferedImage
 	 */
-	public BufferedImage getBufferedImage(){return this.src;}
+	public BufferedImage getBufferedImage (){return this.src ;}
+	public BufferedImage getBufferedImage2(){return this.src2;}
 
 	/**
 	 * Retourne la liste des images de l'historique
@@ -79,6 +81,19 @@ public class ImageLoader
 
 			if (file.getName().toLowerCase().endsWith(".png")) {
 				this.src = ImageIO.read(file);
+			}
+		} catch (IOException e) {
+			System.out.println(e);
+		}
+	}
+
+	public void loadImage2(String chemin)
+	{
+		try {
+			File file = new File(chemin);
+
+			if (file.getName().toLowerCase().endsWith(".png")) {
+				this.src2 = ImageIO.read(file);
 			}
 		} catch (IOException e) {
 			System.out.println(e);
