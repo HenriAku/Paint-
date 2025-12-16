@@ -33,30 +33,12 @@ public class Controller
 	public int getWidth () {return this.width ;}
 	public int getHeight() {return this.height;}
 
-	/**
-	 * Charge une image depuis le chemin spécifié
-	 * @param filePath
-	 */
-	public void addImage(String filePath){this.imageLoader.loadImage(filePath);}
+	public void          sauvegarder     (String filePath){this.imageLoader.sauvegarder(filePath);    }
+	public void          addImage        (String filePath){this.imageLoader.loadImage(filePath);      }
+	public BufferedImage getBufferedImage()               {return this.imageLoader.getBufferedImage();}
+	public void          updateDessin    ()               {this.framePrincipale.repaint();            }
 
-	/**
-	 * Retourne l'image courante
-	 * @return BufferedImage
-	 */
-	public BufferedImage getBufferedImage() {return this.imageLoader.getBufferedImage();}
 
-	/**
-	 * Met à jour l'affichage du dessin
-	 */
-	public void updateDessin(){this.framePrincipale.repaint();}
-
-	/**
-	 * Applique l'outil seau de peinture à l'image aux coordonnées spécifiées
-	 * @param img
-	 * @param x
-	 * @param y
-	 * @param tolerance
-	 */
 	public void peindre(BufferedImage img, int x, int y, int tolerance)
 	{
 		this.bucketTool.peindre(img, x, y, this.color, tolerance);
@@ -77,19 +59,12 @@ public class Controller
 		this.imageTransformer.adjustBrightness(this.getBufferedImage(), brightnessLevel);
 	}
 
-	/**
-	 * Ajoute l'outil seau de peinture avec la couleur spécifiée
-	 * @param color
-	 */
 	public void addMouseDessin(int color)
 	{
 		this.color = color;
 		this.framePrincipale.addMouseDessin();
 	}
 
-	/**
-	 * Retire l'outil seau de peinture
-	 */
 	public void removeMouseDessin(){this.framePrincipale.removeMouseDessin();}
 
 
