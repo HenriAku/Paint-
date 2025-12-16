@@ -276,7 +276,34 @@ public class ImageTransformer
 		}
 	}
 
-	public void redimensionner(BufferedImage src, int hauteur, int largeur) {
+	public BufferedImage redimensionner(BufferedImage src, int hauteur, int largeur) {
+		if (src == null) return null;
 
+		int srcWidth  = src.getWidth();
+        int srcHeight = src.getHeight();
+
+		BufferedImage tmp = new BufferedImage(largeur, hauteur, BufferedImage.TYPE_INT_ARGB);
+		double scaleX = (double) srcWidth / largeur;
+		double scaleY = (double) srcHeight / hauteur;
+
+		// Parcourir chaque pixel de l'image destination
+		for (int yDest = 0; yDest < hauteur; yDest++) {
+			for (int xDest = 0; xDest < largeur; xDest++) {
+				
+				// Calculer la coordonnée correspondante dans l'image source (Nearest Neighbor)
+				// L'ajout de 0.5 permet un meilleur centrage des pixels lors du rééchantillonnage
+				int xSrc = (int) (xDest * scaleX);
+				int ySrc = (int) (yDest * scaleY);
+				
+				// S'assurer que les indices restent dans les limites (même si le cast int devrait le faire)
+				if (xSrc >= srcWidth) xSrc = srcWidth - 1;
+				if (ySrc >= srcHeight) ySrc = srcHeight - 1;
+
+				// Récupérer la couleur et la copier dans la destination
+				int pixel = src.getRGB(xSrc, ySrc);
+				tmp.setRGB(xDest, yDest, pixel);
+			}
+		}
+		return tmp;
 	}
 }
