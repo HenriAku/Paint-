@@ -1,6 +1,7 @@
 import java.awt.image.BufferedImage;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.List;
 
 import Model.*;
 public class Controller 
@@ -33,29 +34,38 @@ public class Controller
 	public int getWidth () {return this.width ;}
 	public int getHeight() {return this.height;}
 
-	public void          sauvegarder     (String filePath){this.imageLoader.sauvegarder(filePath);    }
-	public void          addImage        (String filePath){this.imageLoader.loadImage(filePath);      }
-	public BufferedImage getBufferedImage()               {return this.imageLoader.getBufferedImage();}
-	public void          updateDessin    ()               {this.framePrincipale.repaint();            }
+	public void                sauvegarder           (String filePath){this.imageLoader.sauvegarder(filePath);          }
+	public void                addImage              (String filePath){this.imageLoader.loadImage(filePath);            }
+	public void                addImageHistorique    ()               {this.imageLoader.addImageHistorique();           }
+	public BufferedImage       getBufferedImage      ()               {return this.imageLoader.getBufferedImage();      }
+	public List<BufferedImage> getImagesHistorique   ()               {return this.imageLoader.getImagesHistorique();   }
+	public BufferedImage       getLastImageHistorique()               {return this.imageLoader.getLastImageHistorique();}
+
+
+	public void updateDessin(){this.framePrincipale.repaint();}
 
 
 	public void peindre(BufferedImage img, int x, int y, int tolerance)
 	{
+		this.addImageHistorique();
 		this.bucketTool.peindre(img, x, y, this.color, tolerance);
 	}
 
 	public void rotation(double angle)
 	{
+		this.addImageHistorique();
 		this.imageTransformer.rotation(this.getBufferedImage(), this.getBufferedImage(), angle);
 	}
 
 	public void adjustContrast(double contrastLevel)
 	{
+		this.addImageHistorique();
 		this.imageTransformer.adjustContrast(this.getBufferedImage(), contrastLevel);
 	}
 
 	public void adjustBrightness(int brightnessLevel)
 	{
+		this.addImageHistorique();
 		this.imageTransformer.adjustBrightness(this.getBufferedImage(), brightnessLevel);
 	}
 
@@ -66,7 +76,6 @@ public class Controller
 	}
 
 	public void removeMouseDessin(){this.framePrincipale.removeMouseDessin();}
-
 
 	public static void main(String[] args)
 	{

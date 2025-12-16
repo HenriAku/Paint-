@@ -3,10 +3,13 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import java.util.List;
+import java.util.ArrayList;
 
 public class ImageLoader 
 {
 	private BufferedImage src;
+	private List<BufferedImage> imagesHistorique;
 
 	//Constructeur pour créer une image vide de la taille spécifiée
 	public ImageLoader(int largeur, int hauteur)
@@ -16,6 +19,8 @@ public class ImageLoader
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+
+		this.imagesHistorique = new ArrayList<BufferedImage>();
 	}
 
 	/**
@@ -34,6 +39,8 @@ public class ImageLoader
 		} catch (IOException e) {
 			System.out.println(e);
 		}
+
+		this.imagesHistorique = new ArrayList<BufferedImage>();
 	}
 
 	/**
@@ -41,6 +48,24 @@ public class ImageLoader
 	 * @return BufferedImage
 	 */
 	public BufferedImage getBufferedImage(){return this.src;}
+
+	/**
+	 * Retourne la liste des images de l'historique
+	 * @return List<BufferedImage>
+	 */
+	public List<BufferedImage> getImagesHistorique(){return this.imagesHistorique;}
+
+	/**
+	 * Retourne la dernière image de l'historique
+	 * @return BufferedImage
+	 */
+	public BufferedImage getLastImageHistorique(){return this.imagesHistorique.get(this.imagesHistorique.size() - 1);}
+
+	/**
+	 * Ajoute une image à l'historique
+	 * @param img
+	 */
+	public void addImageHistorique(){this.imagesHistorique.add(this.src);}
 
 
 	/**
