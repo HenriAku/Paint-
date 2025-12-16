@@ -69,6 +69,12 @@ public class Controller
 		this.imageTransformer.adjustBrightness(this.getBufferedImage(), brightnessLevel);
 	}
 
+	public void adjustHue(int rOffset, int gOffset, int bOffset)
+	{
+		this.addImageHistorique();
+		this.imageTransformer.adjustHue(this.getBufferedImage(), rOffset, gOffset, bOffset);
+	}
+
 	public void addMouseDessin(int color)
 	{
 		this.color = color;
