@@ -217,4 +217,30 @@ public class ImageTransformer
 			}
 		}
 	}
+
+	/**
+	 * Miroir horizontal de l'image
+	 * @param src
+	 */
+	public void mirrorVertical(BufferedImage src)
+	{
+		if (src == null) return;
+		
+		int width  = src.getWidth();
+		int height = src.getHeight();
+		
+		for (int y = 0; y < height / 2; y++) 
+		{
+			for (int x = 0; x < width; x++) 
+			{
+				int mirrorY = height - 1 - y;
+				
+				int topPixelColor    = src.getRGB(x, y);
+				int bottomPixelColor = src.getRGB(x, mirrorY);
+				
+				src.setRGB(x, y, bottomPixelColor);     				
+				src.setRGB(x, mirrorY, topPixelColor);
+			}
+		}
+	}
 }

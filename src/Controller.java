@@ -19,7 +19,7 @@ public class Controller
 	public Controller()
 	{
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		this.width = (int) screenSize.getWidth();
+		this.width  = (int) screenSize.getWidth ();
 		this.height = (int) screenSize.getHeight();
 		
 		this.framePrincipale  = new FramePrincipale(this);
@@ -72,8 +72,15 @@ public class Controller
 		this.imageLoader.setOriginalImage(img);
 	}
 
-	public void mirrorHorizontal() {
+	public void mirrorHorizontal() 
+	{
 		this.imageTransformer.mirrorHorizontal(this.getBufferedImage());
+		this.imageLoader.setOriginalImage(this.getBufferedImage());
+	}
+
+	public void mirrorVertical() 
+	{
+		this.imageTransformer.mirrorVertical(this.getBufferedImage());
 		this.imageLoader.setOriginalImage(this.getBufferedImage());
 	}
 
