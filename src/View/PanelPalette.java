@@ -2,140 +2,112 @@ package View;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import java.util.ArrayList;
+
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JFileChooser;
 
 import Main.Controller;
 import Main.ToolType;
 
-import javax.swing.JFileChooser;
 
+/**
+ * Panel contenant les outils de l'application Paint.
+ */
 public class PanelPalette extends JPanel implements ActionListener
 {
-	// Attributs
-	private JButton potPeinture;
-	private JButton contraste;
-	private JButton text;
-	private JButton rotation;
-	private JButton luminosite;
-	private JButton teinte;
-	private JButton texte;
-	private JButton miroir;
-	private JButton fusion;
-	private JButton redimension;
-	
+	private static final String[] TOOL_NAMES = {
+		"Bucket", "Contraste", "Texte", "Rotation", "Luminosite",
+		"Teinte", "Texte", "Miroir", "Fusion", "Redimension"
+	};
+
+	private ArrayList<JButton> toolButtons;
+
 	private JButton   ouvrirImage;
 	private JButton   btnSauvegarder;
 	private JButton   btnAnnuler;
 
 	private Controller ctrl;
 
-	public PanelPalette(Controller ctrl)
+	/**
+	 * Constructeur du panel des outils.
+	 * @param ctrl Le contrôleur de l'application.
+	 */
+	public PanelPalette( Controller ctrl )
 	{
-		// Initialisation des attributs
 		this.ctrl = ctrl;
 
-		this.potPeinture  = new JButton("Bucket");
-		this.contraste    = new JButton("Contraste");
-		this.text         = new JButton("Texte");	
-		this.rotation	  = new JButton("Rotation");
-		this.luminosite   = new JButton("Luminosite");
-		this.teinte 	  = new JButton("Teinte");
-		this.texte	      = new JButton("Texte");
-		this.miroir       = new JButton("Miroir");
-		this.fusion       = new JButton("Fusion");
-		this.redimension  = new JButton("Redimension");
+		this.toolButtons = new ArrayList<JButton>();
 
-		this.ouvrirImage     = new JButton("Ouvrir Image");
-		this.btnSauvegarder  = new JButton("Sauvegarder" );
-		this.btnAnnuler      = new JButton("Annuler"     );
+		this.setLayout( new BoxLayout( this, BoxLayout.Y_AXIS) );
+		this.setBorder( BorderFactory.createEmptyBorder( 10,10,10,10) );
 
-		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		this.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+		for( String toolName : TOOL_NAMES ) {
+			JButton button = new JButton( toolName );
+			button.addActionListener( this );
+			this.toolButtons.add( button );
+			this.add( button );
+		}
 
-		this.potPeinture.addActionListener(this);
-		this.contraste.addActionListener(this);
-		this.text.addActionListener(this);
-		this.rotation.addActionListener(this);
-		this.luminosite.addActionListener(this);
-		this.teinte.addActionListener(this);
-		this.texte.addActionListener(this);
-		this.miroir.addActionListener(this);
-		this.fusion.addActionListener(this);
-		this.redimension.addActionListener(this);
-		
-		this.ouvrirImage.addActionListener(this);
-		this.btnSauvegarder.addActionListener(this);
-		this.btnAnnuler.addActionListener(this);
+		this.ouvrirImage     = new JButton( "Ouvrir Image" );
+		this.btnSauvegarder  = new JButton( "Sauvegarder"  );
+		this.btnAnnuler      = new JButton( "Annuler"      );
 
-		this.add(this.potPeinture);
-		this.add(this.contraste);
-		this.add(this.text);
-		this.add(this.rotation);
-		this.add(this.luminosite);
-		this.add(this.teinte);
-		this.add(this.texte);
-		this.add(this.miroir);
-		this.add(this.fusion);
-		this.add(this.redimension);
+		this.ouvrirImage.addActionListener( this );
+		this.btnSauvegarder.addActionListener( this );
+		this.btnAnnuler.addActionListener( this );
 
-		this.add(this.ouvrirImage);
-		this.add(this.btnSauvegarder);
-		this.add(this.btnAnnuler);
+		this.add( this.ouvrirImage    );
+		this.add( this.btnSauvegarder );
+		this.add( this.btnAnnuler     );
 	}
 
-	public void actionPerformed(ActionEvent e)
+	public void actionPerformed( ActionEvent e )
 	{
 		String toolName = null;
 
-		if(e.getSource() instanceof JButton)
+		if( e.getSource() instanceof JButton )
 		{
 			JButton clickedButton = (JButton) e.getSource();
 			toolName = clickedButton.getText();
 		}
 
-		if (this.potPeinture == e.getSource() || 
-			this.contraste   == e.getSource() || 
-			this.text        == e.getSource() ||
-			this.rotation    == e.getSource() || 
-			this.luminosite  == e.getSource() ||
-			this.teinte      == e.getSource() ||
-			this.texte       == e.getSource() ||
-			this.miroir      == e.getSource() ||
-			this.fusion      == e.getSource() ||
-			this.redimension == e.getSource()) 
+		if ( toolName != null && this.toolButtons.contains( e.getSource() ) ) 
 		{
-			this.ctrl.toolSelected(toolName); 
-			this.ctrl.setCurrentTool(ToolType.valueOf(toolName.toUpperCase()));
+			this.ctrl.toolSelected( toolName ); 
+			this.ctrl.setCurrentTool( ToolType.valueOf( toolName.toUpperCase() ) );
 		}
 
 		// Action pour ouvrir une image
-		if(this.ouvrirImage == e.getSource()) 
+		if( this.ouvrirImage == e.getSource() ) 
 		{
 			JFileChooser fileChooser = new JFileChooser();
-			fileChooser.setCurrentDirectory(new java.io.File("."));
-			fileChooser.setDialogTitle("Choisir une image");
-			fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-			fileChooser.setAcceptAllFileFilterUsed(false);
+			fileChooser.setCurrentDirectory( new java.io.File(".") );
+			fileChooser.setDialogTitle( "Choisir une image" );
+			fileChooser.setFileSelectionMode( JFileChooser.FILES_ONLY );
+			fileChooser.setAcceptAllFileFilterUsed( false );
 
-			int result = fileChooser.showOpenDialog(this);
+			int result = fileChooser.showOpenDialog( this );
 			
-			if (result == JFileChooser.APPROVE_OPTION) {
+			if ( result == JFileChooser.APPROVE_OPTION )
+			{
 				String selectedFilePath = fileChooser.getSelectedFile().getAbsolutePath();
-				this.ctrl.addImage(selectedFilePath);
+				this.ctrl.addImage( selectedFilePath );
 				this.ctrl.updateDessin();
 			};
 		}
 
-		if(this.btnSauvegarder == e.getSource()) 
+		if( this.btnSauvegarder == e.getSource() ) 
 		{
 			// Action pour sauvegarder l'image
 		}
 
 		// Action pour annuler la dernière opération
-		if(this.btnAnnuler == e.getSource()) 
+		if( this.btnAnnuler == e.getSource() ) 
 		{
 			this.ctrl.removeMouseDessin();
 		}
