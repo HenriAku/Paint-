@@ -8,28 +8,40 @@ public class ImageLoader
 {
 	private BufferedImage src;
 
+	//Constructeur pour créer une image vide de la taille spécifiée
 	public ImageLoader(int largeur, int hauteur)
 	{
 		try {
-			src = new BufferedImage(largeur, hauteur, BufferedImage.TYPE_INT_ARGB);
+			this.src = new BufferedImage(largeur, hauteur, BufferedImage.TYPE_INT_ARGB);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 	}
 
+	/**
+	 * Constructeur pour charger une image depuis le chemin spécifié
+	 * @param chemin
+	 */
 	public ImageLoader(String chemin)
 	{
 		try {
 			File file = new File(chemin);
 
 			if (file.getName().toLowerCase().endsWith(".png")) {
-				src = ImageIO.read(file);
+				this.src = ImageIO.read(file);
 			}
 			
 		} catch (IOException e) {
 			System.out.println(e);
 		}
 	}
+
+	/**
+	 * Retourne l'image chargée
+	 * @return BufferedImage
+	 */
+	public BufferedImage getBufferedImage(){return this.src;}
+
 
 	/**
 	 * Charge une image depuis le chemin spécifié
@@ -41,15 +53,24 @@ public class ImageLoader
 			File file = new File(chemin);
 
 			if (file.getName().toLowerCase().endsWith(".png")) {
-				src = ImageIO.read(file);
+				this.src = ImageIO.read(file);
 			}
 		} catch (IOException e) {
 			System.out.println(e);
 		}
 	}
 
-	public BufferedImage getBufferedImage()
+	/**
+	 * Sauvegarde l'image courante vers le chemin spécifié
+	 * @param chemin
+	 */
+	public void sauvegarder(String chemin)
 	{
-		return src;
+		try {
+			File file = new File(chemin);
+			ImageIO.write(this.src, "png", file);
+		} catch (IOException e) {
+			System.out.println(e);
+		}
 	}
 }
