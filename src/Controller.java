@@ -72,6 +72,10 @@ public class Controller
 		this.imageLoader.setOriginalImage(img);
 	}
 
+	public void mirrorHorizontal() {
+		this.imageTransformer.mirrorHorizontal(this.getBufferedImage());
+	}
+
 	public void updateDessin     (){this.framePrincipale.repaint();}
 	public void addMouseDessin   (){this.framePrincipale.addMouseDessin();}
 	public void removeMouseDessin(){this.framePrincipale.removeMouseDessin();}

@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -16,7 +18,7 @@ import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
-public class PanelParametre extends JPanel implements ChangeListener
+public class PanelParametre extends JPanel implements ChangeListener, ActionListener
 {
 	private Controller controller;
 
@@ -150,6 +152,24 @@ public class PanelParametre extends JPanel implements ChangeListener
 
 		this.add(panelTexteParam, "Texte");
 
+		// Miroir
+		JPanel panelMiroir = new JPanel();
+		panelMiroir.setLayout(new BoxLayout(panelMiroir, BoxLayout.Y_AXIS));
+
+		JButton btnHorizontal = new JButton("Miroir Horizontal");
+		btnHorizontal.setAlignmentX(CENTER_ALIGNMENT);
+
+		JButton btnVertical = new JButton("Miroir Vertical");
+		btnVertical.setAlignmentX(CENTER_ALIGNMENT);
+
+		panelMiroir.add(btnHorizontal);
+		panelMiroir.add(Box.createVerticalStrut(10));
+		panelMiroir.add(btnVertical);
+
+		btnHorizontal.addActionListener(this);
+		btnVertical.addActionListener(this);
+
+		this.add(panelMiroir, "Miroir");
 
 		// Panneau par défaut
 		JPanel panelDefault = new JPanel();
@@ -161,6 +181,19 @@ public class PanelParametre extends JPanel implements ChangeListener
 	public void showCard(String cardName)
 	{
 		this.cardLayout.show(this, cardName); 
+	}
+
+	// Méthode pour gérer les actions des boutons
+	public void actionPerformed(ActionEvent e)
+	{
+		if (e.getSource() instanceof JButton) {
+			JButton clickedButton = (JButton) e.getSource();
+			String buttonText = clickedButton.getText();
+			if (buttonText.equals("Miroir Horizontal")) {
+				this.controller.mirrorHorizontal(); 
+				this.controller.updateDessin();
+			}
+		}
 	}
 
 	// Méthode pour gérer les actions
