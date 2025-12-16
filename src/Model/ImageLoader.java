@@ -70,7 +70,8 @@ public class ImageLoader
 		BufferedImage img = this.imagesHistoriqueArriere.get(this.imagesHistoriqueArriere.size() - 1);
 		this.imagesHistoriqueArriere.remove(this.imagesHistoriqueArriere.size() - 1);
 		this.imagesHistoriqueAvant.add(img);
-		return img;
+		this.src = img;
+		return this.src;
 	}
 
 	public BufferedImage getNextImageHistoriqueAvant()
@@ -78,7 +79,8 @@ public class ImageLoader
 		BufferedImage img = this.imagesHistoriqueAvant.get(this.imagesHistoriqueAvant.size() - 1);
 		this.imagesHistoriqueAvant.remove(this.imagesHistoriqueAvant.size() - 1);
 		this.imagesHistoriqueArriere.add(img);
-		return img;
+		this.src = img;
+		return this.src;
 	}
 
 	/**
