@@ -43,7 +43,7 @@ public class Controller
 
 	public void rotation(double angle)
 	{
-		this.imageTransformer.rotation(this.getBufferedImage(), this.getBufferedImage(), angle);
+		this.imageTransformer.rotation(this.getBufferedImage(), angle);
 	}
 
 	public void adjustContrast(double contrastLevel)

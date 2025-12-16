@@ -39,7 +39,7 @@ public class PanelDessin extends JPanel implements MouseListener
 
 		int tolerance   = 20;          
 
-		this.controller.peindre(this.image, x, y, tolerance);
+		this.controller.peindre(this.image, x, y, this.color, tolerance);
 		this.controller.updateDessin();
 	}
 
