@@ -1,6 +1,6 @@
 package Model;
 
-// Implémentation de la logique pour l'outil de texte avec motifs
+/** Classe utilitaire pour le traitement de texte */
 public class TextTool
 {
 	
