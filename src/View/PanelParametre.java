@@ -3,7 +3,6 @@ import java.awt.CardLayout;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.event.ActionEvent;
@@ -17,7 +16,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
-import javax.swing.border.Border;
 
 public class PanelParametre extends JPanel implements ChangeListener, ActionListener
 {

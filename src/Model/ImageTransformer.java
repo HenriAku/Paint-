@@ -1,10 +1,6 @@
 package Model;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-
-import javax.imageio.ImageIO;
-
 import java.awt.Color;
 
 // Implémentation de la logique pour la transformation d'images

@@ -1,11 +1,7 @@
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-
-import javax.swing.JFileChooser;
 import javax.swing.JPanel;
-import java.awt.Dimension;
 import java.awt.event.MouseEvent;
-
 public class PanelDessin extends JPanel implements MouseListener
 {
 	// Attributs
