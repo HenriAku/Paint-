@@ -4,27 +4,43 @@ import java.util.Queue;
 import java.util.LinkedList;
 import java.awt.image.BufferedImage;
 
-// Implémentation de la logique pour l'outil de pot de peinture
+/**
+ * Classe utilitaire pour l'outil "Pot de peinture"
+ */
 public class BucketTool
 {
-	public BucketTool()
-	{}
+	/**
+	 * Constructeur par défaut
+	 */
+	public BucketTool()	{}
 	
-	// Méthode pour calculer la distance entre deux couleurs
+	/**
+	 * Calcule la distance entre deux couleurs exprimées en entiers
+	 * @param coul1 Première couleur
+	 * @param coul2 Deuxième couleur
+	 * @return Distance entre les deux couleurs
+	 */
 	private static double distance(int coul1, int coul2)
 	{
 		int r1 = (coul1 >> 16) & 0xFF;
-		int g1 = (coul1 >> 8) & 0xFF;
-		int b1 = coul1 & 0xFF;
+		int g1 = (coul1 >> 8 ) & 0xFF;
+		int b1 =  coul1        & 0xFF;
 
 		int r2 = (coul2 >> 16) & 0xFF;
-		int g2 = (coul2 >> 8) & 0xFF;
-		int b2 = coul2 & 0xFF;
+		int g2 = (coul2 >> 8 ) & 0xFF;
+		int b2 =  coul2        & 0xFF;
 
-		return Math.sqrt(Math.pow(r1 - r2, 2) + Math.pow(g1 - g2, 2) + Math.pow(b1 - b2, 2));
+		return Math.sqrt( Math.pow(r1 - r2, 2) + Math.pow(g1 - g2, 2) + Math.pow(b1 - b2, 2) );
 	}
 
-	// Méthode pour remplir une zone avec une nouvelle couleur
+	/**
+	 * Remplit une zone de l'image avec une nouvelle couleur
+	 * @param imageTarget Image à modifier
+	 * @param x Coordonnée x du pixel de départ
+	 * @param y Coordonnée y du pixel de départ
+	 * @param newColorRGB Nouvelle couleur en format RGB
+	 * @param tolerance Tolérance de couleur pour le remplissage
+	 */
 	public void peindre(BufferedImage imageTarget, int x, int y, int newColorRGB, int tolerance)
 	{
 		Queue<Point> file = new LinkedList<Point>();
