@@ -74,6 +74,7 @@ public class Controller
 
 	public void mirrorHorizontal() {
 		this.imageTransformer.mirrorHorizontal(this.getBufferedImage());
+		this.imageLoader.setOriginalImage(this.getBufferedImage());
 	}
 
 	public void updateDessin     (){this.framePrincipale.repaint();}
