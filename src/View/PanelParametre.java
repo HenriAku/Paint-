@@ -84,6 +84,44 @@ public class PanelParametre extends JPanel implements ChangeListener
 		
 		this.add(panelLuminosité, "Luminosité");
 
+		// Teinte
+		JPanel panelTeinte = new JPanel(new BorderLayout());
+
+		JSlider rTeinteSlider = new JSlider(-255, 255, 0);
+		JSlider gTeinteSlider = new JSlider(-255, 255, 0);
+		JSlider bTeinteSlider = new JSlider(-255, 255, 0);
+
+		rTeinteSlider.setMajorTickSpacing(255);
+		rTeinteSlider.setMinorTickSpacing(51);
+		rTeinteSlider.setPaintTicks(true);
+		rTeinteSlider.setPaintLabels(true);
+		rTeinteSlider.setName("RTeinte");
+		rTeinteSlider.addChangeListener(this);
+
+		gTeinteSlider.setMajorTickSpacing(255);
+		gTeinteSlider.setMinorTickSpacing(51);
+		gTeinteSlider.setPaintTicks(true);
+		gTeinteSlider.setPaintLabels(true);
+		gTeinteSlider.setName("GTeinte");
+		gTeinteSlider.addChangeListener(this);
+
+		bTeinteSlider.setMajorTickSpacing(255);
+		bTeinteSlider.setMinorTickSpacing(51);
+		bTeinteSlider.setPaintTicks(true);
+		bTeinteSlider.setPaintLabels(true);
+		bTeinteSlider.setName("BTeinte");
+		bTeinteSlider.addChangeListener(this);
+
+		JLabel titreTeinte = new JLabel("Ajuster la Teinte", JLabel.CENTER);
+		panelTeinte.add(titreTeinte,BorderLayout.NORTH);
+		JPanel slidersPanel = new JPanel();
+		slidersPanel.setLayout(new BorderLayout());
+		slidersPanel.add(rTeinteSlider, BorderLayout.NORTH);
+		slidersPanel.add(gTeinteSlider, BorderLayout.CENTER);
+		slidersPanel.add(bTeinteSlider, BorderLayout.SOUTH);
+		panelTeinte.add(slidersPanel, BorderLayout.CENTER);
+		this.add(panelTeinte, "Teinte");
+
 		// Panneau par défaut
 		JPanel panelDefault = new JPanel();
 		this.add(panelDefault, "Default");
@@ -119,6 +157,27 @@ public class PanelParametre extends JPanel implements ChangeListener
 		{
 			int angle = (int)source.getValue();
 			this.controller.rotation(angle);
+			this.controller.updateDessin();
+		}
+
+		if(source.getName() != null && source.getName().equals("RTeinte"))
+		{
+			int rOffset = (int)source.getValue();
+			this.controller.adjustHue(this.controller.getBufferedImage(), rOffset, 0, 0);
+			this.controller.updateDessin();
+		}
+
+		if(source.getName() != null && source.getName().equals("GTeinte"))
+		{
+			int gOffset = (int)source.getValue();
+			this.controller.adjustHue(this.controller.getBufferedImage(), 0, gOffset, 0);
+			this.controller.updateDessin();
+		}
+
+		if(source.getName() != null && source.getName().equals("BTeinte"))
+		{
+			int bOffset = (int)source.getValue();
+			this.controller.adjustHue(this.controller.getBufferedImage(), 0, 0, bOffset);
 			this.controller.updateDessin();
 		}
 	}
