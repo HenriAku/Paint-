@@ -116,7 +116,7 @@ public class ImageTransformer
 	}
 
 	//Envoi de l'image de fond, à mettre au dessus, le fichier de sortie, la couleur transparente à supprimer pendant la fusion, ainsi que la position de l'image à mettre au dessus 
-    public void Fusionner(BufferedImage fond, BufferedImage dessus, String nomFichierSortie, int couleurTransparente, int posX, int posY){
+    public void fusionner(BufferedImage fond, BufferedImage dessus, String nomFichierSortie, int couleurTransparente, int posX, int posY){
 
         try {
             //Vérification de la position de l'image à superposer
@@ -150,54 +150,32 @@ public class ImageTransformer
 			int largeur = src.getWidth();
 			int hauteur = src.getHeight();
 
+			BufferedImage tmp = new BufferedImage(largeur,hauteur,BufferedImage.TYPE_INT_ARGB);
+
 			double a = Math.toRadians(angle);
 			double cosA = Math.cos(a);
 			double sinA = Math.sin(a);
 
-			int cx = (largeur-1)/2;
-			int cy = (hauteur-1)/2;
+			int cx = (largeur)/2;
+			int cy = (hauteur)/2;
 
-			double[] xs = new double[4];
-			double[] ys = new double[4];
-			double[][] corners = {
-				{ -cx, -cy },
-				{ largeur - 1 - cx, -cy },
-				{ -cx, hauteur - 1 - cy },
-				{ largeur - 1 - cx, hauteur - 1 - cy }
-			};
+			for (int i2 = 0; i2 < largeur; i2++) {
+				for (int j2 = 0; j2 < hauteur; j2++) {
 
-			double minX = Double.POSITIVE_INFINITY, maxX = Double.NEGATIVE_INFINITY;
-			double minY = Double.POSITIVE_INFINITY, maxY = Double.NEGATIVE_INFINITY;
+					double xd = i2 - cx;
+					double yd = j2 - cy;
 
-			for (int k = 0; k < 4; k++) {
-				double x = corners[k][0];
-				double y = corners[k][1];
-				double xr = x * cosA + y * sinA;
-				double yr = -x * sinA + y * cosA;
-				if (xr < minX) minX = xr;
-				if (xr > maxX) maxX = xr;
-				if (yr < minY) minY = yr;
-				if (yr > maxY) maxY = yr;
-			}
+					// rotation inverse
+					double xs =  xd * cosA + yd * sinA;
+					double ys = -xd * sinA + yd * cosA;
 
-			int newW = (int) Math.round(maxX - minX + 1);
-			int newH = (int) Math.round(maxY - minY + 1);
-			double ncx = (newW - 1) / 2.0;
-			double ncy = (newH - 1) / 2.0;
+					int i = (int) Math.round(xs + cx);
+					int j = (int) Math.round(ys + cy);
 
-			BufferedImage tmp = new BufferedImage(newW,newH,BufferedImage.TYPE_INT_ARGB);
-
-			for (int j = 0; j < hauteur; j++) {
-				for (int i = 0; i < largeur; i++) {
-					int rgb = src.getRGB(i, j);
-					double x = i - cx;
-					double y = j - cy;
-					double xr = x * cosA + y * sinA;
-					double yr = -x * sinA + y * cosA;
-					int di = (int) Math.round(xr + ncx);
-					int dj = (int) Math.round(yr + ncy);
-					if (di >= 0 && di < newW && dj >= 0 && dj < newH) {
-						tmp.setRGB(di, dj, rgb);
+					if (i >= 0 && i < largeur && j >= 0 && j < hauteur) {
+						tmp.setRGB(i2, j2, src.getRGB(i, j));
+					} else {
+						tmp.setRGB(i2, j2, 0x00000000);
 					}
 				}
 			}
