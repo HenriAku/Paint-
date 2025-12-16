@@ -111,52 +111,81 @@ public class ImageTransformer
 		}
 	}
 
-	public void rotation(BufferedImage src, double angle)
-    {
-        try {
+	public BufferedImage rotation(BufferedImage src, double angle)
+	{
+		try {
+			int srcWidth = src.getWidth();
+			int srcHeight = src.getHeight();
+			
+			// Normaliser l'angle entre -180 et 180
+			angle = angle % 360;
+			if (angle > 180) angle -= 360;
+			if (angle < -180) angle += 360;
 
-            int largeur = src.getWidth();
-            int hauteur = src.getHeight();
+			int largeur, hauteur;
+			
+			// Pour les rotations de 90° et -90°, inverser largeur et hauteur
+			if (Math.abs(angle - 90) < 0.01 || Math.abs(angle + 90) < 0.01 || 
+			    Math.abs(angle - 270) < 0.01 || Math.abs(angle + 270) < 0.01) {
+				largeur = srcHeight;
+				hauteur = srcWidth;
+			}
+			// Pour les rotations de 180° et -180° (et 0°), garder les mêmes dimensions
+			else if (Math.abs(angle) < 0.01 || Math.abs(Math.abs(angle) - 180) < 0.01) {
+				largeur = srcWidth;
+				hauteur = srcHeight;
+			}
+			// Pour les autres angles, calculer les dimensions nécessaires
+			else {
+				double a = Math.toRadians(angle);
+				double cosA = Math.abs(Math.cos(a));
+				double sinA = Math.abs(Math.sin(a));
+				largeur = (int) Math.ceil(srcWidth * cosA + srcHeight * sinA);
+				hauteur = (int) Math.ceil(srcWidth * sinA + srcHeight * cosA);
+			}
 
-            BufferedImage tmp = new BufferedImage(largeur,hauteur,BufferedImage.TYPE_INT_ARGB);
+			// Créer la nouvelle image avec les dimensions calculées
+			BufferedImage nouvelleImage = new BufferedImage(largeur, hauteur, BufferedImage.TYPE_INT_ARGB);
 
-            double a = Math.toRadians(angle);
-            double cosA = Math.cos(a);
-            double sinA = Math.sin(a);
+			double a = Math.toRadians(angle);
+			double cosAngle = Math.cos(a);
+			double sinAngle = Math.sin(a);
 
-            int cx = (largeur)/2;
-            int cy = (hauteur)/2;
+			// Centres de l'image source et destination
+			int cxSrc = srcWidth / 2;
+			int cySrc = srcHeight / 2;
+			int cxDest = largeur / 2;
+			int cyDest = hauteur / 2;
 
-            for (int i2 = 0; i2 < largeur; i2++) {
-                for (int j2 = 0; j2 < hauteur; j2++) {
+			// Appliquer la rotation
+			for (int i2 = 0; i2 < largeur; i2++) {
+				for (int j2 = 0; j2 < hauteur; j2++) {
 
-                    double xd = i2 - cx;
-                    double yd = j2 - cy;
+					double xd = i2 - cxDest;
+					double yd = j2 - cyDest;
 
-                    // rotation inverse
-                    double xs =  xd * cosA + yd * sinA;
-                    double ys = -xd * sinA + yd * cosA;
+					// Rotation inverse pour retrouver le pixel source
+					double xs =  xd * cosAngle + yd * sinAngle;
+					double ys = -xd * sinAngle + yd * cosAngle;
 
-                    int i = (int) Math.round(xs + cx);
-                    int j = (int) Math.round(ys + cy);
+					int i = (int) Math.round(xs + cxSrc);
+					int j = (int) Math.round(ys + cySrc);
 
-                    if (i >= 0 && i < largeur && j >= 0 && j < hauteur) {
-                        tmp.setRGB(i2, j2, src.getRGB(i, j));
-                    } else {
-                        tmp.setRGB(i2, j2, 0x00000000);
-                    }
-                }
-            }
+					// Vérifier si le pixel source est dans les limites de l'image originale
+					if (i >= 0 && i < srcWidth && j >= 0 && j < srcHeight) {
+						nouvelleImage.setRGB(i2, j2, src.getRGB(i, j));
+					} else {
+						nouvelleImage.setRGB(i2, j2, 0x00000000); // Transparent
+					}
+				}
+			}
 
-            for (int i2 = 0; i2 < largeur; i2++) {
-                for (int j2 = 0; j2 < hauteur; j2++) {
-                    src.setRGB(i2, j2, tmp.getRGB(i2, j2));
-                }
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
+			return nouvelleImage;
+		} catch (Exception e) {
+			System.out.println(e);
+			return src; // En cas d'erreur, retourner l'image originale
+		}
+	}
 
 	// Dans ImageTransformer.java
 	public void mirrorHorizontal(BufferedImage src)

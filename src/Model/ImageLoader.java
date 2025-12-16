@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class ImageLoader 
 {
 	private BufferedImage src;
+	private BufferedImage srcOriginal; // Image originale pour les transformations
 	private BufferedImage src2;
 	private List<BufferedImage> imagesHistoriqueArriere;
 	private List<BufferedImage> imagesHistoriqueAvant;
@@ -18,6 +19,7 @@ public class ImageLoader
 	{
 		try {
 			this.src = new BufferedImage(largeur, hauteur, BufferedImage.TYPE_INT_ARGB);
+			this.srcOriginal = this.src; // Sauvegarder l'image originale
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -37,6 +39,7 @@ public class ImageLoader
 
 			if (file.getName().toLowerCase().endsWith(".png")) {
 				this.src = ImageIO.read(file);
+				this.srcOriginal = this.src; // Sauvegarder l'image originale
 			}
 			
 		} catch (IOException e) {
@@ -53,6 +56,7 @@ public class ImageLoader
 	 */
 	public BufferedImage getBufferedImage (){return this.src ;}
 	public BufferedImage getBufferedImage2(){return this.src2;}
+	public BufferedImage getOriginalImage(){return this.srcOriginal;}
 
 	/**
 	 * Retourne la liste des images de l'historique
@@ -89,6 +93,20 @@ public class ImageLoader
 	 */
 	public void addImageHistorique(){this.imagesHistoriqueArriere.add(this.src);}
 
+	/**
+	 * Remplace l'image source par une nouvelle image
+	 * @param newImage
+	 */
+	public void setBufferedImage(BufferedImage newImage)
+	{
+		this.src = newImage;
+	}
+
+	public void setOriginalImage(BufferedImage newImage)
+	{
+		this.srcOriginal = newImage;
+	}	
+
 
 	/**
 	 * Charge une image depuis le chemin spécifié
@@ -101,6 +119,7 @@ public class ImageLoader
 
 			if (file.getName().toLowerCase().endsWith(".png")) {
 				this.src = ImageIO.read(file);
+				this.srcOriginal = this.src; // Mettre à jour l'image originale
 			}
 		} catch (IOException e) {
 			System.out.println(e);

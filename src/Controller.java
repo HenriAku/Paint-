@@ -35,7 +35,6 @@ public class Controller
 	public void addImage(String filePath){this.imageLoader.loadImage(filePath);}
 	public BufferedImage getBufferedImage() {return this.imageLoader.getBufferedImage();}
 
-
 	public void peindre(BufferedImage img, int x, int y, int newColorRGB, int tolerance)
 	{
 		this.bucketTool.peindre(img, x, y, newColorRGB, tolerance);
@@ -43,7 +42,9 @@ public class Controller
 
 	public void rotation(double angle)
 	{
-		this.imageTransformer.rotation(this.getBufferedImage(), angle);
+		// Toujours appliquer la rotation sur l'image ORIGINALE
+		BufferedImage imageRotee = this.imageTransformer.rotation(this.imageLoader.getOriginalImage(), angle);
+		this.imageLoader.setBufferedImage(imageRotee);
 	}
 
 	public void adjustContrast(double contrastLevel)

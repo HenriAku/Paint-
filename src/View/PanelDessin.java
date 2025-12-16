@@ -6,9 +6,10 @@ import java.awt.Dimension;
 public class PanelDessin extends JPanel implements MouseListener
 {
 	// Attributs
-	private BufferedImage image;
 	private Controller    controller;
 	private int color;
+	// Variables pour stocker les informations d'affichage
+	private int displayX, displayY, displayWidth, displayHeight;
 
 	// Constructeur
 	public PanelDessin(Controller ctrl ,int width, int height)
@@ -16,7 +17,6 @@ public class PanelDessin extends JPanel implements MouseListener
 		this.controller = ctrl;
 		this.color	    = 0;
 
-		this.image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		this.setSize(this.controller.getWidth(), this.controller.getHeight());
 		this.setVisible(true);	
 	}
@@ -25,43 +25,58 @@ public class PanelDessin extends JPanel implements MouseListener
     {
         super.paintComponent(g);
 
-        // 1. Récupérer l'image (maintenant, elle est déjà tournée et potentiellement plus grande)
-        this.image = this.controller.getBufferedImage();
+        // Récupérer l'image source depuis le controller
+        BufferedImage image = this.controller.getBufferedImage();
 
-        if (this.image != null) 
+        if (image != null) 
         {
             // Les calculs de mise à l'échelle pour s'assurer que l'image RENTRE
             // dans le JPanel, même si elle est tournée et plus grande.
             int panelWidth  = getWidth();
             int panelHeight = getHeight();
-            int imageWidth  = this.image.getWidth();
-            int imageHeight = this.image.getHeight();
+            int imageWidth  = image.getWidth();
+            int imageHeight = image.getHeight();
 
             double scaleX = (double)panelWidth / imageWidth;
             double scaleY = (double)panelHeight / imageHeight;
             double scale = Math.min(scaleX, scaleY); // Mise à l'échelle pour TOUT rentrer
             
-            int newWidth  = (int) (imageWidth * scale);
-            int newHeight = (int) (imageHeight * scale);
+            this.displayWidth  = (int) (imageWidth * scale);
+            this.displayHeight = (int) (imageHeight * scale);
 
-            int x = (panelWidth - newWidth) / 2;
-            int y = (panelHeight - newHeight) / 2;
+            this.displayX = (panelWidth - this.displayWidth) / 2;
+            this.displayY = (panelHeight - this.displayHeight) / 2;
             
-            g.drawImage(this.image, x, y, newWidth, newHeight, null);
+            g.drawImage(image, this.displayX, this.displayY, this.displayWidth, this.displayHeight, null);
         }
     }
-	
+
 	public void addMouse         (){this.addMouseListener(this);}
 	public void removeMouseDessin(){this.removeMouseListener(this);}
 
 	public void mouseClicked(java.awt.event.MouseEvent e) 
 	{
-		int x = e.getX();
-		int y = e.getY();
+		int mouseX = e.getX();
+		int mouseY = e.getY();
 
-		int tolerance   = 20;          
+		// Obtenir l'image source réelle
+		BufferedImage image = this.controller.getBufferedImage();
+		if (image == null) return;
 
-		this.controller.peindre(this.image, x, y, this.color, tolerance);
+		// Convertir les coordonnées de la souris en coordonnées de l'image source
+		// Vérifier si le clic est dans la zone d'affichage de l'image
+		if (mouseX < this.displayX || mouseX > this.displayX + this.displayWidth ||
+		    mouseY < this.displayY || mouseY > this.displayY + this.displayHeight) {
+			return; // Clic en dehors de l'image
+		}
+
+		// Convertir les coordonnées écran en coordonnées image
+		int imageX = (int)((mouseX - this.displayX) * image.getWidth() / (double)this.displayWidth);
+		int imageY = (int)((mouseY - this.displayY) * image.getHeight() / (double)this.displayHeight);
+
+		int tolerance = 20;
+
+		this.controller.peindre(image, imageX, imageY, this.color, tolerance);
 		this.controller.updateDessin();
 	}
 
