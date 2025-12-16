@@ -1,3 +1,5 @@
+package View;
+
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.io.File;
@@ -5,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import Main.Controller;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Box;
@@ -332,8 +337,7 @@ public class PanelParametre extends JPanel implements ChangeListener, ActionList
 
 	private String[] getTextureFiles() 
 	{
-		// Le chemin doit être relatif à l'exécution de l'application
-		File textureDir = new File("Paint-/ressources/textures"); 
+		File textureDir = new File("ressources/textures"); 
 		
 		if (!textureDir.exists() || !textureDir.isDirectory()) 
 		{

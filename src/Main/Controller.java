@@ -1,9 +1,13 @@
+package Main;
+
 import java.awt.image.BufferedImage;
 import java.util.List;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import Model.*;
+import View.*;
+
 public class Controller 
 {
 	private FramePrincipale  framePrincipale;

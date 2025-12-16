@@ -1,4 +1,9 @@
+package View;
+
 import javax.swing.JFrame;
+
+import Main.Controller;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;

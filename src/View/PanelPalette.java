@@ -1,9 +1,15 @@
+package View;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
+import Main.Controller;
+import Main.ToolType;
+
 import javax.swing.JFileChooser;
 
 public class PanelPalette extends JPanel implements ActionListener

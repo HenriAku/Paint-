@@ -1,5 +1,9 @@
+package View;
+
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
+
+import Main.Controller;
 
 public class PanelTools extends JPanel
 {
