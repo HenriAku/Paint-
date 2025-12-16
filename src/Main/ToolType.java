@@ -1,5 +1,8 @@
 package Main;
 
+/**
+ * Enumération des différents types d'outils disponibles dans l'application de dessin.
+ */
 public enum ToolType 
 {
 	DEFAULT,
