@@ -1,6 +1,7 @@
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
+import java.awt.Dimension;
 
 public class PanelDessin extends JPanel implements MouseListener
 {
@@ -21,14 +22,35 @@ public class PanelDessin extends JPanel implements MouseListener
 	}
 
 	public void paintComponent(java.awt.Graphics g)
-	{
-		super.paintComponent(g);
-		this.image = this.controller.getBufferedImage();
-		if (this.image != null) {
-			g.drawImage(this.image, 0, 0, null);
-		}
-	}
+    {
+        super.paintComponent(g);
 
+        // 1. Récupérer l'image (maintenant, elle est déjà tournée et potentiellement plus grande)
+        this.image = this.controller.getBufferedImage();
+
+        if (this.image != null) 
+        {
+            // Les calculs de mise à l'échelle pour s'assurer que l'image RENTRE
+            // dans le JPanel, même si elle est tournée et plus grande.
+            int panelWidth  = getWidth();
+            int panelHeight = getHeight();
+            int imageWidth  = this.image.getWidth();
+            int imageHeight = this.image.getHeight();
+
+            double scaleX = (double)panelWidth / imageWidth;
+            double scaleY = (double)panelHeight / imageHeight;
+            double scale = Math.min(scaleX, scaleY); // Mise à l'échelle pour TOUT rentrer
+            
+            int newWidth  = (int) (imageWidth * scale);
+            int newHeight = (int) (imageHeight * scale);
+
+            int x = (panelWidth - newWidth) / 2;
+            int y = (panelHeight - newHeight) / 2;
+            
+            g.drawImage(this.image, x, y, newWidth, newHeight, null);
+        }
+    }
+	
 	public void addMouse         (){this.addMouseListener(this);}
 	public void removeMouseDessin(){this.removeMouseListener(this);}
 
