@@ -1,4 +1,5 @@
 import java.awt.image.BufferedImage;
+import java.util.List;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
@@ -32,8 +33,14 @@ public class Controller
 	public int getWidth () {return this.width ;}
 	public int getHeight() {return this.height;}
 
-	public void addImage(String filePath){this.imageLoader.loadImage(filePath);}
-	public BufferedImage getBufferedImage() {return this.imageLoader.getBufferedImage();}
+	public void                sauvegarder           (String filePath){this.imageLoader.sauvegarder(filePath);     }
+	public void                addImage              (String filePath){this.imageLoader.loadImage(filePath);       }
+	public void                addImageHistorique    ()               {this.imageLoader.addImageHistorique();      }
+	public BufferedImage       getBufferedImage      ()               {return this.imageLoader.getBufferedImage(); }
+	public List<BufferedImage> getImagesHistoriqueArriere   (){return this.imageLoader.getImagesHistoriqueArriere();   }
+	public BufferedImage       getLastImageHistoriqueArriere(){return this.imageLoader.getLastImageHistoriqueArriere();}
+	public List<BufferedImage> getImagesHistoriqueAvant     (){return this.imageLoader.getImagesHistoriqueAvant();     }
+	public BufferedImage       getNextImageHistoriqueAvant  (){return this.imageLoader.getNextImageHistoriqueAvant();  }
 
 	public void peindre(BufferedImage img, int x, int y, int newColorRGB, int tolerance)
 	{
