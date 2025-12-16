@@ -111,40 +111,45 @@ public class ImageTransformer
 		}
 	}
 
-	public BufferedImage rotation(BufferedImage src, double angle)
+	/**
+	 * Rotation de l'image d'un angle spécifié
+	 * @param orig
+	 * @param angle
+	 * @return orig Image modifier
+	 */
+	public BufferedImage rotation(BufferedImage orig, double angle)
 	{
 		try {
-			int srcWidth = src.getWidth();
-			int srcHeight = src.getHeight();
+			int origWidth = orig.getWidth();
+			int origHeight = orig.getHeight();
 			
-			// Normaliser l'angle entre -180 et 180
 			angle = angle % 360;
 			if (angle > 180) angle -= 360;
 			if (angle < -180) angle += 360;
 
 			int largeur, hauteur;
 			
-			// Pour les rotations de 90° et -90°, inverser largeur et hauteur
+			//Pour les rotations de 90° et -90°, inverser largeur et hauteur
 			if (Math.abs(angle - 90) < 0.01 || Math.abs(angle + 90) < 0.01 || 
-			    Math.abs(angle - 270) < 0.01 || Math.abs(angle + 270) < 0.01) {
-				largeur = srcHeight;
-				hauteur = srcWidth;
-			}
-			// Pour les rotations de 180° et -180° (et 0°), garder les mêmes dimensions
-			else if (Math.abs(angle) < 0.01 || Math.abs(Math.abs(angle) - 180) < 0.01) {
-				largeur = srcWidth;
-				hauteur = srcHeight;
-			}
-			// Pour les autres angles, calculer les dimensions nécessaires
-			else {
+			    Math.abs(angle - 270) < 0.01 || Math.abs(angle + 270) < 0.01) 
+			{
+				largeur = origHeight;
+				hauteur = origWidth;
+			} // Pour les rotations de 180° et -180° (et 0°), garder les mêmes dimensions
+			else if (Math.abs(angle) < 0.01 || Math.abs(Math.abs(angle) - 180) < 0.01) 
+			{
+				largeur = origWidth;
+				hauteur = origHeight;
+			}// Pour les autres angles, calculer les dimensions nécessaires
+			else 
+			{
 				double a = Math.toRadians(angle);
 				double cosA = Math.abs(Math.cos(a));
 				double sinA = Math.abs(Math.sin(a));
-				largeur = (int) Math.ceil(srcWidth * cosA + srcHeight * sinA);
-				hauteur = (int) Math.ceil(srcWidth * sinA + srcHeight * cosA);
+				largeur = (int) Math.ceil(origWidth * cosA + origHeight * sinA);
+				hauteur = (int) Math.ceil(origWidth * sinA + origHeight * cosA);
 			}
 
-			// Créer la nouvelle image avec les dimensions calculées
 			BufferedImage nouvelleImage = new BufferedImage(largeur, hauteur, BufferedImage.TYPE_INT_ARGB);
 
 			double a = Math.toRadians(angle);
@@ -152,10 +157,10 @@ public class ImageTransformer
 			double sinAngle = Math.sin(a);
 
 			// Centres de l'image source et destination
-			int cxSrc = srcWidth / 2;
-			int cySrc = srcHeight / 2;
-			int cxDest = largeur / 2;
-			int cyDest = hauteur / 2;
+			int cxSrc  = origWidth  / 2;
+			int cySrc  = origHeight / 2;
+			int cxDest = largeur    / 2;
+			int cyDest = hauteur    / 2;
 
 			// Appliquer la rotation
 			for (int i2 = 0; i2 < largeur; i2++) {
@@ -172,8 +177,8 @@ public class ImageTransformer
 					int j = (int) Math.round(ys + cySrc);
 
 					// Vérifier si le pixel source est dans les limites de l'image originale
-					if (i >= 0 && i < srcWidth && j >= 0 && j < srcHeight) {
-						nouvelleImage.setRGB(i2, j2, src.getRGB(i, j));
+					if (i >= 0 && i < origWidth && j >= 0 && j < origHeight) {
+						nouvelleImage.setRGB(i2, j2, orig.getRGB(i, j));
 					} else {
 						nouvelleImage.setRGB(i2, j2, 0x00000000); // Transparent
 					}
@@ -183,11 +188,14 @@ public class ImageTransformer
 			return nouvelleImage;
 		} catch (Exception e) {
 			System.out.println(e);
-			return src; // En cas d'erreur, retourner l'image originale
+			return orig; // En cas d'erreur, retourner l'image originale
 		}
 	}
 
-	// Dans ImageTransformer.java
+	/**
+	 * Miroir horizontal de l'image
+	 * @param src
+	 */
 	public void mirrorHorizontal(BufferedImage src)
 	{
 		if (src == null) return;
@@ -195,23 +203,17 @@ public class ImageTransformer
 		int width  = src.getWidth();
 		int height = src.getHeight();
 		
-		// Nous n'avons besoin de parcourir que la moitié gauche de l'image (jusqu'à width / 2)
-		// pour éviter d'échanger les pixels deux fois.
 		for (int y = 0; y < height; y++) 
 		{
 			for (int x = 0; x < width / 2; x++) 
 			{
-				// 1. Calculer la position symétrique (miroir) sur l'axe X
-				// Si x est 0 (extrême gauche), la position miroir est width - 1 (extrême droite).
 				int mirrorX = width - 1 - x;
 				
-				// 2. Lire les couleurs des deux pixels à échanger
 				int leftPixelColor  = src.getRGB(x, y);
 				int rightPixelColor = src.getRGB(mirrorX, y);
 				
-				// 3. Échanger les couleurs
-				src.setRGB(x, y, rightPixelColor);     // Le pixel de gauche reçoit la couleur de droite
-				src.setRGB(mirrorX, y, leftPixelColor); // Le pixel de droite reçoit la couleur de gauche
+				src.setRGB(x, y, rightPixelColor);     				
+				src.setRGB(mirrorX, y, leftPixelColor);
 			}
 		}
 	}

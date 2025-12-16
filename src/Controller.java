@@ -45,11 +45,11 @@ public class Controller
 	public void peindre(BufferedImage img, int x, int y, int newColorRGB, int tolerance)
 	{
 		this.bucketTool.peindre(img, x, y, newColorRGB, tolerance);
+		this.imageLoader.setOriginalImage(img);
 	}
 
 	public void rotation(double angle)
 	{
-		// Toujours appliquer la rotation sur l'image ORIGINALE
 		BufferedImage imageRotee = this.imageTransformer.rotation(this.imageLoader.getOriginalImage(), angle);
 		this.imageLoader.setBufferedImage(imageRotee);
 	}
@@ -57,16 +57,19 @@ public class Controller
 	public void adjustContrast(double contrastLevel)
 	{
 		this.imageTransformer.adjustContrast(this.getBufferedImage(), contrastLevel);
+		this.imageLoader.setOriginalImage(this.getBufferedImage());
 	}
 
 	public void adjustBrightness(int brightnessLevel)
 	{
 		this.imageTransformer.adjustBrightness(this.getBufferedImage(), brightnessLevel);
+		this.imageLoader.setOriginalImage(this.getBufferedImage());
 	}
 
 	public void adjustHue(BufferedImage img, int rOffset, int gOffset, int bOffset)
 	{
 		this.imageTransformer.adjustHue(img, rOffset, gOffset, bOffset);
+		this.imageLoader.setOriginalImage(img);
 	}
 
 	public void updateDessin     (){this.framePrincipale.repaint();}
