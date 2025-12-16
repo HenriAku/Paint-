@@ -192,16 +192,19 @@ public class PanelParametre extends JPanel implements ChangeListener, ActionList
 		this.btnFusion = new JButton("Fusionner Images");
 		this.txtFusionX = new JTextField();
 		this.txtFusionY = new JTextField();
-
-		this.btnFusion.addActionListener(this);
-
-		JLabel titreFusion = new JLabel("Entrez les coordonnées", JLabel.CENTER);
-		panelFusion.add(titreFusion,BorderLayout.NORTH);
-		panelFusion.add(this.txtFusionX, BorderLayout.CENTER);
-		panelFusion.add(this.txtFusionY, BorderLayout.CENTER);
-		panelFusion.add(this.btnFusion, BorderLayout.CENTER);
 		
-		this.add(panelFusion, "Fusion");
+		JPanel centerPanel = new JPanel();
+		centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+		centerPanel.add(new JLabel("X:"));
+		centerPanel.add(this.txtFusionX);
+		centerPanel.add(new JLabel("Y:"));
+		centerPanel.add(this.txtFusionY);
+		centerPanel.add(this.btnFusion);
+		
+		panelFusion.add(centerPanel, BorderLayout.CENTER);
+		
+		this.add(panelFusion, "Fusion");		
+		this.btnFusion.addActionListener(this);
 
 		// Panneau par défaut
 		JPanel panelDefault = new JPanel();
@@ -300,11 +303,12 @@ public class PanelParametre extends JPanel implements ChangeListener, ActionList
 	private String[] getTextureFiles() 
 	{
 		// Le chemin doit être relatif à l'exécution de l'application
-		File textureDir = new File("ressources/textures"); 
+		File textureDir = new File("Paint-/ressources/textures"); 
 		
 		if (!textureDir.exists() || !textureDir.isDirectory()) 
 		{
 			System.err.println("Erreur: Le dossier 'textures/' est introuvable ou n'est pas un répertoire.");
+			System.err.println("Chemin cherché: " + textureDir.getAbsolutePath());
 			return new String[]{"[Dossier textures/ introuvable]"}; 
 		}
 
