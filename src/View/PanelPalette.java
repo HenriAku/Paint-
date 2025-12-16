@@ -20,6 +20,7 @@ public class PanelPalette extends JPanel implements ActionListener
 	private JButton texte;
 	private JButton miroir;
 	private JButton fusion;
+	private JButton redimension;
 	
 	private JButton   ouvrirImage;
 	private JButton   btnSauvegarder;
@@ -41,6 +42,7 @@ public class PanelPalette extends JPanel implements ActionListener
 		this.texte	      = new JButton("Texte");
 		this.miroir       = new JButton("Miroir");
 		this.fusion       = new JButton("Fusion");
+		this.redimension  = new JButton("Redimension");
 
 		this.ouvrirImage     = new JButton("Ouvrir Image");
 		this.btnSauvegarder  = new JButton("Sauvegarder" );
@@ -58,6 +60,7 @@ public class PanelPalette extends JPanel implements ActionListener
 		this.texte.addActionListener(this);
 		this.miroir.addActionListener(this);
 		this.fusion.addActionListener(this);
+		this.redimension.addActionListener(this);
 		
 		this.ouvrirImage.addActionListener(this);
 		this.btnSauvegarder.addActionListener(this);
@@ -72,6 +75,7 @@ public class PanelPalette extends JPanel implements ActionListener
 		this.add(this.texte);
 		this.add(this.miroir);
 		this.add(this.fusion);
+		this.add(this.redimension);
 
 		this.add(this.ouvrirImage);
 		this.add(this.btnSauvegarder);
@@ -96,7 +100,8 @@ public class PanelPalette extends JPanel implements ActionListener
 			this.teinte      == e.getSource() ||
 			this.texte       == e.getSource() ||
 			this.miroir      == e.getSource() ||
-			this.fusion      == e.getSource()) 
+			this.fusion      == e.getSource() ||
+			this.redimension == e.getSource()) 
 		{
 			this.ctrl.toolSelected(toolName); 
 			this.ctrl.setCurrentTool(ToolType.valueOf(toolName.toUpperCase()));

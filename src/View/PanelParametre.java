@@ -35,9 +35,10 @@ public class PanelParametre extends JPanel implements ChangeListener, ActionList
 	private JButton btnVertical;
 	private JButton btnFusion;
 	private JButton btnSelectionFusion;
+	private JButton btnRedimension;
 
-	private JTextField txtFusionX;
-	private JTextField txtFusionY;
+	private JTextField txtRedimensionHauteur;
+	private JTextField txtRedimensionLargeur;
 
 	public PanelParametre(Controller ctrl)
 	{
@@ -204,6 +205,24 @@ public class PanelParametre extends JPanel implements ChangeListener, ActionList
 		this.btnFusion.addActionListener(this);
 		this.btnSelectionFusion.addActionListener(this);
 
+		// Redimension
+		JPanel panelRedimension = new JPanel(new BorderLayout());
+		this.btnRedimension = new JButton("Redimensionner Image");
+		this.txtRedimensionLargeur = new JTextField();
+		this.txtRedimensionHauteur = new JTextField();
+
+		JPanel inputPanel = new JPanel();
+		inputPanel.setLayout(new BoxLayout(inputPanel, BoxLayout.Y_AXIS));
+		inputPanel.add(new JLabel("Largeur :"));
+		inputPanel.add(this.txtRedimensionLargeur);
+		inputPanel.add(new JLabel("Hauteur :"));
+		inputPanel.add(this.txtRedimensionHauteur);
+		inputPanel.add(this.btnRedimension);
+
+		panelRedimension.add(inputPanel, BorderLayout.CENTER);
+		this.add(panelRedimension, "Redimension");
+		this.btnRedimension.addActionListener(this);
+
 		// Panneau par défaut
 		JPanel panelDefault = new JPanel();
 		this.add(panelDefault, "Default");
@@ -252,6 +271,18 @@ public class PanelParametre extends JPanel implements ChangeListener, ActionList
 		if (this.btnSelectionFusion == e.getSource()) 
 		{
 			this.controller.addMouseDessin();	
+		}
+
+		if (this.btnRedimension == e.getSource()) 
+		{
+			try {
+				int newWidth  = Integer.parseInt(this.txtRedimensionLargeur.getText());
+				int newHeight = Integer.parseInt(this.txtRedimensionHauteur.getText());
+				this.controller.redimensionner(newWidth, newHeight);
+				this.controller.updateDessin();
+			} catch (NumberFormatException ex) {
+				System.err.println("Erreur: Veuillez entrer des valeurs numériques valides pour la largeur et la hauteur.");
+			}
 		}
 	}
 

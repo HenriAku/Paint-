@@ -108,6 +108,13 @@ public class Controller
 		this.imageLoader.setOriginalImage(this.getBufferedImage());
 	}
 
+	public void redimensionner(int newWidth, int newHeight)
+	{
+		BufferedImage resizedImage = this.imageTransformer.redimensionner(this.getBufferedImage(), newHeight, newWidth);
+		this.imageLoader.setBufferedImage(resizedImage);
+		this.imageLoader.setOriginalImage(resizedImage);
+	}
+
 	public void updateDessin     (){this.framePrincipale.repaint();}
 	public void addMouseDessin   (){this.framePrincipale.addMouseDessin();}
 	public void removeMouseDessin(){this.framePrincipale.removeMouseDessin();}
