@@ -1,30 +1,41 @@
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 
+import javax.print.attribute.standard.JobMessageFromOperator;
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
 import javax.swing.JTextField;
+import javax.swing.JToolBar;
+import javax.swing.event.ChangeListener;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.BoxLayout; // Import BoxLayout
 
 public class PanelTools extends JPanel implements ActionListener
 {
 	// Attributs
-	private JMenuBar  toolBar;
 	private JMenuItem potPeinture;
 	private JMenuItem contraste;
 	private JMenuItem ouvrirImage;
+	private JMenuItem fusioner;
 	private JMenuItem text;
 	private JMenuItem rotation;
+	private JMenuItem flip;
 	private JMenuItem luminosité;
-
-	private JButton   btnSauvegarder;
-	private JButton   btnAnnuler;
+	private JMenuItem btnSauvegarder;
+	private JMenuItem btnAnnuler;
 
 	private JTextField txtAngle;
+	private JSlider    sliderTolerance;
+	private JSlider    sliderLuminosite;
+	private JSlider    sliderContraste;
+	private JColorChooser colorChooser;
+
 
 	private Controller controller;
 	
@@ -33,39 +44,63 @@ public class PanelTools extends JPanel implements ActionListener
 	{
 		this.controller = ctrl;
 
-		JMenu menu   = new JMenu("Outils");
-		this.toolBar = new JMenuBar();
-		
-		this.potPeinture  = new JMenuItem("Pot de peinture");
-		this.contraste    = new JMenuItem("Contraste");
-		this.ouvrirImage  = new JMenuItem("Ouvrir une image");
-		this.text         = new JMenuItem("Texte");	
-		this.rotation	  = new JMenuItem("Rotation");
-		this.luminosité   = new JMenuItem("Luminosité");
-		
-		this.btnSauvegarder  = new JButton("Sauvegarder");
-		this.btnAnnuler      = new JButton("Annuler");
+		JMenuBar    menu          = new JMenuBar();
+		JMenu barContraste  = new JMenu("Contraste");
+		JMenu barLuminosite = new JMenu("Luminosité");
+		JMenu barRotation   = new JMenu("Rotation");
+		JMenu barPeinture   = new JMenu("Peinture");
 
+		this.potPeinture  = new JMenuItem("Pot de peinture");
+		this.colorChooser = new JColorChooser();
+
+		this.contraste       = new JMenuItem("Contraste");
+		this.sliderContraste = new JSlider(-100, 100, 0);
+
+		this.rotation	  = new JMenuItem("Rotation");
 		this.txtAngle    = new JTextField(10);
 
-		// Ajout des composants
-		this.toolBar.add(menu);
-		this.toolBar.add(this.btnSauvegarder);
-		this.toolBar.add(this.btnAnnuler);
-		this.toolBar.add(this.txtAngle);
+		this.luminosité   = new JMenuItem("Luminosité");
+		this.sliderLuminosite = new JSlider(-255, 255, 0);
 
-		menu.add(this.potPeinture);
-		menu.add(this.contraste);
+		this.flip		  = new JMenuItem("Flip");
+		this.ouvrirImage  = new JMenuItem("Ouvrir une image");
+		this.text         = new JMenuItem("Texte");	
+
+		this.btnSauvegarder  = new JMenuItem("Sauvegarder");
+		this.btnAnnuler      = new JMenuItem("Annuler");
+
+
+		// Ajout des composants
+		menu.add(barContraste);
+		menu.add(barLuminosite);
+		menu.add(barRotation);
+		menu.add(barPeinture);
+
 		menu.add(this.ouvrirImage);
 		menu.add(this.text);
-		menu.add(this.rotation);
-		menu.add(this.luminosité);
 
-		this.add(this.toolBar);
+		barPeinture.add(this.potPeinture);
+		barPeinture.add(this.colorChooser);
+
+		barContraste.add(this.contraste);
+		barContraste.add(this.sliderContraste);
+
+		barRotation.add(this.rotation);
+		barRotation.add(this.txtAngle);
+
+		barLuminosite.add(this.luminosité);
+		barLuminosite.add(this.sliderLuminosite);
+
+		menu.add(this.btnSauvegarder);
+		menu.add(this.btnAnnuler);
+
+		this.add(menu);
 
 		// Activation des composants
 		this.potPeinture.addActionListener(this);
+
 		this.contraste  .addActionListener(this);
+
 		this.ouvrirImage.addActionListener(this);
 		this.text       .addActionListener(this);
 		this.rotation   .addActionListener(this);
@@ -99,12 +134,12 @@ public class PanelTools extends JPanel implements ActionListener
 		
 		if (this.potPeinture == e.getSource()) 
 		{
-			this.controller.addMouseDessin();
+			this.controller.addMouseDessin(this.colorChooser.getColor().getRGB());
 		}
 		
 		if (this.contraste == e.getSource()) 
 		{
-			Double contrastLevel = Double.parseDouble(this.txtAngle.getText());
+			Double contrastLevel = (double) this.sliderContraste.getValue();
 			this.controller.adjustContrast(contrastLevel);
 			this.controller.updateDessin();
 		}
@@ -122,7 +157,7 @@ public class PanelTools extends JPanel implements ActionListener
 
 		if (this.luminosité == e.getSource()) 
 		{
-			int brightnessLevel = Integer.parseInt(this.txtAngle.getText());
+			Integer brightnessLevel = (Integer) this.sliderLuminosite.getValue();
 			this.controller.adjustBrightness(brightnessLevel);
 			this.controller.updateDessin();
 		}

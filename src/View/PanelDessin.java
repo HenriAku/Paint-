@@ -7,11 +7,13 @@ public class PanelDessin extends JPanel implements MouseListener
 	// Attributs
 	private BufferedImage image;
 	private Controller    controller;
+	private int color;
 
 	// Constructeur
 	public PanelDessin(Controller ctrl ,int width, int height)
 	{
 		this.controller = ctrl;
+		this.color	    = 0;
 
 		this.image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		this.setSize(this.controller.getWidth(), this.controller.getHeight());
@@ -35,10 +37,9 @@ public class PanelDessin extends JPanel implements MouseListener
 		int x = e.getX();
 		int y = e.getY();
 
-		int rgbNewColor = 0xFFFF0000;
 		int tolerance   = 20;          
 
-		this.controller.peindre(this.image, x, y, rgbNewColor, tolerance);
+		this.controller.peindre(this.image, x, y, tolerance);
 		this.controller.updateDessin();
 	}
 

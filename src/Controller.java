@@ -14,6 +14,7 @@ public class Controller
 	
 	private int width;
 	private int height;
+	private int color;
 	
 	public Controller()
 	{
@@ -36,9 +37,9 @@ public class Controller
 	public BufferedImage getBufferedImage() {return this.imageLoader.getBufferedImage();}
 
 
-	public void peindre(BufferedImage img, int x, int y, int newColorRGB, int tolerance)
+	public void peindre(BufferedImage img, int x, int y, int tolerance)
 	{
-		this.bucketTool.peindre(img, x, y, newColorRGB, tolerance);
+		this.bucketTool.peindre(img, x, y, this.color, tolerance);
 	}
 
 	public void rotation(double angle)
@@ -57,7 +58,13 @@ public class Controller
 	}
 
 	public void updateDessin     (){this.framePrincipale.repaint();}
-	public void addMouseDessin   (){this.framePrincipale.addMouseDessin();}
+
+	public void addMouseDessin(int color)
+	{
+		this.color = color;
+		this.framePrincipale.addMouseDessin();
+	}
+
 	public void removeMouseDessin(){this.framePrincipale.removeMouseDessin();}
 
 
