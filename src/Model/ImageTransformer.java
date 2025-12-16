@@ -115,7 +115,7 @@ public class ImageTransformer
 		}
 	}
 
-	public void fusionner(BufferedImage fond, BufferedImage dessus, String nomFichierSortie, int couleurTransparente, int posX, int posY){
+	public void fusionner(BufferedImage fond, BufferedImage dessus, int couleurTransparente, int posX, int posY){
         try {
             //Vérification de la position de l'image à superposer
             if (dessus.getWidth() + posX > fond.getWidth() ||
@@ -137,7 +137,6 @@ public class ImageTransformer
                     }
                 }
             }
-            ImageIO.write(fond, "png", new File(nomFichierSortie));
         } catch (Exception e) {
             e.printStackTrace();
             return;
@@ -277,7 +276,7 @@ public class ImageTransformer
 		}
 	}
 
-	public void redimensionner() {
+	public void redimensionner(BufferedImage src, int hauteur, int largeur) {
 
 	}
 }
