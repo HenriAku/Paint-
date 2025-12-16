@@ -1,13 +1,19 @@
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
+import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 public class PanelParametre extends JPanel implements ChangeListener
@@ -122,6 +128,29 @@ public class PanelParametre extends JPanel implements ChangeListener
 		panelTeinte.add(slidersPanel, BorderLayout.CENTER);
 		this.add(panelTeinte, "Teinte");
 
+		// Texte
+		JPanel panelTexteParam = new JPanel();
+		panelTexteParam.setLayout(new BoxLayout(panelTexteParam, BoxLayout.Y_AXIS));
+
+		JTextField txtInput = new JTextField(20);
+		txtInput.setMaximumSize(txtInput.getPreferredSize());
+		JLabel labelInput = new JLabel("Texte à insérer :");
+
+		String[] textures = this.getTextureFiles();
+		JComboBox<String> textureComboBox = new JComboBox<>(textures);
+		textureComboBox.setMaximumSize(textureComboBox.getPreferredSize());
+		JLabel labelTexture = new JLabel("Sélectionner une texture :");
+
+		panelTexteParam.add(labelInput);
+		panelTexteParam.add(txtInput);
+		panelTexteParam.add(Box.createVerticalStrut(10));
+		panelTexteParam.add(labelTexture);
+		panelTexteParam.add(textureComboBox);
+
+
+		this.add(panelTexteParam, "Texte");
+
+
 		// Panneau par défaut
 		JPanel panelDefault = new JPanel();
 		this.add(panelDefault, "Default");
@@ -180,5 +209,33 @@ public class PanelParametre extends JPanel implements ChangeListener
 			this.controller.adjustHue(this.controller.getBufferedImage(), 0, 0, bOffset);
 			this.controller.updateDessin();
 		}
+	}
+
+	private String[] getTextureFiles() {
+		// Le chemin doit être relatif à l'exécution de l'application
+		File textureDir = new File("ressources/textures"); 
+		
+		if (!textureDir.exists() || !textureDir.isDirectory()) {
+			System.err.println("Erreur: Le dossier 'textures/' est introuvable ou n'est pas un répertoire.");
+			return new String[]{"[Dossier textures/ introuvable]"}; 
+		}
+
+		File[] files = textureDir.listFiles();
+		List<String> textureNames = new ArrayList<>();
+
+		if (files != null) {
+			for (File file : files) {
+				// Filtrer les fichiers image courants
+				if (file.isFile() && (file.getName().toLowerCase().endsWith(".png"))) {
+					textureNames.add(file.getName());
+				}
+			}
+		}
+		
+		if (textureNames.isEmpty()) {
+			textureNames.add("Aucune texture trouvée");
+		}
+
+		return textureNames.toArray(new String[0]);
 	}
 }

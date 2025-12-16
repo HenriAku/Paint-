@@ -17,6 +17,7 @@ public class PanelPalette extends JPanel implements ActionListener
 	private JButton rotation;
 	private JButton luminosité;
 	private JButton teinte;
+	private JButton texte;
 	
 	private JButton   ouvrirImage;
 	private JButton   btnSauvegarder;
@@ -35,6 +36,7 @@ public class PanelPalette extends JPanel implements ActionListener
 		this.rotation	  = new JButton("Rotation");
 		this.luminosité   = new JButton("Luminosité");
 		this.teinte 	  = new JButton("Teinte");
+		this.texte	      = new JButton("Texte");
 
 		this.ouvrirImage     = new JButton("Ouvrir Image");
 		this.btnSauvegarder  = new JButton("Sauvegarder" );
@@ -49,6 +51,7 @@ public class PanelPalette extends JPanel implements ActionListener
 		this.rotation.addActionListener(this);
 		this.luminosité.addActionListener(this);
 		this.teinte.addActionListener(this);
+		this.texte.addActionListener(this);
 		
 		this.ouvrirImage.addActionListener(this);
 		this.btnSauvegarder.addActionListener(this);
@@ -60,6 +63,7 @@ public class PanelPalette extends JPanel implements ActionListener
 		this.add(this.rotation);
 		this.add(this.luminosité);
 		this.add(this.teinte);
+		this.add(this.texte);
 
 		this.add(this.ouvrirImage);
 		this.add(this.btnSauvegarder);
@@ -81,7 +85,8 @@ public class PanelPalette extends JPanel implements ActionListener
 			this.text        == e.getSource() ||
 			this.rotation    == e.getSource() || 
 			this.luminosité  == e.getSource() ||
-			this.teinte      == e.getSource()) 
+			this.teinte      == e.getSource() ||
+			this.texte       == e.getSource()) 
 		{
 			this.ctrl.toolSelected(toolName); 
 		}
