@@ -15,9 +15,16 @@ public class Controller
 	
 	private int width;
 	private int height;
+
+	private ToolType currentTool;
+
+	private String chemin;
 	
 	public Controller()
 	{
+		this.currentTool = ToolType.DEFAULT;
+		this.chemin = null;
+
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		this.width  = (int) screenSize.getWidth ();
 		this.height = (int) screenSize.getHeight();
@@ -32,6 +39,12 @@ public class Controller
 
 	public int getWidth () {return this.width ;}
 	public int getHeight() {return this.height;}
+
+	public ToolType getCurrentTool(){return this.currentTool;}
+	public void     setCurrentTool(ToolType tool){this.currentTool = tool;}
+
+	public String getChemin ()            {return this.chemin;}
+	public void   setChemin (String path) {this.chemin = path;}
 
 	public void                sauvegarder           (String filePath){this.imageLoader.sauvegarder(filePath);     }
 	public void                addImage              (String filePath){this.imageLoader.loadImage(filePath);       }
@@ -54,9 +67,9 @@ public class Controller
 		this.imageLoader.setBufferedImage(imageRotee);
 	}
 
-	public void fusionner(String chemin , int x, int y)
+	public void fusionner(int x, int y)
 	{
-		this.imageLoader.loadImage2(chemin);
+		this.imageLoader.loadImage2(this.chemin);
 		BufferedImage baseImg   = this.imageLoader.getBufferedImage ();
 		BufferedImage imgDessus = this.imageLoader.getBufferedImage2();
 

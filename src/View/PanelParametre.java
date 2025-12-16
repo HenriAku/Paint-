@@ -34,6 +34,7 @@ public class PanelParametre extends JPanel implements ChangeListener, ActionList
 	private JButton btnHorizontal;
 	private JButton btnVertical;
 	private JButton btnFusion;
+	private JButton btnSelectionFusion;
 
 	private JTextField txtFusionX;
 	private JTextField txtFusionY;
@@ -189,22 +190,19 @@ public class PanelParametre extends JPanel implements ChangeListener, ActionList
 		// Fusion
 		JPanel panelFusion = new JPanel(new BorderLayout());
 
-		this.btnFusion = new JButton("Fusionner Images");
-		this.txtFusionX = new JTextField();
-		this.txtFusionY = new JTextField();
+		this.btnFusion          = new JButton("Fusionner Images");
+		this.btnSelectionFusion = new JButton("Sélectionner Image à Fusionner");
 		
 		JPanel centerPanel = new JPanel();
 		centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
-		centerPanel.add(new JLabel("X:"));
-		centerPanel.add(this.txtFusionX);
-		centerPanel.add(new JLabel("Y:"));
-		centerPanel.add(this.txtFusionY);
-		centerPanel.add(this.btnFusion);
+		centerPanel.add(this.btnFusion, CENTER_ALIGNMENT);
+		centerPanel.add(this.btnSelectionFusion, CENTER_ALIGNMENT);
 		
 		panelFusion.add(centerPanel, BorderLayout.CENTER);
 		
 		this.add(panelFusion, "Fusion");		
 		this.btnFusion.addActionListener(this);
+		this.btnSelectionFusion.addActionListener(this);
 
 		// Panneau par défaut
 		JPanel panelDefault = new JPanel();
@@ -245,12 +243,15 @@ public class PanelParametre extends JPanel implements ChangeListener, ActionList
 			
 			if (result == JFileChooser.APPROVE_OPTION) 
 			{
-				int posX = Integer.parseInt(this.txtFusionX.getText());
-				int posY = Integer.parseInt(this.txtFusionY.getText());
+
 				String selectedFilePath = fileChooser.getSelectedFile().getAbsolutePath();
-				this.controller.fusionner(selectedFilePath, posX, posY);
-				this.controller.updateDessin();
+				this.controller.setChemin(selectedFilePath);
 			};
+		}
+
+		if (this.btnSelectionFusion == e.getSource()) 
+		{
+			this.controller.addMouseDessin();	
 		}
 	}
 

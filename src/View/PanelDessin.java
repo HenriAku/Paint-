@@ -1,7 +1,10 @@
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import java.awt.Dimension;
+import java.awt.event.MouseEvent;
 
 public class PanelDessin extends JPanel implements MouseListener
 {
@@ -54,7 +57,7 @@ public class PanelDessin extends JPanel implements MouseListener
 	public void addMouse         (){this.addMouseListener(this);}
 	public void removeMouseDessin(){this.removeMouseListener(this);}
 
-	public void mouseClicked(java.awt.event.MouseEvent e) 
+	public void mouseClicked(MouseEvent e) 
 	{
 		int mouseX = e.getX();
 		int mouseY = e.getY();
@@ -76,13 +79,23 @@ public class PanelDessin extends JPanel implements MouseListener
 
 		int tolerance = 20;
 
-		this.controller.peindre(image, imageX, imageY, this.color, tolerance);
+		switch (this.controller.getCurrentTool()) {
+			case ToolType.BUCKET:
+					this.controller.peindre(image, imageX, imageY, this.color, tolerance);
+				break;
+
+			case ToolType.FUSION:
+					this.controller.fusionner(imageX, imageY);
+					this.controller.removeMouseDessin();
+				break;
+			default:
+				break;
+		}
 		this.controller.updateDessin();
 	}
 
-
-	public void mouseEntered(java.awt.event.MouseEvent e) {}
-	public void mouseExited(java.awt.event.MouseEvent e) {}
-	public void mousePressed(java.awt.event.MouseEvent e) {}
-	public void mouseReleased(java.awt.event.MouseEvent e) {}
+	public void mouseEntered(MouseEvent e) {}
+	public void mouseExited(MouseEvent e) {}
+	public void mousePressed(MouseEvent e) {}
+	public void mouseReleased(MouseEvent e) {}
 }

@@ -15,7 +15,7 @@ public class PanelPalette extends JPanel implements ActionListener
 	private JButton contraste;
 	private JButton text;
 	private JButton rotation;
-	private JButton luminosité;
+	private JButton luminosite;
 	private JButton teinte;
 	private JButton texte;
 	private JButton miroir;
@@ -32,11 +32,11 @@ public class PanelPalette extends JPanel implements ActionListener
 		// Initialisation des attributs
 		this.ctrl = ctrl;
 
-		this.potPeinture  = new JButton("Pot de Peinture");
+		this.potPeinture  = new JButton("Bucket");
 		this.contraste    = new JButton("Contraste");
 		this.text         = new JButton("Texte");	
 		this.rotation	  = new JButton("Rotation");
-		this.luminosité   = new JButton("Luminosité");
+		this.luminosite   = new JButton("Luminosite");
 		this.teinte 	  = new JButton("Teinte");
 		this.texte	      = new JButton("Texte");
 		this.miroir       = new JButton("Miroir");
@@ -53,7 +53,7 @@ public class PanelPalette extends JPanel implements ActionListener
 		this.contraste.addActionListener(this);
 		this.text.addActionListener(this);
 		this.rotation.addActionListener(this);
-		this.luminosité.addActionListener(this);
+		this.luminosite.addActionListener(this);
 		this.teinte.addActionListener(this);
 		this.texte.addActionListener(this);
 		this.miroir.addActionListener(this);
@@ -67,7 +67,7 @@ public class PanelPalette extends JPanel implements ActionListener
 		this.add(this.contraste);
 		this.add(this.text);
 		this.add(this.rotation);
-		this.add(this.luminosité);
+		this.add(this.luminosite);
 		this.add(this.teinte);
 		this.add(this.texte);
 		this.add(this.miroir);
@@ -92,13 +92,14 @@ public class PanelPalette extends JPanel implements ActionListener
 			this.contraste   == e.getSource() || 
 			this.text        == e.getSource() ||
 			this.rotation    == e.getSource() || 
-			this.luminosité  == e.getSource() ||
+			this.luminosite  == e.getSource() ||
 			this.teinte      == e.getSource() ||
 			this.texte       == e.getSource() ||
 			this.miroir      == e.getSource() ||
 			this.fusion      == e.getSource()) 
 		{
 			this.ctrl.toolSelected(toolName); 
+			this.ctrl.setCurrentTool(ToolType.valueOf(toolName.toUpperCase()));
 		}
 
 		// Action pour ouvrir une image
