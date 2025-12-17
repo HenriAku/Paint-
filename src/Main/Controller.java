@@ -93,42 +93,46 @@ public class Controller
 	 * Charge une image depuis le chemin spécifié.
 	 * @param filePath Le chemin du fichier à charger.
 	 */
-	public void addImage ( String filePath ) { this.imageLoader.loadImage(filePath); }
+	public void addImage ( String filePath ) 
+	{ 
+		this.imageLoader.loadImage(filePath); 
+		this.updateDessin();
+	}
 
 	/**
 	 * Ajoute l'image courante à l'historique des modifications.
 	 */
-	public void addImageHistorique () { this.imageLoader.addImageHistorique(); }
+	public void addImageHistorique (){ this.imageLoader.addImageHistorique(); }
 
 	/**
 	 * Obtient l'image courante sous forme de BufferedImage.
 	 * @return L'image courante.
 	 */
-	public BufferedImage getBufferedImage () { return this.imageLoader.getBufferedImage(); }
+	public BufferedImage getBufferedImage (){ return this.imageLoader.getBufferedImage(); }
 
 	/**
 	 * Obtient les images de l'historique des modifications.
 	 * @return La liste des images de l'historique.
 	 */
-	public List<BufferedImage> getImagesHistoriqueArriere   (){return this.imageLoader.getImagesHistoriqueArriere();   }
+	public List<BufferedImage> getImagesHistoriqueArriere (){return this.imageLoader.getImagesHistoriqueArriere();   }
 
 	/**
 	 * Obtient la dernière image de l'historique des modifications.
 	 * @return La dernière image de l'historique.
 	 */
-	public BufferedImage getLastImageHistoriqueArriere(){ return this.imageLoader.getLastImageHistoriqueArriere(); }
+	public BufferedImage getLastImageHistoriqueArriere (){ return this.imageLoader.getLastImageHistoriqueArriere(); }
 
 	/**
 	 * Obtient les images de l'historique des modifications avant l'état actuel.
 	 * @return La liste des images de l'historique avant l'état actuel.
 	 */
-	public List<BufferedImage> getImagesHistoriqueAvant     (){ return this.imageLoader.getImagesHistoriqueAvant(); }
+	public List<BufferedImage> getImagesHistoriqueAvant (){ return this.imageLoader.getImagesHistoriqueAvant(); }
 
 	/**
 	 * Obtient la prochaine image de l'historique des modifications avant l'état actuel.
 	 * @return La prochaine image de l'historique avant l'état actuel.
 	 */
-	public BufferedImage getNextImageHistoriqueAvant  (){ return this.imageLoader.getNextImageHistoriqueAvant(); }
+	public BufferedImage getNextImageHistoriqueAvant (){ return this.imageLoader.getNextImageHistoriqueAvant(); }
 
 	/**
 	 * Remplit une zone de l'image avec une nouvelle couleur en utilisant l'outil seau.
@@ -140,8 +144,9 @@ public class Controller
 	 */
 	public void peindre( BufferedImage img, int x, int y, int newColorRGB, int tolerance )
 	{
-		this.bucketTool.peindre( img, x, y, newColorRGB, tolerance );
+		this.bucketTool .peindre         ( img, x, y, newColorRGB, tolerance );
 		this.imageLoader.setOriginalImage( img );
+		this.updateDessin();
 	}
 
 	/**
@@ -151,7 +156,9 @@ public class Controller
 	public void rotation( double angle )
 	{
 		BufferedImage imageRotee = this.imageTransformer.rotation( this.imageLoader.getOriginalImage(), angle );
+
 		this.imageLoader.setBufferedImage( imageRotee );
+		this.updateDessin();
 	}
 
 	/**
@@ -162,9 +169,10 @@ public class Controller
 	public void fusionner( int x, int y )
 	{
 		BufferedImage baseImg   = this.imageLoader.getBufferedImage ();
-		this.imageTransformer.fusionner( baseImg, this.chemin, 0xFFFFFF, x, y );
-		
-		this.imageLoader.setOriginalImage( this.getBufferedImage() );
+
+		this.imageTransformer.fusionner       ( baseImg, this.chemin, 0xFFFFFF, x, y );
+		this.imageLoader     .setOriginalImage( this.getBufferedImage() );
+		this.updateDessin();
 	}
 
 	/**
@@ -173,8 +181,8 @@ public class Controller
 	 */
 	public void adjustContrast( double contrastLevel )
 	{
-		this.imageTransformer.adjustContrast( this.getBufferedImage(), contrastLevel );
-		this.imageLoader.setOriginalImage( this.getBufferedImage() );
+		this.imageTransformer.adjustContrast  ( this.getBufferedImage(), contrastLevel );
+		this.imageLoader     .setOriginalImage( this.getBufferedImage() );
 		this.updateDessin();
 	}
 
@@ -185,7 +193,8 @@ public class Controller
 	public void adjustBrightness( int brightnessLevel )
 	{
 		this.imageTransformer.adjustBrightness( this.getBufferedImage(), brightnessLevel );
-		this.imageLoader.setOriginalImage( this.getBufferedImage() );
+		this.imageLoader     .setOriginalImage( this.getBufferedImage() );
+		this.updateDessin();
 	}
 
 	/**
@@ -197,8 +206,9 @@ public class Controller
 	 */
 	public void adjustHue( BufferedImage img, int rOffset, int gOffset, int bOffset )
 	{
-		this.imageTransformer.adjustHue( img, rOffset, gOffset, bOffset );
-		this.imageLoader.setOriginalImage( img );
+		this.imageTransformer.adjustHue       ( img, rOffset, gOffset, bOffset );
+		this.imageLoader     .setOriginalImage( img );
+		this.updateDessin();
 	}
 
 	/** 
@@ -207,7 +217,8 @@ public class Controller
 	public void mirrorHorizontal() 
 	{
 		this.imageTransformer.mirrorHorizontal( this.getBufferedImage() );
-		this.imageLoader.setOriginalImage( this.getBufferedImage() );
+		this.imageLoader     .setOriginalImage( this.getBufferedImage() );
+		this.updateDessin();
 	}
 
 	/** 
@@ -215,8 +226,9 @@ public class Controller
 	 */
 	public void mirrorVertical() 
 	{
-		this.imageTransformer.mirrorVertical( this.getBufferedImage() );
-		this.imageLoader.setOriginalImage( this.getBufferedImage() );
+		this.imageTransformer.mirrorVertical  ( this.getBufferedImage() );
+		this.imageLoader     .setOriginalImage( this.getBufferedImage() );
+		this.updateDessin();
 	}
 
 	/**
@@ -229,6 +241,7 @@ public class Controller
 		BufferedImage resizedImage = this.imageTransformer.redimensionner( this.getBufferedImage(), newHeight, newWidth);
 		this.imageLoader.setBufferedImage( resizedImage );
 		this.imageLoader.setOriginalImage( resizedImage );
+		this.updateDessin();
 	}
 
 	/**
