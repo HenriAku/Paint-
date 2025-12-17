@@ -31,6 +31,9 @@ public class Controller
 	private Color currentBucketColor;
 	private int   currentBucketTolerance;
 
+	private String currentTextContent;
+	private String currentTextTexture;
+
 	/**
 	 * Constructeur du Controller.
 	 */
@@ -43,6 +46,9 @@ public class Controller
 
 		this.currentBucketColor	    = Color.WHITE;
 		this.currentBucketTolerance = 30         ;
+
+		this.currentTextContent = "Vide";
+		this.currentTextTexture = "feu.png";
 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -92,6 +98,42 @@ public class Controller
 	public int getCurrentBucketTolerance()
 	{
 		return this.currentBucketTolerance;
+	}
+
+	/**
+	 * Obtient le contenu du texte courant de l'éditeur de texte.
+	 * @param texte Le texte à définir.
+	 */
+	public void setCurrentTextContent( String texte )
+	{
+		this.currentTextContent = texte;
+	}
+
+	/**
+	 * Obtient la texture courante de l'éditeur de texte.
+	 * @param texture La texture à définir.
+	 */
+	public void setCurrentTextTexture( String texture )
+	{
+		this.currentTextTexture = texture;
+	}
+
+	/**
+	 * Obtient le contenu du texte courant de l'éditeur de texte.
+	 * @return Le texte à définir.
+	 */
+	public String getCurrentTextContent()
+	{
+		return this.currentTextContent;
+	}
+
+	/**
+	 * Obtient la texture courante de l'éditeur de texte.
+	 * @return La texture à définir.
+	 */
+	public String getCurrentTextTexture()
+	{
+		return this.currentTextTexture;
 	}
 
 	/**
@@ -305,9 +347,11 @@ public class Controller
 		this.updateDessin();
 	}
 
-	public void appliquerText(BufferedImage img, String cheminTexte, int x, int y)
+	public void appliquerText( int x, int y )
 	{
-		this.textTool.appliquer(img, cheminTexte, x, y);
+		String chemin = "ressources/textures/" + this.currentTextTexture;
+		String texteImg = "ressources/textes/" + currentTextContent;
+		this.textTool.appliquer(this.getBufferedImage(), chemin, texteImg, x, y);
 		this.imageLoader.setOriginalImage(this.getBufferedImage());
 		this.updateDessin();
 	}

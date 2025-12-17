@@ -26,42 +26,54 @@ public class TextTool
 	 * Applique l'image au texte
 	 * @param cible L'image à modifier.
 	 * @param cheminTexte Le chemin pour initialiser le BufferedReader.
+     * @param texte Le texte à designer.
 	 * @param x Coordonnée x du texte
 	 * @param y Coordonnée y du texte 
 	 */
-	public void appliquer(BufferedImage cible, String cheminTexte, int x, int y) 
-	{
-		try {
-            this.texteImage = ImageIO.read(new File(cheminTexte));
-			this.cheminCharge = cheminTexte;
-        } catch (Exception e) {
-            System.out.println("Erreur chargement image texte");
-        }
+	public void appliquer(BufferedImage cible,String cheminTexture,String cheminTexteImage, int x,int y)
+    {
+        try {
+            BufferedImage texture = ImageIO.read(new File(cheminTexture));
+            BufferedImage texte   = ImageIO.read(new File(cheminTexteImage));
 
-        if (texteImage == null || cible == null) return;
+            if (texture == null || texte == null || cible == null) return;
 
-        int w = texteImage.getWidth();
-        int h = texteImage.getHeight();
+            int w = texte.getWidth();
+            int h = texte.getHeight();
 
-        for (int j = 0; j < h; j++) {
-            for (int i = 0; i < w; i++) {
+            for (int j = 0; j < h; j++) {
+                for (int i = 0; i < w; i++) {
 
-                int px = texteImage.getRGB(i, j);
+                    int maskPx = texte.getRGB(i, j);
+                    int alpha  = (maskPx >>> 24);
 
-                // ignorer pixels transparents
-                if ((px >>> 24) == 0) continue;
+                    // pixel hors lettre
+                    if (alpha == 0) continue;
 
-                int dx = x + i;
-                int dy = y + j;
+                    int dx = x + i;
+                    int dy = y + j;
 
-                if (dx >= 0 && dx < cible.getWidth()
-                 && dy >= 0 && dy < cible.getHeight()) {
+                    if (dx < 0 || dx >= cible.getWidth()
+                    || dy < 0 || dy >= cible.getHeight()) continue;
 
-                    cible.setRGB(dx, dy, px);
+                    // répétition de la texture
+                    int tx = i % texture.getWidth();
+                    int ty = j % texture.getHeight();
+
+                    int texPx = texture.getRGB(tx, ty);
+
+                    // conserver alpha du texte
+                    int rgb = (alpha << 24) | (texPx & 0x00FFFFFF);
+
+                    cible.setRGB(dx, dy, rgb);
                 }
             }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
+
 
 	/**
 	 * Récupérer les textures dans les dossiers prévus pour

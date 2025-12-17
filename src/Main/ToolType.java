@@ -7,7 +7,7 @@ public enum ToolType
 {
 	DEFAULT,
 	BUCKET,
-	TEXT,
+	TEXTE,
 	ROTATION,
 	FUSION,
 	CONTRASTE,

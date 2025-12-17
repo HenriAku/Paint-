@@ -3,8 +3,13 @@ package View.PanelParametres;
 import Main.Controller;
 
 import javax.swing.JPanel;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -12,7 +17,7 @@ import javax.swing.JTextField;
 /**
  * Panel des parametres de texte
  */
-public class PanelTexteParametres extends JPanel
+public class PanelTexteParametres extends JPanel implements ActionListener
 {
 	private Controller ctrl;
 
@@ -44,6 +49,9 @@ public class PanelTexteParametres extends JPanel
 
 		this.textFieldTexte = new JTextField( 20 );
 
+		this.textFieldTexte.addActionListener( this );
+		this.textureComboBox.addActionListener( this );
+
 		this.add( this.labelTexte     );
 		this.add( this.textFieldTexte );
 
@@ -51,5 +59,19 @@ public class PanelTexteParametres extends JPanel
 		
 		this.add( this.labelTexture    );
 		this.add( this.textureComboBox );
+	}
+
+	public void actionPerformed( ActionEvent e )
+	{
+		if ( e.getSource() == this.textFieldTexte )
+		{
+			String texte = this.textFieldTexte.getText();
+			this.ctrl.setCurrentTextContent(texte);
+		}
+		if ( e.getSource() == this.textureComboBox )
+		{
+			String texture = (String) this.textureComboBox.getSelectedItem();
+			this.ctrl.setCurrentTextTexture(texture);
+		}
 	}
 }
