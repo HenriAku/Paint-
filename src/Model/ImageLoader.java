@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 public class ImageLoader 
 {
-	private BufferedImage src;
-	private BufferedImage srcOriginal; // Image originale pour les transformations
+	private BufferedImage imageModif;
+	private BufferedImage imageAvantModif; // Image originale pour les transformations
 	private List<BufferedImage> imagesHistoriqueArriere;
 	private List<BufferedImage> imagesHistoriqueAvant;
 
@@ -18,8 +18,8 @@ public class ImageLoader
 	public ImageLoader(int largeur, int hauteur)
 	{
 		try {
-			this.src = new BufferedImage(largeur, hauteur, BufferedImage.TYPE_INT_ARGB);
-			this.srcOriginal = this.src; // Sauvegarder l'image originale
+			this.imageModif = new BufferedImage(largeur, hauteur, BufferedImage.TYPE_INT_ARGB);
+			this.imageAvantModif = this.imageModif; // Sauvegarder l'image originale
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -32,8 +32,8 @@ public class ImageLoader
 	 * Retourne l'image chargée
 	 * @return BufferedImage
 	 */
-	public BufferedImage getBufferedImage (){return this.src        ;}
-	public BufferedImage getOriginalImage (){return this.srcOriginal;}
+	public BufferedImage getBufferedImage (){return this.imageModif        ;}
+	public BufferedImage getOriginalImage (){return this.imageAvantModif;}
 
 	/**
 	 * Retourne la liste des images de l'historique
@@ -51,8 +51,8 @@ public class ImageLoader
 		BufferedImage img = this.imagesHistoriqueArriere.get(this.imagesHistoriqueArriere.size() - 1);
 		this.imagesHistoriqueArriere.remove(this.imagesHistoriqueArriere.size() - 1);
 		this.imagesHistoriqueAvant.add(img);
-		this.src = img;
-		return this.src;
+		this.imageModif = img;
+		return this.imageModif;
 	}
 
 	/**
@@ -64,22 +64,22 @@ public class ImageLoader
 		BufferedImage img = this.imagesHistoriqueAvant.get(this.imagesHistoriqueAvant.size() - 1);
 		this.imagesHistoriqueAvant.remove(this.imagesHistoriqueAvant.size() - 1);
 		this.imagesHistoriqueArriere.add(img);
-		this.src = img;
-		return this.src;
+		this.imageModif = img;
+		return this.imageModif;
 	}
 
 	/**
 	 * Ajoute une image à l'historique
 	 * @param img
 	 */
-	public void addImageHistorique(){this.imagesHistoriqueArriere.add(this.src);}
+	public void addImageHistorique(){this.imagesHistoriqueArriere.add(this.imageModif);}
 
 	/**
 	 * Remplace l'image source par une nouvelle image
 	 * @param newImage
 	 */
-	public void setBufferedImage(BufferedImage newImage){this.src         = newImage;}
-	public void setOriginalImage(BufferedImage newImage){this.srcOriginal = newImage;}	
+	public void setBufferedImage(BufferedImage newImage){this.imageModif         = newImage;}
+	public void setOriginalImage(BufferedImage newImage){this.imageAvantModif = newImage;}	
 
 	/**
 	 * Charge une image depuis le chemin spécifié
@@ -91,8 +91,8 @@ public class ImageLoader
 			File file = new File(chemin);
 
 			if (file.getName().toLowerCase().endsWith(".png")) {
-				this.src = ImageIO.read(file);
-				this.srcOriginal = this.src; // Mettre à jour l'image originale
+				this.imageModif = ImageIO.read(file);
+				this.imageAvantModif = this.imageModif; // Mettre à jour l'image originale
 			}
 		} catch (IOException e) {
 			System.out.println(e);
@@ -107,7 +107,7 @@ public class ImageLoader
 	{
 		try {
 			File file = new File(chemin);
-			ImageIO.write(this.src, "png", file);
+			ImageIO.write(this.imageModif, "png", file);
 		} catch (IOException e) {
 			System.out.println(e);
 		}
