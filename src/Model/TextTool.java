@@ -13,12 +13,22 @@ public class TextTool
     private BufferedImage texteImage;
 	private String cheminCharge;
 
+	/**
+	 * Constructeur du TextTool
+	 */
 	public TextTool()
 	{
 		this.texteImage   = null;
 		this.cheminCharge = null;
 	}
 
+	/**
+	 * Applique l'image au texte
+	 * @param cible L'image à modifier.
+	 * @param cheminTexte Le chemin pour initialiser le BufferedReader.
+	 * @param x Coordonnée x du texte
+	 * @param y Coordonnée y du texte 
+	 */
 	public void appliquer(BufferedImage cible, String cheminTexte, int x, int y) 
 	{
 		try {
@@ -53,6 +63,10 @@ public class TextTool
         }
     }
 
+	/**
+	 * Récupérer les textures dans les dossiers prévus pour
+	 * @return Tableau de string avec le nom des textures
+	 */
     public String[] getTextureFiles() 
     {
         File textureDir = new File("ressources/textures"); 
