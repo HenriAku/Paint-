@@ -252,6 +252,14 @@ public class Controller
 	}
 
 	/**
+	 * Obtient les fichiers de texture disponibles pour l'outil texte.
+	 */
+	public void getTextureFiles()
+	{
+		this.textTool.getTextureFiles();
+	}
+
+	/**
 	 * Met à jour le dessin dans l'interface utilisateur.
 	 */
 	public void updateDessin() { this.framePrincipale.repaint(); }

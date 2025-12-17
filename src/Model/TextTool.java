@@ -2,6 +2,8 @@ package Model;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -49,5 +51,39 @@ public class TextTool
                 }
             }
         }
+    }
+
+    public String[] getTextureFiles() 
+    {
+        File textureDir = new File("ressources/textures"); 
+
+        if (!textureDir.exists() || !textureDir.isDirectory()) 
+        {
+            System.err.println("Erreur: Le dossier 'textures/' est introuvable ou n'est pas un répertoire.");
+            System.err.println("Chemin cherché: " + textureDir.getAbsolutePath());
+            return new String[]{"[Dossier textures/ introuvable]"}; 
+        }
+
+        File[] files = textureDir.listFiles();
+        List<String> textureNames = new ArrayList<>();
+
+        if (files != null) 
+        {
+            for (File file : files) 
+            {
+                // Filtrer les fichiers image courants
+                if (file.isFile() && (file.getName().toLowerCase().endsWith(".png"))) 
+                {
+                    textureNames.add(file.getName());
+                }
+            }
+        }
+
+        if (textureNames.isEmpty()) 
+        {
+            textureNames.add("Aucune texture trouvée");
+        }
+
+        return textureNames.toArray(new String[0]);
     }
 }
