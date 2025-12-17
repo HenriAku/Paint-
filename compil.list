@@ -15,6 +15,7 @@ src/View/PanelParametre.java
 src/View/PanelTools.java
 src/View/PanelMenu.java
 
+src/View/PanelParametres/PanelPipetteParametres.java
 src/View/PanelParametres/PanelContrasteParametres.java
 src/View/PanelParametres/PanelPotDePeintureParametres.java
 src/View/PanelParametres/PanelRotationParametres.java
