@@ -44,7 +44,7 @@ public class Controller
 		
 		this.imageTransformer = new ImageTransformer();
 		this.bucketTool       = new BucketTool();
-		//this.textTool         = new TextTool();
+		this.textTool         = new TextTool();
 	}
 
 	/**
@@ -241,6 +241,13 @@ public class Controller
 		BufferedImage resizedImage = this.imageTransformer.redimensionner( this.getBufferedImage(), newHeight, newWidth);
 		this.imageLoader.setBufferedImage( resizedImage );
 		this.imageLoader.setOriginalImage( resizedImage );
+		this.updateDessin();
+	}
+
+	public void appliquer(BufferedImage img, String cheminTexte, int x, int y)
+	{
+		this.textTool.appliquer(img, cheminTexte, x, y);
+		this.imageLoader.setOriginalImage(this.getBufferedImage());
 		this.updateDessin();
 	}
 
