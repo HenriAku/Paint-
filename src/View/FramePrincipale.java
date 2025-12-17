@@ -44,9 +44,10 @@ public class FramePrincipale extends JFrame
 		this.setVisible(true);
 	}
 
-	public void repaint          (){this.panelDessin.repaint          ();}
-	public void addMouseDessin   (){this.panelDessin.addMouse         ();}
-	public void removeMouseDessin(){this.panelDessin.removeMouseDessin();}
+	public void repaint          (){this.panelDessin.repaint           ();}
+	public void updateColorDisplay(){this.panelTools.updateColorDisplay();}
+	public void addMouseDessin   (){this.panelDessin.addMouse          ();}
+	public void removeMouseDessin(){this.panelDessin.removeMouseDessin ();}
 	public void showParametrePanel(String toolName)
 	{
 		this.panelTools.showCard(toolName);

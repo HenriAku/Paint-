@@ -35,4 +35,6 @@ public class PanelTools extends JPanel
 	{
 		this.panelParametres.showCard( toolName );
 	}
+
+	public void updateColorDisplay(){this.panelParametres.updateColorDisplay();}
 }

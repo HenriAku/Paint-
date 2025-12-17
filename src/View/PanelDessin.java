@@ -86,6 +86,12 @@ public class PanelDessin extends JPanel implements MouseListener
 					this.controller.fusionner( imageX, imageY );
 					this.controller.removeMouseDessin();
 				break;
+
+			case ToolType.PIPETTE:
+					this.controller.setPipetteColorRGB(imageX, imageY);
+					this.controller.updateColorDisplay();
+					this.controller.removeMouseDessin();
+				break;
 			default:
 				break;
 		}

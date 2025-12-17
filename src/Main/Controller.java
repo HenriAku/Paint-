@@ -143,7 +143,7 @@ public class Controller
 	 * Définit la couleur RGB sélectionnée par la pipette.
 	 * @param colorRGB La couleur RGB sélectionnée par la pipette.
 	 */
-	public void setPipetteColorRGB ( int colorRGB ) { this.pipetteColorRGB = colorRGB; }
+	public void setPipetteColorRGB ( int x, int y ) { this.pipetteColorRGB = this.imageLoader.getBufferedImage().getRGB(x, y); }
 
 	/**
 	 * Sauvegarde l'image courante dans le chemin spécifié.
@@ -316,6 +316,11 @@ public class Controller
 	 * Met à jour le dessin dans l'interface utilisateur.
 	 */
 	public void updateDessin() { this.framePrincipale.repaint(); }
+
+	/**
+	 * Met à jour le panneau pipette dans l'interface utilisateur.
+	 */
+	public void updateColorDisplay(){this.framePrincipale.updateColorDisplay();}
 
 	/**
 	 * Ajoute les écouteurs de souris pour le dessin.

@@ -26,7 +26,8 @@ public class PanelPotDePeintureParametres extends JPanel implements ActionListen
 	private JLabel     labelTolerance     ;
 	private JTextField textTolerance      ;
 
-	private JButton btnCouleur    ;
+	private JButton btnCouleur         ;
+	private JButton btnCouleurPipette  ;
 
 	/**
 	 * Constructeur du panel des parametres du pot de peinture
@@ -43,8 +44,10 @@ public class PanelPotDePeintureParametres extends JPanel implements ActionListen
 		
 		this.btnCouleur = new JButton( "Choisir la couleur" );
 		this.btnCouleur.setBackground( this.ctrl.getCurrentBucketColor() );
-		
 		this.btnCouleur.addActionListener( this );
+		
+		this.btnCouleurPipette = new JButton( "Couleur pipette" );
+		this.btnCouleurPipette.addActionListener( this );
 		
 		this.textTolerance = new JTextField( "30" );
 
@@ -55,6 +58,7 @@ public class PanelPotDePeintureParametres extends JPanel implements ActionListen
 
 		this.add( this.labelPotDePeinture );
 		this.add( this.btnCouleur );
+		this.add( this.btnCouleurPipette );
 
 		this.add( Box.createVerticalStrut(10) );
 
@@ -70,13 +74,23 @@ public class PanelPotDePeintureParametres extends JPanel implements ActionListen
 	{
 		if (e.getSource() == this.btnCouleur)
 		{
-			Color newCouleur = JColorChooser.showDialog( this, "Choisir une couleur", this.ctrl.getCurrentBucketColor() );
+			Color couleurInitiale = this.ctrl.getCurrentBucketColor();
+			Color newCouleur = JColorChooser.showDialog( this, "Choisir une couleur", couleurInitiale );
 
 			if ( newCouleur != null )
 			{
 				this.btnCouleur.setBackground( newCouleur );
 				this.ctrl.setCurrentBucketColor( newCouleur );
 			}
+		}
+
+		if (e.getSource() == this.btnCouleurPipette)
+		{
+			int pipetteRGB = this.ctrl.getPipetteColorRGB();
+			Color couleurPipette = new Color(pipetteRGB);
+			
+			this.btnCouleur.setBackground( couleurPipette );
+			this.ctrl.setCurrentBucketColor( couleurPipette );
 		}
 
 		if ( e.getSource() == this.textTolerance )
@@ -91,5 +105,14 @@ public class PanelPotDePeintureParametres extends JPanel implements ActionListen
 				// Ignorer les entrees non numeriques
 			}
 		}
+	}
+
+	/**
+	 * Met à jour l'affichage de la couleur de la pipette
+	 */
+	public void updatePipetteColor()
+	{
+		int pipetteRGB = this.ctrl.getPipetteColorRGB();
+		this.btnCouleurPipette.setBackground( new Color(pipetteRGB) );
 	}
 }

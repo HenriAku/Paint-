@@ -13,6 +13,7 @@ import View.PanelParametres.PanelTexteParametres;
 import View.PanelParametres.PanelMiroirParametres;
 import View.PanelParametres.PanelFusionParametres;
 import View.PanelParametres.PanelRedimensionParametres;
+import View.PanelParametres.PanelPipetteParametres;
 
 import javax.swing.JPanel;
 
@@ -30,6 +31,7 @@ public class PanelParametre extends JPanel
 	private PanelMiroirParametres        panelMiroir       ;
 	private PanelFusionParametres        panelFusion       ;
 	private PanelRedimensionParametres   panelRedimension  ;
+	private PanelPipetteParametres       panelPipette      ;
 
 	public PanelParametre(Controller ctrl)
 	{
@@ -77,6 +79,10 @@ public class PanelParametre extends JPanel
 		this.panelRedimension = new PanelRedimensionParametres( this.controller );
 		this.add( this.panelRedimension, "Redimension" );
 
+		// Pipette	
+		this.panelPipette = new PanelPipetteParametres( this.controller );
+		this.add( this.panelPipette, "Pipette" );
+
 		// Panneau par défaut
 		JPanel panelDefault = new JPanel();
 		this.add(panelDefault, "Default");
@@ -88,4 +94,6 @@ public class PanelParametre extends JPanel
 	{
 		this.cardLayout.show(this, cardName); 
 	}
+
+	public void updateColorDisplay() {this.panelPipette.updateColorDisplay();}
 }

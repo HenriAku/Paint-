@@ -21,7 +21,7 @@ public class PanelPalette extends JPanel implements ActionListener
 {
 	private static final String[] TOOL_NAMES = {
 		"Bucket", "Contraste", "Rotation", "Luminosite",
-		"Teinte", "Text", "Miroir", "Fusion", "Redimension"
+		"Teinte", "Text", "Miroir", "Fusion", "Redimension", "Pipette"
 	};
 
 	private ArrayList<JButton> toolButtons;
