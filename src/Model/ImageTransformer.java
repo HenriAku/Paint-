@@ -154,40 +154,40 @@ public class ImageTransformer
 
 	/**
 	 * Fusionne une image par-dessus une autre en respectant une couleur transparente
-	 * @param fond Image de fond
-	 * @param dessus Image à superposer
+	 * @param imageFond Image de imageFond
+	 * @param cheminimage2 String chemin de l'image à superposer
 	 * @param couleurTransparente Couleur considérée comme transparente dans l'image à superposer
 	 * @param posX Position X où coller l'image à superposer
 	 * @param posY Position Y où coller l'image à superposer
 	 */
-	public void fusionner( BufferedImage fond, String cheminImage2, int couleurTransparente, int posX, int posY )
+	public void fusionner( BufferedImage imageFond, String cheminimage2, int couleurTransparente, int posX, int posY )
 	{		
-		BufferedImage imageDessus = null;
+		BufferedImage image2 = null;
         try {
-			File file = new File(cheminImage2);
+			File file = new File(cheminimage2);
 
 			if ( file.getName().toLowerCase().endsWith(".png") ) 
 			{
-				imageDessus = ImageIO.read(file);
+				image2 = ImageIO.read(file);
 			}
 
             //Vérification de la position de l'image à superposer
-            if ( imageDessus.getWidth() + posX > fond.getWidth() ||
-                 imageDessus.getHeight() + posY > fond.getHeight() ) 
+            if ( image2.getWidth() + posX > imageFond.getWidth() ||
+                 image2.getHeight() + posY > imageFond.getHeight() ) 
 			{
-                System.out.println("Erreur : l'image à superposer dépasse les limites de l'image de fond.");
+                System.out.println("Erreur : l'image à superposer dépasse les limites de l'image de imageFond.");
                 return;
             }
 
-            //Parcourir l'image pour envoyer la couleur de tout les pixels au fond si la couleur n'est pas transparente 
-            for ( int y = 0; y < imageDessus.getHeight(); y++ ) 
+            //Parcourir l'image pour envoyer la couleur de tout les pixels au imageFond si la couleur n'est pas transparente 
+            for ( int y = 0; y < image2.getHeight(); y++ ) 
 			{
-                for ( int x = 0; x < imageDessus.getWidth(); x++ ) 
+                for ( int x = 0; x < image2.getWidth(); x++ ) 
 				{
-                    int pixel = imageDessus.getRGB(x, y) & 0xFFFFFF;
+                    int pixel = image2.getRGB(x, y) & 0xFFFFFF;
                     if ( pixel != couleurTransparente ) 
 						{
-                        fond.setRGB( posX + x, posY + y, imageDessus.getRGB(x, y) );
+                        imageFond.setRGB( posX + x, posY + y, image2.getRGB(x, y) );
                     }
                 }
             }
