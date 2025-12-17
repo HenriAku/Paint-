@@ -5,7 +5,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
-import javax.swing.ImageIcon;
 
 import Main.Controller;
 import java.awt.event.ActionListener;
