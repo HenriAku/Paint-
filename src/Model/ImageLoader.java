@@ -32,7 +32,7 @@ public class ImageLoader
 	 * Retourne l'image chargée
 	 * @return BufferedImage
 	 */
-	public BufferedImage getBufferedImage (){return this.imageModif        ;}
+	public BufferedImage getBufferedImage (){return this.imageModif     ;}
 	public BufferedImage getOriginalImage (){return this.imageAvantModif;}
 
 	/**
@@ -48,6 +48,11 @@ public class ImageLoader
 	 */
 	public BufferedImage getLastImageHistoriqueArriere()
 	{
+		if (this.imagesHistoriqueArriere.isEmpty())
+		{
+			return this.imageModif;
+		}
+		
 		BufferedImage img = this.imagesHistoriqueArriere.get(this.imagesHistoriqueArriere.size() - 1);
 		this.imagesHistoriqueArriere.remove(this.imagesHistoriqueArriere.size() - 1);
 		this.imagesHistoriqueAvant.add(img);
@@ -61,6 +66,11 @@ public class ImageLoader
 	 */
 	public BufferedImage getNextImageHistoriqueAvant()
 	{
+		if (this.imagesHistoriqueAvant.isEmpty())
+		{
+			return this.imageModif;
+		}
+		
 		BufferedImage img = this.imagesHistoriqueAvant.get(this.imagesHistoriqueAvant.size() - 1);
 		this.imagesHistoriqueAvant.remove(this.imagesHistoriqueAvant.size() - 1);
 		this.imagesHistoriqueArriere.add(img);
@@ -72,13 +82,19 @@ public class ImageLoader
 	 * Ajoute une image à l'historique
 	 * @param img
 	 */
-	public void addImageHistorique(){this.imagesHistoriqueArriere.add(this.imageModif);}
+	public void addImageHistorique()
+	{
+		//Nouvelle image pour pas écraser l'ancienne dans l'historique
+		BufferedImage copie = new BufferedImage(this.imageModif.getWidth(), this.imageModif.getHeight(), this.imageModif.getType());
+		copie.getGraphics().drawImage(this.imageModif, 0, 0, null);
+		this.imagesHistoriqueArriere.add(copie);
+	}
 
 	/**
 	 * Remplace l'image source par une nouvelle image
 	 * @param newImage
 	 */
-	public void setBufferedImage(BufferedImage newImage){this.imageModif         = newImage;}
+	public void setBufferedImage(BufferedImage newImage){this.imageModif      = newImage;}
 	public void setOriginalImage(BufferedImage newImage){this.imageAvantModif = newImage;}	
 
 	/**
@@ -97,6 +113,7 @@ public class ImageLoader
 		} catch (IOException e) {
 			System.out.println(e);
 		}
+		this.imagesHistoriqueArriere.add(imageModif);
 	}
 
 	/**

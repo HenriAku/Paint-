@@ -71,12 +71,12 @@ public class PanelMenu extends JPanel implements ActionListener
 		
 		if (e.getSource() == this.menuRetourArriere)
 		{
-			this.controller.getImagesHistoriqueArriere();
+			this.controller.getLastImageHistoriqueArriere();
 		}
 		
 		if (e.getSource() == this.menuRetourAvant)
 		{
-			this.controller.getImagesHistoriqueAvant();
+			this.controller.getNextImageHistoriqueAvant();
 		}
 
 		if (e.getSource() == this.menuAnnulerAction)
@@ -93,20 +93,42 @@ public class PanelMenu extends JPanel implements ActionListener
 
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setCurrentDirectory( new java.io.File(".")  );
-		fileChooser.setDialogTitle     ( "Choisir une image" );
+		
+		// Toujours sélectionner des fichiers, jamais des dossiers
+		fileChooser.setFileSelectionMode( JFileChooser.FILES_ONLY );
 
-		if (binaire == 0) 
-			fileChooser.setFileSelectionMode( JFileChooser.FILES_ONLY );
-		else 
-			fileChooser.setFileSelectionMode( JFileChooser.DIRECTORIES_ONLY );
+		if (binaire == 0) {
+			fileChooser.setDialogTitle("Ouvrir une image");
+			fileChooser.setApproveButtonText("Ouvrir");
+		} else {
+			fileChooser.setDialogTitle("Sauvegarder l'image");
+			fileChooser.setApproveButtonText("Sauvegarder");
+		}
 
 		fileChooser.setAcceptAllFileFilterUsed( false );
-		fileChooser.setApproveButtonText("Ouvrir");
-		int result = fileChooser.showOpenDialog( this );
 		
-		String selectedFilePath = null;
-		if ( result == JFileChooser.APPROVE_OPTION )
-			return selectedFilePath = fileChooser.getSelectedFile().getAbsolutePath();
+		// Ajouter un filtre pour les fichiers PNG
+		javax.swing.filechooser.FileNameExtensionFilter filter = 
+			new javax.swing.filechooser.FileNameExtensionFilter("Images PNG (*.png)", "png");
+		fileChooser.addChoosableFileFilter(filter);
+		
+		int result;
+		if (binaire == 0) {
+			result = fileChooser.showOpenDialog( this );
+		} else {
+			result = fileChooser.showSaveDialog( this );
+		}
+		
+		if ( result == JFileChooser.APPROVE_OPTION ) {
+			String selectedFilePath = fileChooser.getSelectedFile().getAbsolutePath();
+			
+			// Pour la sauvegarde, s'assurer que le fichier a l'extension .png
+			if (binaire == 1 && !selectedFilePath.toLowerCase().endsWith(".png")) {
+				selectedFilePath += ".png";
+			}
+			
+			return selectedFilePath;
+		}
 
 		return null;
 	}
