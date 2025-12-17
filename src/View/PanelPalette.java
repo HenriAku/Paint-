@@ -21,12 +21,10 @@ public class PanelPalette extends JPanel implements ActionListener
 {
 	private static final String[] TOOL_NAMES = {
 		"Bucket", "Contraste", "Rotation", "Luminosite",
-		"Teinte", "Texte", "Miroir", "Fusion", "Redimension"
+		"Teinte", "Text", "Miroir", "Fusion", "Redimension"
 	};
 
 	private ArrayList<JButton> toolButtons;
-
-	private JButton   btnAnnuler;
 
 	private Controller ctrl;
 
@@ -50,12 +48,6 @@ public class PanelPalette extends JPanel implements ActionListener
 			this.toolButtons.add( button );
 			this.add( button );
 		}
-
-		this.btnAnnuler      = new JButton( "Annuler"      );
-
-		this.btnAnnuler    .addActionListener( this );
-
-		this.add( this.btnAnnuler     );
 	}
 
 	/**
@@ -77,12 +69,6 @@ public class PanelPalette extends JPanel implements ActionListener
 		{
 			this.ctrl.toolSelected( toolName ); 
 			this.ctrl.setCurrentTool( ToolType.valueOf( toolName.toUpperCase() ) );
-		}
-
-		// Action pour annuler la dernière opération
-		if( this.btnAnnuler == e.getSource() ) 
-		{
-			this.ctrl.removeMouseDessin();
 		}
 	}
 }
