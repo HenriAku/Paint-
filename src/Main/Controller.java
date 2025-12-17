@@ -347,6 +347,11 @@ public class Controller
 		this.updateDessin();
 	}
 
+	/**
+	 * Applique la texture au texte courant en créant une image
+	 * @param x Coordonnée x
+	 * @param y Coordonnée y
+	 */
 	public void appliquerText( int x, int y )
 	{
 		String chemin = "ressources/textures/" + this.currentTextTexture;
@@ -354,6 +359,12 @@ public class Controller
 		this.imageLoader.setOriginalImage(this.getBufferedImage());
 		this.updateDessin();
 	}
+
+	/**
+	 * Prévient qu'une texture a été ajoutée pour pouvoir rafraichir le JComboBox 
+	 */
+	public void ajoutTextures() { this.panelTexteParametres.refreshTextures(); }
+
 
 	/**
 	 * Obtient les fichiers de texture disponibles pour l'outil texte.

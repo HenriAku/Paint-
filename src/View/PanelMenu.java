@@ -8,6 +8,10 @@ import javax.swing.UIManager;
 
 import Main.Controller;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
@@ -21,6 +25,7 @@ public class PanelMenu extends JPanel implements ActionListener
 	private JMenuItem menuRetourAvant  ;
 	private JMenuItem menuAnnulerAction;
 	private JMenuItem menuAntiAliasing ;
+	private JMenuItem menuTexture      ;
 
 	/**
 	 * Constructeur du PanelMenu.
@@ -36,12 +41,13 @@ public class PanelMenu extends JPanel implements ActionListener
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
-		this.menuOuvrirImage   = new JMenuItem("Ouvrir Image"  );
-		this.menuSauvegarder   = new JMenuItem("Sauvegarder"   );
-		this.menuRetourArriere = new JMenuItem("Retour Arrière");
-		this.menuRetourAvant   = new JMenuItem("Retour Avant"  );
-		this.menuAnnulerAction = new JMenuItem("Annuler Action");
-		this.menuAntiAliasing  = new JMenuItem("Anti-Aliasing" );
+		this.menuOuvrirImage   = new JMenuItem("Ouvrir Image"   );
+		this.menuSauvegarder   = new JMenuItem("Sauvegarder"    );
+		this.menuRetourArriere = new JMenuItem("Retour Arrière" );
+		this.menuRetourAvant   = new JMenuItem("Retour Avant"   );
+		this.menuAnnulerAction = new JMenuItem("Annuler Action" );
+		this.menuAntiAliasing  = new JMenuItem("Anti-Aliasing"  );
+		this.menuTexture       = new JMenuItem("Ajouter Texture");
 
 		//Ajout composants au JPanel
 		this.add(menuBar);
@@ -52,6 +58,7 @@ public class PanelMenu extends JPanel implements ActionListener
 		menuBar.add(this.menuRetourAvant  );
 		menuBar.add(this.menuAnnulerAction);
 		menuBar.add(this.menuAntiAliasing );
+		menuBar.add(this.menuTexture      );
 
 		//Activation des composants
 		this.menuOuvrirImage  .addActionListener(this);
@@ -60,6 +67,7 @@ public class PanelMenu extends JPanel implements ActionListener
 		this.menuRetourAvant  .addActionListener(this);
 		this.menuAnnulerAction.addActionListener(this);
 		this.menuAntiAliasing .addActionListener(this);
+		this.menuTexture      .addActionListener(this);
 	}
 
 	public void actionPerformed(java.awt.event.ActionEvent e)
@@ -97,6 +105,43 @@ public class PanelMenu extends JPanel implements ActionListener
 		{
 			this.controller.antiAliasing();
 		}
+
+		if (e.getSource() == this.menuTexture)
+		{
+			JFileChooser fileChooser = new JFileChooser();
+			fileChooser.setDialogTitle("Ajouter une texture");
+			fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+			int result = fileChooser.showOpenDialog(this);
+
+			if (result == JFileChooser.APPROVE_OPTION)
+			{
+				File selectedFile = fileChooser.getSelectedFile();
+
+				File textureDir = new File("ressources/textures/");
+				if (!textureDir.exists())
+					textureDir.mkdirs();
+
+				File destFile = new File(textureDir, selectedFile.getName());
+
+				try (
+					FileInputStream in  = new FileInputStream(selectedFile);
+					FileOutputStream out = new FileOutputStream(destFile)
+				) {
+					byte[] buffer = new byte[4096];
+					int bytesRead;
+
+					while ((bytesRead = in.read(buffer)) != -1) {
+						out.write(buffer, 0, bytesRead);
+					}
+
+					this.controller.ajoutTextures();
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
+
 	}
 
 	/**
