@@ -4,22 +4,22 @@
 # CONFIGURATION
 # =========================================================
 
-# Nom du fichier listant les sources
+# Nom du fichier listant les sources. 
+# Assurez-vous qu'il contient TOUS les chemins vers vos fichiers .java (src/Main/Controller.java, etc.)
 COMPIL_LIST="compil.list"
 
 # Dossier de sortie des classes compilées
 CLASS_DIR="class"
 
 # Classe principale de l'application (celle qui contient le main(String[] args))
-# On suppose qu'elle est dans le package par défaut ou dans le package Controller.
-# Si vous créez un Main.java dans src/, vous devriez mettre simplement 'Main'
-MAIN_CLASS="Controller" # Modifier si votre classe principale s'appelle Main ou autre.
+# DOIT inclure le package (ex: Main.Controller)
+MAIN_CLASS="Main.Controller" 
 
 # =========================================================
 # 1. NETTOYAGE
 # =========================================================
 
-echo "Nettoyage du répertoire de classes..."
+echo "Nettoyage du répertoire de classes : $CLASS_DIR"
 rm -rf "$CLASS_DIR"
 
 # =========================================================
@@ -45,6 +45,7 @@ if [ $? -eq 0 ]; then
     echo " "
     echo "Lancement de l'application $MAIN_CLASS..."
     # -cp $CLASS_DIR : ajoute le répertoire 'class' au classpath pour que Java trouve les classes
+    # 'java' utilise le nom de classe qualifié (Main.Controller)
     java -cp "$CLASS_DIR" "$MAIN_CLASS"
 
 else
