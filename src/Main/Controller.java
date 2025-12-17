@@ -142,10 +142,10 @@ public class Controller
 	 * @param newColorRGB La nouvelle couleur en format RGB.
 	 * @param tolerance La tolérance pour la correspondance des couleurs.
 	 */
-	public void peindre( BufferedImage img, int x, int y, int newColorRGB, int tolerance )
+	public void peindre( int x, int y, int newColorRGB, int tolerance )
 	{
-		this.bucketTool .peindre         ( img, x, y, newColorRGB, tolerance );
-		this.imageLoader.setOriginalImage( img );
+		this.bucketTool .peindre         ( this.getBufferedImage(), x, y, newColorRGB, tolerance );
+		this.imageLoader.setOriginalImage( this.getBufferedImage() );
 		this.updateDessin();
 	}
 
@@ -204,10 +204,10 @@ public class Controller
 	 * @param gOffset L'offset à appliquer au canal vert.
 	 * @param bOffset L'offset à appliquer au canal bleu.
 	 */
-	public void adjustHue( BufferedImage img, int rOffset, int gOffset, int bOffset )
+	public void adjustHue( int rOffset, int gOffset, int bOffset )
 	{
-		this.imageTransformer.adjustHue       ( img, rOffset, gOffset, bOffset );
-		this.imageLoader     .setOriginalImage( img );
+		this.imageTransformer.adjustHue       ( this.getBufferedImage(), rOffset, gOffset, bOffset );
+		this.imageLoader     .setOriginalImage( this.getBufferedImage() );
 		this.updateDessin();
 	}
 
