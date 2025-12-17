@@ -385,4 +385,62 @@ public class ImageTransformer
 		}
 		return tmp;
 	}
+
+	public void antiAliasing( BufferedImage src )
+	{
+		if ( src == null ) return;
+		
+		int width  = src.getWidth ();
+		int height = src.getHeight();
+		
+		for ( int y = 0; y < height / 2; y++ ) 
+		{
+			for ( int x = 0; x < width; x++ ) 
+			{
+				int colorPixel = src.getRGB( x, y );
+
+				if (colorPixel == 00000000) {
+					// Vérifier les pixels voisins
+					int count = 0;
+					int rTotal = 0, gTotal = 0, bTotal = 0, aTotal = 0;
+
+					// Parcourir les pixels voisins
+					for (int j = -1; j <= 1; j++) {
+						for (int i = -1; i <= 1; i++) {
+							//Pixel central
+							if (i == 0 && j == 0) continue;
+
+							int neighborX = x + i;
+							int neighborY = y + j;
+
+							// Vérifier les limites
+							if (neighborX >= 0 && neighborX < width && neighborY >= 0 && neighborY < height) {
+								int neighborColor = src.getRGB(neighborX, neighborY);
+								if (neighborColor != 00000000) {
+									Color c = new Color(neighborColor, true);
+									rTotal += c.getRed();
+									gTotal += c.getGreen();
+									bTotal += c.getBlue();
+									aTotal += c.getAlpha();
+									count++;
+								}
+							}
+						}
+					}
+
+					// Calculer la couleur moyenne des voisins
+					if (count > 0) {
+						int rAvg = rTotal / count;
+						int gAvg = gTotal / count;
+						int bAvg = bTotal / count;
+						int aAvg = aTotal / count;
+
+						Color avgColor = new Color(rAvg, gAvg, bAvg, aAvg);
+						src.setRGB(x, y, avgColor.getRGB());
+					}
+				}
+			}
+		}
+	}
+	
 }
