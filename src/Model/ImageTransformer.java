@@ -171,14 +171,6 @@ public class ImageTransformer
 				image2 = ImageIO.read(file);
 			}
 
-			//Vérification de la position de l'image à superposer
-			if ( image2.getWidth() + posX > imageFond.getWidth() ||
-				 image2.getHeight() + posY > imageFond.getHeight() ) 
-			{
-				System.out.println("Erreur : l'image à superposer dépasse les limites de l'image de imageFond.");
-				return;
-			}
-
 			//Parcourir l'image pour envoyer la couleur de tout les pixels au imageFond si la couleur n'est pas transparente 
 			for ( int y = 0; y < image2.getHeight(); y++ ) 
 			{
