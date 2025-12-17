@@ -85,7 +85,11 @@ public class PanelMenu extends JPanel implements ActionListener
 		}
 	}
 
-
+	/**
+	 * Ouvre une boîte de dialogue pour choisir un fichier à ouvrir ou sauvegarder.
+	 * @param binaire permet de différencier l'ouverture (0) et la sauvegarde (1).
+	 * @return String chemin de l'imaege / dossier
+	 */
 	public String ouvrirFileChooser(int binaire) 
 	{
 		UIManager.put("FileChooser.cancelButtonText", "Annuler");
@@ -93,14 +97,14 @@ public class PanelMenu extends JPanel implements ActionListener
 
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setCurrentDirectory( new java.io.File(".")  );
-		
-		// Toujours sélectionner des fichiers, jamais des dossiers
 		fileChooser.setFileSelectionMode( JFileChooser.FILES_ONLY );
 
-		if (binaire == 0) {
+		if (binaire == 0) 
+		{
 			fileChooser.setDialogTitle("Ouvrir une image");
 			fileChooser.setApproveButtonText("Ouvrir");
-		} else {
+		} else 
+		{
 			fileChooser.setDialogTitle("Sauvegarder l'image");
 			fileChooser.setApproveButtonText("Sauvegarder");
 		}
@@ -113,11 +117,10 @@ public class PanelMenu extends JPanel implements ActionListener
 		fileChooser.addChoosableFileFilter(filter);
 		
 		int result;
-		if (binaire == 0) {
+		if (binaire == 0)
 			result = fileChooser.showOpenDialog( this );
-		} else {
+		else
 			result = fileChooser.showSaveDialog( this );
-		}
 		
 		if ( result == JFileChooser.APPROVE_OPTION ) {
 			String selectedFilePath = fileChooser.getSelectedFile().getAbsolutePath();
@@ -126,11 +129,8 @@ public class PanelMenu extends JPanel implements ActionListener
 			if (binaire == 1 && !selectedFilePath.toLowerCase().endsWith(".png")) {
 				selectedFilePath += ".png";
 			}
-			
 			return selectedFilePath;
 		}
-
 		return null;
 	}
-	
 }
