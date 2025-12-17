@@ -1,7 +1,6 @@
 package Main;
 
 import java.awt.image.BufferedImage;
-import java.util.List;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
@@ -26,7 +25,7 @@ public class Controller
 	private ToolType currentTool;
 
 	private String chemin;
-	
+
 	/**
 	 * Constructeur du Controller.
 	 */
@@ -70,7 +69,10 @@ public class Controller
 	 * Définit l'outil courant.
 	 * @param tool L'outil à définir comme courant.
 	 */
-	public void setCurrentTool( ToolType tool ){ this.currentTool = tool; }
+	public void setCurrentTool( ToolType tool ){
+		this.currentTool = tool;
+		this.imageLoader.addImageHistorique();
+	}
 
 	/**
 	 * Obtient le chemin de l'image courante.
@@ -136,7 +138,6 @@ public class Controller
 	 */
 	public void peindre( int x, int y, int newColorRGB, int tolerance )
 	{
-		this.imageLoader.addImageHistorique();
 		this.bucketTool .peindre         ( this.getBufferedImage(), x, y, newColorRGB, tolerance );
 		this.imageLoader.setOriginalImage( this.getBufferedImage() );
 		this.updateDessin();
@@ -148,7 +149,6 @@ public class Controller
 	 */
 	public void rotation( double angle )
 	{
-		this.imageLoader.addImageHistorique();
 		BufferedImage imageRotee = this.imageTransformer.rotation( this.imageLoader.getOriginalImage(), angle );
 
 		this.imageLoader.setBufferedImage( imageRotee );
@@ -162,7 +162,6 @@ public class Controller
 	 */
 	public void fusionner( int x, int y )
 	{
-		this.imageLoader.addImageHistorique();
 		BufferedImage baseImg   = this.imageLoader.getBufferedImage ();
 
 		this.imageTransformer.fusionner       ( baseImg, this.chemin, 0xFFFFFF, x, y );
@@ -176,7 +175,6 @@ public class Controller
 	 */
 	public void adjustContrast( double contrastLevel )
 	{
-		this.imageLoader.addImageHistorique();
 		this.imageTransformer.adjustContrast  ( this.getBufferedImage(), contrastLevel );
 		this.imageLoader     .setOriginalImage( this.getBufferedImage() );
 		this.updateDessin();
@@ -188,7 +186,6 @@ public class Controller
 	 */
 	public void adjustBrightness( int brightnessLevel )
 	{
-		this.imageLoader.addImageHistorique();
 		this.imageTransformer.adjustBrightness( this.getBufferedImage(), brightnessLevel );
 		this.imageLoader     .setOriginalImage( this.getBufferedImage() );
 		this.updateDessin();
@@ -203,7 +200,6 @@ public class Controller
 	 */
 	public void adjustHue( int rOffset, int gOffset, int bOffset )
 	{
-		this.imageLoader.addImageHistorique();
 		this.imageTransformer.adjustHue       ( this.getBufferedImage(), rOffset, gOffset, bOffset );
 		this.imageLoader     .setOriginalImage( this.getBufferedImage() );
 		this.updateDessin();
@@ -214,7 +210,6 @@ public class Controller
 	 */
 	public void mirrorHorizontal() 
 	{
-		this.imageLoader.addImageHistorique();
 		this.imageTransformer.mirrorHorizontal( this.getBufferedImage() );
 		this.imageLoader     .setOriginalImage( this.getBufferedImage() );
 		this.updateDessin();
@@ -225,7 +220,6 @@ public class Controller
 	 */
 	public void mirrorVertical() 
 	{
-		this.imageLoader.addImageHistorique();
 		this.imageTransformer.mirrorVertical  ( this.getBufferedImage() );
 		this.imageLoader     .setOriginalImage( this.getBufferedImage() );
 		this.updateDessin();
@@ -238,7 +232,6 @@ public class Controller
 	 */
 	public void redimensionner( int newWidth, int newHeight )
 	{
-		this.imageLoader.addImageHistorique();
 		BufferedImage resizedImage = this.imageTransformer.redimensionner( this.getBufferedImage(), newHeight, newWidth);
 		this.imageLoader.setBufferedImage( resizedImage );
 		this.imageLoader.setOriginalImage( resizedImage );
@@ -247,7 +240,6 @@ public class Controller
 
 	public void appliquerText(BufferedImage img, String cheminTexte, int x, int y)
 	{
-		this.imageLoader.addImageHistorique();
 		this.textTool.appliquer(img, cheminTexte, x, y);
 		this.imageLoader.setOriginalImage(this.getBufferedImage());
 		this.updateDessin();
