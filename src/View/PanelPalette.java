@@ -70,6 +70,7 @@ public class PanelPalette extends JPanel implements ActionListener
 		{
 			JButton clickedButton = (JButton) e.getSource();
 			toolName = clickedButton.getText();
+			this.ctrl.addMouseDessin();
 		}
 
 		if ( toolName != null && this.toolButtons.contains( e.getSource() ) ) 

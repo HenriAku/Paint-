@@ -26,7 +26,6 @@ public class PanelPotDePeintureParametres extends JPanel implements ActionListen
 	private JLabel     labelTolerance     ;
 	private JTextField textTolerance      ;
 
-	private Color   couleurChoisie;
 	private JButton btnCouleur    ;
 
 	/**
@@ -37,22 +36,22 @@ public class PanelPotDePeintureParametres extends JPanel implements ActionListen
 	{
 		this.ctrl = ctrl;
 
-		this.setLayout( new BoxLayout(this, BoxLayout.Y_AXIS) );
-
-		this.labelPotDePeinture = new JLabel( "Pot de Peinture"     , JLabel.CENTER );
-		this.labelTolerance     = new JLabel( "Ajuster la tolerance", JLabel.CENTER );
-		this.textTolerance      = new JTextField( "30" );
-
-		this.btnCouleur = new JButton( "Choisir la couleur" );
-		this.btnCouleur.setBackground( this.couleurChoisie );
-
-		this.btnCouleur.addActionListener( this );
+		this.setLayout( new BoxLayout( this, BoxLayout.Y_AXIS ) );
 
 		this.labelPotDePeinture = new JLabel( "Pot de Peinture"     , JLabel.CENTER );
 		this.labelTolerance     = new JLabel( "Ajuster la tolerance", JLabel.CENTER );
 		
-		this.textTolerance.setMaximumSize(this.textTolerance.getPreferredSize());
+		this.btnCouleur = new JButton( "Choisir la couleur" );
+		this.btnCouleur.setBackground( this.ctrl.getCurrentBucketColor() );
+		
+		this.btnCouleur.addActionListener( this );
+		
 		this.textTolerance = new JTextField( "30" );
+
+		this.textTolerance.setMaximumSize( this.textTolerance.getPreferredSize() );
+		this.textTolerance = new JTextField( Integer.toString( this.ctrl.getCurrentBucketTolerance() ) );
+
+		this.textTolerance.addActionListener( this );
 
 		this.add( this.labelPotDePeinture );
 		this.add( this.btnCouleur );
@@ -71,35 +70,26 @@ public class PanelPotDePeintureParametres extends JPanel implements ActionListen
 	{
 		if (e.getSource() == this.btnCouleur)
 		{
-			Color newCouleur = JColorChooser.showDialog( this, "Choisir une couleur", this.couleurChoisie );
+			Color newCouleur = JColorChooser.showDialog( this, "Choisir une couleur", this.ctrl.getCurrentBucketColor() );
 
-			if (newCouleur != null)
+			if ( newCouleur != null )
 			{
-				this.couleurChoisie = newCouleur;
-				this.btnCouleur.setBackground( this.couleurChoisie );
+				this.btnCouleur.setBackground( newCouleur );
+				this.ctrl.setCurrentBucketColor( newCouleur );
 			}
 		}
-	}
 
-	/**
-	 * Getter de la couleur choisie
-	 * @return La couleur choisie
-	 */
-	public Color getCouleurChoisie() {
-		return this.couleurChoisie;
-	}
-
-	/**
-	 * Getter de la tolerance
-	 * @return La tolerance
-	 */
-	public int getTolerance() {
-		try {
-			// Tente de récupérer la valeur du champ texte.
-			return Integer.parseInt(this.textTolerance.getText());
-		} catch (NumberFormatException e) {
-			// En cas d'erreur de format, retourner une valeur par défaut sûre
-			return 30; 
+		if ( e.getSource() == this.textTolerance )
+		{
+			try
+			{
+				int tolerance = Integer.parseInt( this.textTolerance.getText() );
+				this.ctrl.setCurrentBucketTolerance( tolerance );
+			}
+			catch ( NumberFormatException ex )
+			{
+				// Ignorer les entrees non numeriques
+			}
 		}
 	}
 }

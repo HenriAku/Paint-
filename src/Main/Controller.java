@@ -3,6 +3,7 @@ package Main;
 import java.awt.image.BufferedImage;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.Color;
 
 import Model.*;
 import View.*;
@@ -25,7 +26,10 @@ public class Controller
 	private ToolType currentTool;
 
 	private String chemin;
-	private int pipetteColorRGB;
+	private int    pipetteColorRGB;
+
+	private Color currentBucketColor;
+	private int   currentBucketTolerance;
 
 	/**
 	 * Constructeur du Controller.
@@ -33,10 +37,15 @@ public class Controller
 	public Controller()
 	{
 		this.currentTool = ToolType.DEFAULT;
-		this.chemin = null;
+
+		this.chemin          = null    ;
 		this.pipetteColorRGB = 0x000000;
 
+		this.currentBucketColor	    = Color.WHITE;
+		this.currentBucketTolerance = 30         ;
+
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
 		this.width  = (int) screenSize.getWidth ();
 		this.height = (int) screenSize.getHeight();
 
@@ -47,6 +56,42 @@ public class Controller
 		this.textTool         = new TextTool();
 
 		this.framePrincipale  = new FramePrincipale(this);
+	}
+
+	/**
+	 * Obtient la couleur courante du pot de peinture.
+	 * @param color La couleur à définir.
+	 */
+	public void setCurrentBucketColor( Color color )
+	{
+		this.currentBucketColor = color;
+	}
+
+	/**
+	 * Obtient la couleur courante du pot de peinture.
+	 * @param tolerance La tolérance à définir.
+	 */
+	public void setCurrentBucketTolerance( int tolerance )
+	{
+		this.currentBucketTolerance = tolerance;
+	}
+
+	/**
+	 * Obtient la couleur courante du pot de peinture.
+	 * @return La couleur courante du pot de peinture.
+	 */
+	public Color getCurrentBucketColor()
+	{
+		return this.currentBucketColor;
+	}
+
+	/**
+	 * Obtient la tolérance courante du pot de peinture.
+	 * @return La tolérance courante du pot de peinture.
+	 */
+	public int getCurrentBucketTolerance()
+	{
+		return this.currentBucketTolerance;
 	}
 
 	/**
@@ -150,9 +195,9 @@ public class Controller
 	 * @param newColorRGB La nouvelle couleur en format RGB.
 	 * @param tolerance La tolérance pour la correspondance des couleurs.
 	 */
-	public void peindre( int x, int y, int newColorRGB, int tolerance )
+	public void peindre( int x, int y )
 	{
-		this.bucketTool .peindre         ( this.getBufferedImage(), x, y, newColorRGB, tolerance );
+		this.bucketTool .peindre         ( this.getBufferedImage(), x, y, this.currentBucketColor.getRGB(), this.currentBucketTolerance );
 		this.imageLoader.setOriginalImage( this.getBufferedImage() );
 		this.updateDessin();
 	}
