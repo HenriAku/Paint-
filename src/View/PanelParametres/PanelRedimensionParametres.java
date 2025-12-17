@@ -40,6 +40,9 @@ public class PanelRedimensionParametres extends JPanel implements ActionListener
 	{
 		this.ctrl = ctrl;
 
+		this.setBackground( this.ctrl.getBackgroundColor() );
+
+
 		this.setLayout( new BoxLayout(this, BoxLayout.Y_AXIS) );
 		this.setBorder(new EmptyBorder(20, 20, 20, 20));
 
@@ -75,6 +78,7 @@ public class PanelRedimensionParametres extends JPanel implements ActionListener
 		this.panelTextField.add( this.txtRedimensionHauteur );
 		
 		this.panelTextField.setAlignmentX(Component.CENTER_ALIGNMENT);
+		this.panelTextField.setBackground( this.ctrl.getBackgroundColor() );
 
 		// Ajout au panneau principal (BoxLayout vertical)
 		this.add( this.panelTextField );

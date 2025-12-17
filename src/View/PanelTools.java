@@ -18,6 +18,9 @@ public class PanelTools extends JPanel
 	{
 		this.controller = ctrl;
 
+		this.setBackground(this.controller.getBackgroundColor());
+
+
 		this.panelPalette    = new PanelPalette  ( this.controller );
 		this.panelParametres = new PanelParametre( this.controller );
 

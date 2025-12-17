@@ -3,6 +3,7 @@ package View.PanelParametres;
 import Main.Controller;
 
 import java.awt.Dimension;
+import java.awt.Color;
 import java.awt.Component;
 
 import javax.swing.JPanel;
@@ -33,6 +34,9 @@ public class PanelFusionParametres extends JPanel implements ActionListener
 	public PanelFusionParametres( Controller ctrl )
 	{
 		this.ctrl = ctrl;
+
+		this.setBackground( this.ctrl.getBackgroundColor() );
+
 
 		this.setLayout( new BoxLayout(this, BoxLayout.Y_AXIS) );
 		this.setBorder(new EmptyBorder(20, 20, 20, 20));

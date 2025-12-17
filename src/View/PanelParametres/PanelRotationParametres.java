@@ -33,6 +33,9 @@ public class PanelRotationParametres extends JPanel implements ChangeListener
 	{
 		this.ctrl = ctrl;
 
+		this.setBackground( this.ctrl.getBackgroundColor() );
+
+
 		this.setLayout( new BoxLayout(this, BoxLayout.Y_AXIS) );
 		this.setBorder(new EmptyBorder(15, 15, 15, 15));
 
@@ -52,6 +55,8 @@ public class PanelRotationParametres extends JPanel implements ChangeListener
 		
 		this.sliderRotation.setAlignmentX(Component.CENTER_ALIGNMENT); 
 		this.sliderRotation.setMaximumSize(new Dimension(300, 50));
+
+		this.sliderRotation.setBackground( this.ctrl.getBackgroundColor() );
 
 		this.add( this.labelRotation );
 		this.add( Box.createVerticalStrut(10) );

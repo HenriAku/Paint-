@@ -38,6 +38,9 @@ public class PanelTeinteParametres extends JPanel implements ChangeListener
 	{
 		this.ctrl = ctrl;
 
+		this.setBackground( this.ctrl.getBackgroundColor() );
+
+
 		this.setLayout( new BoxLayout( this, BoxLayout.Y_AXIS ) );
 		this.setBorder(new EmptyBorder(15, 15, 15, 15));
 
@@ -55,6 +58,7 @@ public class PanelTeinteParametres extends JPanel implements ChangeListener
 		this.sliderTeinteR.addChangeListener( this );
 		this.sliderTeinteR.setAlignmentX(Component.CENTER_ALIGNMENT);
 		this.sliderTeinteR.setMaximumSize(sliderMax);
+		this.sliderTeinteG.setBackground( this.ctrl.getBackgroundColor() );
 
 		this.sliderTeinteG.setMajorTickSpacing( majorTick );
 		this.sliderTeinteG.setPaintTicks( true );
@@ -63,6 +67,7 @@ public class PanelTeinteParametres extends JPanel implements ChangeListener
 		this.sliderTeinteG.addChangeListener( this );
 		this.sliderTeinteG.setAlignmentX(Component.CENTER_ALIGNMENT);
 		this.sliderTeinteG.setMaximumSize(sliderMax);
+		this.sliderTeinteB.setBackground( this.ctrl.getBackgroundColor() );
 		
 		this.sliderTeinteB.setMajorTickSpacing( majorTick );
 		this.sliderTeinteB.setPaintTicks( true );
@@ -71,6 +76,7 @@ public class PanelTeinteParametres extends JPanel implements ChangeListener
 		this.sliderTeinteB.addChangeListener( this );
 		this.sliderTeinteB.setAlignmentX(Component.CENTER_ALIGNMENT);
 		this.sliderTeinteB.setMaximumSize(sliderMax);
+		this.sliderTeinteR.setBackground( this.ctrl.getBackgroundColor() );
 
 		this.labelTeinteR = new JLabel( "Ajuster la teinte Rouge (-255 à +255)", JLabel.CENTER );
 		this.labelTeinteG = new JLabel( "Ajuster la teinte Verte (-255 à +255)", JLabel.CENTER );

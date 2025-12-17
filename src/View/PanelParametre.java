@@ -38,6 +38,8 @@ public class PanelParametre extends JPanel
 		this.controller = ctrl;
 		this.cardLayout = new CardLayout();
 
+		this.setBackground(this.controller.getBackgroundColor());
+
 		this.setLayout(this.cardLayout);
 
 		// Ajout des panneaux de paramètrest
@@ -86,6 +88,7 @@ public class PanelParametre extends JPanel
 		// Panneau par défaut
 		JPanel panelDefault = new JPanel();
 		this.add(panelDefault, "Default");
+		panelDefault.setBackground( this.controller.getBackgroundColor() );
 		this.showCard("Default");
 	}
 

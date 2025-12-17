@@ -33,6 +33,9 @@ public class PanelLuminositeParametres extends JPanel implements ChangeListener
 	{
 		this.ctrl = ctrl;
 
+		this.setBackground( this.ctrl.getBackgroundColor() );
+
+
 		this.setLayout( new BoxLayout(this, BoxLayout.Y_AXIS) );
 		this.setBorder(new EmptyBorder(15, 15, 15, 15));
 
@@ -51,6 +54,7 @@ public class PanelLuminositeParametres extends JPanel implements ChangeListener
 		this.sliderLuminosite.addChangeListener( this );
 		this.sliderLuminosite.setAlignmentX(Component.CENTER_ALIGNMENT); 
 		this.sliderLuminosite.setMaximumSize(new Dimension(300, 50));
+		this.sliderLuminosite.setBackground( this.ctrl.getBackgroundColor() );
 
 		this.add( this.labelLuminosite );
 		this.add( Box.createVerticalStrut(10) );

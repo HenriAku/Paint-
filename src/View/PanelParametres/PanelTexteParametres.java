@@ -38,35 +38,32 @@ public class PanelTexteParametres extends JPanel implements ActionListener
 	{
 		this.ctrl = ctrl;
 
+		this.setBackground( this.ctrl.getBackgroundColor() );
+
+
 		this.setLayout( new BoxLayout( this, BoxLayout.Y_AXIS ) );
 		this.setBorder(new EmptyBorder(20, 20, 20, 20));
 
 		this.textureFiles = this.ctrl.getTextureFiles();
 		
-		// Taille maximale pour les champs de contrôle (pour éviter l'étirement)
 		Dimension fieldMaxSize = new Dimension(300, 30); 
 
-		// --- Label Texte ---
 		this.labelTexte = new JLabel( "Entrer le texte :", JLabel.CENTER );
 		this.labelTexte.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
-		// --- Champ Texte ---
 		this.textFieldTexte = new JTextField( 20 );
 		this.textFieldTexte.setMaximumSize(fieldMaxSize);
 		this.textFieldTexte.setAlignmentX(Component.CENTER_ALIGNMENT);
 		this.textFieldTexte.addActionListener( this );
 
-		// --- Label Texture ---
 		this.labelTexture = new JLabel( "Choisir une texture :", JLabel.CENTER );
 		this.labelTexture.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-		// --- ComboBox Texture ---
 		this.textureComboBox = new JComboBox<String>( this.textureFiles );
 		this.textureComboBox.setMaximumSize(fieldMaxSize);
 		this.textureComboBox.setAlignmentX(Component.CENTER_ALIGNMENT);
 		this.textureComboBox.addActionListener( this );
 
-		// --- Ajout des Composants ---
 		this.add( this.labelTexte     );
 		this.add( Box.createVerticalStrut( 5 ) );
 		this.add( this.textFieldTexte );

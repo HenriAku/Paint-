@@ -32,6 +32,9 @@ public class PanelContrasteParametres extends JPanel implements ChangeListener
 	{
 		this.ctrl = ctrl;
 
+		this.setBackground( this.ctrl.getBackgroundColor() );
+
+
 		this.setLayout( new BoxLayout(this, BoxLayout.Y_AXIS) );
 
 		this.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -52,6 +55,8 @@ public class PanelContrasteParametres extends JPanel implements ChangeListener
 		this.sliderContraste.setAlignmentX(Component.CENTER_ALIGNMENT); 
 		
 		this.sliderContraste.setMaximumSize(new Dimension(300, 50)); 
+
+		this.sliderContraste.setBackground( this.ctrl.getBackgroundColor() );
 		
 		this.add( Box.createVerticalStrut(15) ); 
 		

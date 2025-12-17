@@ -34,6 +34,8 @@ public class Controller
 	private String currentTextContent;
 	private String currentTextTexture;
 
+	private Color backgroundColor = new Color(200, 200, 200, 255);
+
 	/**
 	 * Constructeur du Controller.
 	 */
@@ -63,6 +65,12 @@ public class Controller
 
 		this.framePrincipale  = new FramePrincipale(this);
 	}
+
+	/**
+	 * Obtient la couleur de fond actuelle.
+	 * @return La couleur de fond actuelle.
+	 */
+	public Color getBackgroundColor() { return this.backgroundColor; }
 
 	/**
 	 * Obtient la couleur courante du pot de peinture.

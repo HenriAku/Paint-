@@ -38,6 +38,8 @@ public class PanelPalette extends JPanel implements ActionListener
 	{
 		this.ctrl = ctrl;
 
+		this.setBackground( this.ctrl.getBackgroundColor() );
+
 		this.toolButtons = new ArrayList<JButton>();
 
 		this.setLayout( new BoxLayout(this, BoxLayout.Y_AXIS) );
@@ -51,7 +53,7 @@ public class PanelPalette extends JPanel implements ActionListener
 			button.setMaximumSize( buttonSize );
 			button.setPreferredSize( buttonSize );
 			button.setMinimumSize( buttonSize );
-			button.setAlignmentX( LEFT_ALIGNMENT );
+			button.setAlignmentX( CENTER_ALIGNMENT );
 			button.addActionListener( this );
 			this.toolButtons.add( button );
 			this.add( button );

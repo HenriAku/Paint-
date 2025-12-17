@@ -29,6 +29,9 @@ public class PanelPipetteParametres extends JPanel
 	{
 		this.ctrl = ctrl;
 
+		this.setBackground( this.ctrl.getBackgroundColor() );
+
+
 		this.setLayout( new BoxLayout( this, BoxLayout.Y_AXIS ) );
 		this.setBorder(new EmptyBorder(20, 20, 20, 20));
 
