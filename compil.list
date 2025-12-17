@@ -1,14 +1,26 @@
 # compil.list
 src/Main/Controller.java
 src/Main/ToolType.java
+
 src/Model/BucketTool.java
 src/Model/ImageLoader.java
 src/Model/ImageTransformer.java
 src/Model/Point.java
 src/Model/TextTool.java
+
 src/View/FramePrincipale.java
 src/View/PanelDessin.java
 src/View/PanelPalette.java
 src/View/PanelParametre.java
 src/View/PanelTools.java
-src/view/PanelMenu.java
+src/View/PanelMenu.java
+
+src/View/PanelParametres/PanelContrasteParametres.java
+src/View/PanelParametres/PanelPotDePeintureParametres.java
+src/View/PanelParametres/PanelRotationParametres.java
+src/View/PanelParametres/PanelLuminositeParametres.java
+src/View/PanelParametres/PanelTeinteParametres.java
+src/View/PanelParametres/PanelTexteParametres.java
+src/View/PanelParametres/PanelMiroirParametres.java
+src/View/PanelParametres/PanelFusionParametres.java
+src/View/PanelParametres/PanelRedimensionParametres.java
