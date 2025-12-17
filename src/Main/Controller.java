@@ -38,13 +38,14 @@ public class Controller
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		this.width  = (int) screenSize.getWidth ();
 		this.height = (int) screenSize.getHeight();
-		
-		this.framePrincipale  = new FramePrincipale(this);
+
 		this.imageLoader      = new ImageLoader(this.width, this.height);
 		
 		this.imageTransformer = new ImageTransformer();
 		this.bucketTool       = new BucketTool();
 		this.textTool         = new TextTool();
+
+		this.framePrincipale  = new FramePrincipale(this);
 	}
 
 	/**
