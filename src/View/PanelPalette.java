@@ -46,7 +46,8 @@ public class PanelPalette extends JPanel implements ActionListener
 		this.setLayout( new BoxLayout( this, BoxLayout.Y_AXIS) );
 		this.setBorder( BorderFactory.createEmptyBorder( 10,10,10,10) );
 
-		for( String toolName : TOOL_NAMES ) {
+		for( String toolName : TOOL_NAMES ) 
+		{
 			JButton button = new JButton( toolName );
 			button.addActionListener( this );
 			this.toolButtons.add( button );
@@ -57,9 +58,9 @@ public class PanelPalette extends JPanel implements ActionListener
 		this.btnSauvegarder  = new JButton( "Sauvegarder"  );
 		this.btnAnnuler      = new JButton( "Annuler"      );
 
-		this.ouvrirImage.addActionListener( this );
+		this.ouvrirImage   .addActionListener( this );
 		this.btnSauvegarder.addActionListener( this );
-		this.btnAnnuler.addActionListener( this );
+		this.btnAnnuler    .addActionListener( this );
 
 		this.add( this.ouvrirImage    );
 		this.add( this.btnSauvegarder );
@@ -101,7 +102,6 @@ public class PanelPalette extends JPanel implements ActionListener
 			{
 				String selectedFilePath = fileChooser.getSelectedFile().getAbsolutePath();
 				this.ctrl.addImage( selectedFilePath );
-				this.ctrl.updateDessin();
 			};
 		}
 
