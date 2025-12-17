@@ -11,3 +11,4 @@ src/View/PanelDessin.java
 src/View/PanelPalette.java
 src/View/PanelParametre.java
 src/View/PanelTools.java
+src/view/PanelMenu.java
