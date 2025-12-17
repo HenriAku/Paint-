@@ -171,15 +171,31 @@ public class ImageTransformer
 				image2 = ImageIO.read(file);
 			}
 
+			//Vérification de la position de l'image à superposer
+			if ( image2.getWidth() > imageFond.getWidth() ||
+				 image2.getHeight() > imageFond.getHeight() ) 
+			{
+				image2 = redimensionner(image2, image2.getHeight()/2, image2.getWidth()/2);
+			}
+
 			//Parcourir l'image pour envoyer la couleur de tout les pixels au imageFond si la couleur n'est pas transparente 
 			for ( int y = 0; y < image2.getHeight(); y++ ) 
 			{
-				for ( int x = 0; x < image2.getWidth(); x++ ) 
+				for (int x = 0; x < image2.getWidth(); x++) 
 				{
+					int destX = posX + x;
+					int destY = posY + y;
+
+					if (destX < 0 || destY < 0 ||
+						destX >= imageFond.getWidth() ||
+						destY >= imageFond.getHeight()) {
+						continue;
+					}
+
 					int pixel = image2.getRGB(x, y) & 0xFFFFFF;
-					if ( pixel != couleurTransparente ) 
-						{
-						imageFond.setRGB( posX + x, posY + y, image2.getRGB(x, y) );
+
+					if (pixel != couleurTransparente) {
+						imageFond.setRGB(destX, destY, image2.getRGB(x, y));
 					}
 				}
 			}
