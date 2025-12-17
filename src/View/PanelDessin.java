@@ -84,7 +84,7 @@ public class PanelDessin extends JPanel implements MouseListener
 
 		switch (this.controller.getCurrentTool()) {
 			case ToolType.BUCKET:
-					this.controller.peindre(image, imageX, imageY, this.color, tolerance);
+					this.controller.peindre(imageX, imageY, this.color, tolerance);
 				break;
 
 			case ToolType.FUSION:
@@ -94,11 +94,10 @@ public class PanelDessin extends JPanel implements MouseListener
 			default:
 				break;
 		}
-		this.controller.updateDessin();
 	}
 
-	public void mouseEntered(MouseEvent e) {}
-	public void mouseExited(MouseEvent e) {}
-	public void mousePressed(MouseEvent e) {}
+	public void mouseEntered (MouseEvent e) {}
+	public void mouseExited  (MouseEvent e) {}
+	public void mousePressed (MouseEvent e) {}
 	public void mouseReleased(MouseEvent e) {}
 }
