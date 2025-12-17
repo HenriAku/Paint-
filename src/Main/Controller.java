@@ -25,6 +25,7 @@ public class Controller
 	private ToolType currentTool;
 
 	private String chemin;
+	private int pipetteColorRGB;
 
 	/**
 	 * Constructeur du Controller.
@@ -33,6 +34,7 @@ public class Controller
 	{
 		this.currentTool = ToolType.DEFAULT;
 		this.chemin = null;
+		this.pipetteColorRGB = 0x000000;
 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		this.width  = (int) screenSize.getWidth ();
@@ -85,6 +87,18 @@ public class Controller
 	 * @param path Le chemin de l'image courante.
 	 */
 	public void setChemin ( String path ) { this.chemin = path; }
+
+	/**
+	 * Obtient la couleur RGB sélectionnée par la pipette.
+	 * @return La couleur RGB sélectionnée par la pipette.
+	 */
+	public int getPipetteColorRGB () { return this.pipetteColorRGB; }
+
+	/**
+	 * Définit la couleur RGB sélectionnée par la pipette.
+	 * @param colorRGB La couleur RGB sélectionnée par la pipette.
+	 */
+	public void setPipetteColorRGB ( int colorRGB ) { this.pipetteColorRGB = colorRGB; }
 
 	/**
 	 * Sauvegarde l'image courante dans le chemin spécifié.
