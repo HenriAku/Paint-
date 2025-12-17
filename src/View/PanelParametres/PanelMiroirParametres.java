@@ -2,10 +2,14 @@ package View.PanelParametres;
 
 import Main.Controller;
 
+import java.awt.Component;
+import java.awt.Dimension;
+
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -30,16 +34,25 @@ public class PanelMiroirParametres extends JPanel implements ActionListener
 		this.ctrl = ctrl;
 
 		this.setLayout( new BoxLayout( this, BoxLayout.Y_AXIS ) );
+		this.setBorder(new EmptyBorder(20, 20, 20, 20));
 
 		this.btnMiroirHorizontal = new JButton( "Miroir Horizontal" );
 		this.btnMiroirHorizontal.addActionListener( this );
+		this.btnMiroirHorizontal.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+		Dimension maxBtnSize = new Dimension(200, 30); 
+		this.btnMiroirHorizontal.setMaximumSize(maxBtnSize); 
 
 		this.btnMiroirVertical = new JButton( "Miroir Vertical" );
 		this.btnMiroirVertical.addActionListener( this );
+		this.btnMiroirVertical.setAlignmentX(Component.CENTER_ALIGNMENT);
+		this.btnMiroirVertical.setMaximumSize(maxBtnSize);
 
 		this.add( this.btnMiroirHorizontal );
 		this.add( Box.createVerticalStrut( 10 ) );
 		this.add( this.btnMiroirVertical   );
+		
+		this.add( Box.createVerticalGlue() );
 	}
 
 	/**

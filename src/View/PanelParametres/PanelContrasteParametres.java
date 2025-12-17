@@ -2,11 +2,14 @@ package View.PanelParametres;
 
 import Main.Controller;
 
-import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
 
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JLabel;
+import javax.swing.BoxLayout;
+import javax.swing.Box;
 
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
@@ -29,23 +32,36 @@ public class PanelContrasteParametres extends JPanel implements ChangeListener
 	{
 		this.ctrl = ctrl;
 
-		this.setLayout( new BorderLayout() );
+		this.setLayout( new BoxLayout(this, BoxLayout.Y_AXIS) );
+
+		this.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+		this.labelContraste = new JLabel( "Ajuster le contraste", JLabel.CENTER );
+		this.labelContraste.setAlignmentX(Component.CENTER_ALIGNMENT); 
 
 		this.sliderContraste = new JSlider( -100, 100, 0 );
 
 		this.sliderContraste.setMajorTickSpacing( 50 );
 		this.sliderContraste.setMinorTickSpacing( 10 );
-
 		this.sliderContraste.setPaintTicks( true );
 		this.sliderContraste.setPaintLabels( true );
 
 		this.sliderContraste.setName( "Contraste" );
 		this.sliderContraste.addChangeListener( this );
-
-		this.labelContraste = new JLabel( "Ajuster le contraste", JLabel.CENTER );
 		
-		this.add( this.labelContraste,  BorderLayout.NORTH  );
-		this.add( this.sliderContraste, BorderLayout.CENTER );
+		this.sliderContraste.setAlignmentX(Component.CENTER_ALIGNMENT); 
+		
+		this.sliderContraste.setMaximumSize(new Dimension(300, 50)); 
+		
+		this.add( Box.createVerticalStrut(15) ); 
+		
+		this.add( this.labelContraste );
+		
+		this.add( Box.createVerticalStrut(10) );
+		
+		this.add( this.sliderContraste );
+		
+		this.add( Box.createVerticalGlue() );
 	}
 
 	/**
@@ -56,8 +72,9 @@ public class PanelContrasteParametres extends JPanel implements ChangeListener
 	{
 		if ( e.getSource() == this.sliderContraste )
 		{
-			int valeurContraste = (int) this.sliderContraste.getValue();
-			this.ctrl.adjustContrast( valeurContraste );
+			int valeurContraste = this.sliderContraste.getValue();
+			
+			this.ctrl.adjustContrast( (double) valeurContraste );
 		}
 	}
 }

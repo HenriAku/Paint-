@@ -2,11 +2,15 @@ package View.PanelParametres;
 
 import Main.Controller;
 
-import javax.swing.BoxLayout;
+import java.awt.Component;
+import java.awt.Dimension;
 
+import javax.swing.BoxLayout;
+import javax.swing.Box;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JLabel;
+import javax.swing.border.EmptyBorder;
 
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
@@ -35,39 +39,62 @@ public class PanelTeinteParametres extends JPanel implements ChangeListener
 		this.ctrl = ctrl;
 
 		this.setLayout( new BoxLayout( this, BoxLayout.Y_AXIS ) );
+		this.setBorder(new EmptyBorder(15, 15, 15, 15));
 
 		this.sliderTeinteR = new JSlider( -255, 255, 0 );
 		this.sliderTeinteG = new JSlider( -255, 255, 0 );
 		this.sliderTeinteB = new JSlider( -255, 255, 0 );
 
-		this.sliderTeinteR.setMajorTickSpacing( 100 );
-		this.sliderTeinteG.setMajorTickSpacing( 100 );
-		this.sliderTeinteB.setMajorTickSpacing( 100 );
-
+		int majorTick = 100;
+		Dimension sliderMax = new Dimension(350, 50);
+		
+		this.sliderTeinteR.setMajorTickSpacing( majorTick );
 		this.sliderTeinteR.setPaintTicks( true );
-		this.sliderTeinteG.setPaintTicks( true );
-		this.sliderTeinteB.setPaintTicks( true );
-
+		this.sliderTeinteR.setPaintLabels( true );
 		this.sliderTeinteR.setName( "TeinteR" );
-		this.sliderTeinteG.setName( "TeinteG" );
-		this.sliderTeinteB.setName( "TeinteB" );
-
 		this.sliderTeinteR.addChangeListener( this );
-		this.sliderTeinteG.addChangeListener( this );
-		this.sliderTeinteB.addChangeListener( this );
+		this.sliderTeinteR.setAlignmentX(Component.CENTER_ALIGNMENT);
+		this.sliderTeinteR.setMaximumSize(sliderMax);
 
-		this.labelTeinteR = new JLabel( "Ajuster la teinte Rouge", JLabel.CENTER );
-		this.labelTeinteG = new JLabel( "Ajuster la teinte Verte", JLabel.CENTER );
-		this.labelTeinteB = new JLabel( "Ajuster la teinte Bleue", JLabel.CENTER );
+		this.sliderTeinteG.setMajorTickSpacing( majorTick );
+		this.sliderTeinteG.setPaintTicks( true );
+		this.sliderTeinteG.setPaintLabels( true );
+		this.sliderTeinteG.setName( "TeinteG" );
+		this.sliderTeinteG.addChangeListener( this );
+		this.sliderTeinteG.setAlignmentX(Component.CENTER_ALIGNMENT);
+		this.sliderTeinteG.setMaximumSize(sliderMax);
+		
+		this.sliderTeinteB.setMajorTickSpacing( majorTick );
+		this.sliderTeinteB.setPaintTicks( true );
+		this.sliderTeinteB.setPaintLabels( true );
+		this.sliderTeinteB.setName( "TeinteB" );
+		this.sliderTeinteB.addChangeListener( this );
+		this.sliderTeinteB.setAlignmentX(Component.CENTER_ALIGNMENT);
+		this.sliderTeinteB.setMaximumSize(sliderMax);
+
+		this.labelTeinteR = new JLabel( "Ajuster la teinte Rouge (-255 à +255)", JLabel.CENTER );
+		this.labelTeinteG = new JLabel( "Ajuster la teinte Verte (-255 à +255)", JLabel.CENTER );
+		this.labelTeinteB = new JLabel( "Ajuster la teinte Bleue (-255 à +255)", JLabel.CENTER );
+
+		this.labelTeinteR.setAlignmentX(Component.CENTER_ALIGNMENT);
+		this.labelTeinteG.setAlignmentX(Component.CENTER_ALIGNMENT);
+		this.labelTeinteB.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 		this.add( this.labelTeinteR  );
+		this.add( Box.createVerticalStrut(5) );
 		this.add( this.sliderTeinteR );
+		this.add( Box.createVerticalStrut(15) );
 
 		this.add( this.labelTeinteG  );
+		this.add( Box.createVerticalStrut(5) );
 		this.add( this.sliderTeinteG );
+		this.add( Box.createVerticalStrut(15) );
 		
 		this.add( this.labelTeinteB  );
+		this.add( Box.createVerticalStrut(5) );
 		this.add( this.sliderTeinteB );
+		
+		this.add( Box.createVerticalGlue() );
 	}
 
 	/**
@@ -76,20 +103,10 @@ public class PanelTeinteParametres extends JPanel implements ChangeListener
 	 */
 	public void stateChanged( ChangeEvent e )
 	{
-		if ( e.getSource() == this.sliderTeinteR )
-		{
-			int valeurTeinteR = (int) this.sliderTeinteR.getValue();
-			this.ctrl.adjustHue( valeurTeinteR, 0, 0 );
-		}
-		else if ( e.getSource() == this.sliderTeinteG )
-		{
-			int valeurTeinteG = (int) this.sliderTeinteG.getValue();
-			this.ctrl.adjustHue( 0, valeurTeinteG, 0 );
-		}
-		else if ( e.getSource() == this.sliderTeinteB )
-		{
-			int valeurTeinteB = (int) this.sliderTeinteB.getValue();
-			this.ctrl.adjustHue( 0, 0, valeurTeinteB );
-		}
+		int rOffset = this.sliderTeinteR.getValue();
+		int gOffset = this.sliderTeinteG.getValue();
+		int bOffset = this.sliderTeinteB.getValue();
+		
+		this.ctrl.adjustHue( rOffset, gOffset, bOffset );
 	}
 }

@@ -3,6 +3,8 @@ package View.PanelParametres;
 import Main.Controller;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.BoxLayout;
 import javax.swing.Box;
+import javax.swing.border.EmptyBorder;
 
 
 /**
@@ -38,32 +41,49 @@ public class PanelPotDePeintureParametres extends JPanel implements ActionListen
 		this.ctrl = ctrl;
 
 		this.setLayout( new BoxLayout( this, BoxLayout.Y_AXIS ) );
+		this.setBorder(new EmptyBorder(20, 20, 20, 20));
 
-		this.labelPotDePeinture = new JLabel( "Pot de Peinture"     , JLabel.CENTER );
-		this.labelTolerance     = new JLabel( "Ajuster la tolerance", JLabel.CENTER );
+		this.labelPotDePeinture = new JLabel( "Pot de Peinture", JLabel.CENTER );
+		this.labelPotDePeinture.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		this.labelTolerance = new JLabel( "Ajuster la tolérance (0-255)", JLabel.CENTER );
+		this.labelTolerance.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		this.btnCouleur = new JButton( "Choisir la couleur" );
 		this.btnCouleur.setBackground( this.ctrl.getCurrentBucketColor() );
+		this.btnCouleur.setOpaque(true);
+		this.btnCouleur.setAlignmentX(Component.CENTER_ALIGNMENT);
 		this.btnCouleur.addActionListener( this );
 		
 		this.btnCouleurPipette = new JButton( "Couleur pipette" );
+		this.btnCouleurPipette.setAlignmentX(Component.CENTER_ALIGNMENT);
+		this.btnCouleurPipette.setOpaque(true);
 		this.btnCouleurPipette.addActionListener( this );
 		
-		this.textTolerance = new JTextField( "30" );
-
-		this.textTolerance.setMaximumSize( this.textTolerance.getPreferredSize() );
 		this.textTolerance = new JTextField( Integer.toString( this.ctrl.getCurrentBucketTolerance() ) );
+		
+		Dimension toleranceSize = new Dimension(80, this.textTolerance.getPreferredSize().height);
+		this.textTolerance.setMaximumSize(toleranceSize);
+		this.textTolerance.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 		this.textTolerance.addActionListener( this );
 
+		// --- Ajout des Composants ---
 		this.add( this.labelPotDePeinture );
-		this.add( this.btnCouleur );
-		this.add( this.btnCouleurPipette );
-
 		this.add( Box.createVerticalStrut(10) );
 
+		this.add( this.btnCouleur );
+		this.add( Box.createVerticalStrut(5) );
+		this.add( this.btnCouleurPipette );
+
+		this.add( Box.createVerticalStrut(20) );
+
 		this.add( this.labelTolerance );
-		this.add( this.textTolerance );	
+		this.add( Box.createVerticalStrut(5) );
+		this.add( this.textTolerance ); 
+		
+		// 🌟 Pousser le contenu vers le haut
+		this.add( Box.createVerticalGlue() );
 	}
 
 	/**
@@ -98,11 +118,15 @@ public class PanelPotDePeintureParametres extends JPanel implements ActionListen
 			try
 			{
 				int tolerance = Integer.parseInt( this.textTolerance.getText() );
-				this.ctrl.setCurrentBucketTolerance( tolerance );
+				if (tolerance >= 0 && tolerance <= 255) {
+					this.ctrl.setCurrentBucketTolerance( tolerance );
+				} else {
+					this.textTolerance.setText(Integer.toString(this.ctrl.getCurrentBucketTolerance())); 
+				}
 			}
 			catch ( NumberFormatException ex )
 			{
-				// Ignorer les entrees non numeriques
+				this.textTolerance.setText(Integer.toString(this.ctrl.getCurrentBucketTolerance()));
 			}
 		}
 	}

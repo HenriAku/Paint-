@@ -2,14 +2,19 @@ package View.PanelParametres;
 
 import Main.Controller;
 
-import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Component;
 
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.BoxLayout;
+import javax.swing.Box;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.border.EmptyBorder;
 
 /**
  * Panel des parametres de fusion
@@ -18,6 +23,7 @@ public class PanelFusionParametres extends JPanel implements ActionListener
 {
 	private Controller ctrl;
 
+	private JLabel  labelInstructions;
 	private JButton btnSelectionnerImage;
 
 	/**
@@ -28,11 +34,28 @@ public class PanelFusionParametres extends JPanel implements ActionListener
 	{
 		this.ctrl = ctrl;
 
-		this.setLayout( new BorderLayout() );
+		this.setLayout( new BoxLayout(this, BoxLayout.Y_AXIS) );
+		this.setBorder(new EmptyBorder(20, 20, 20, 20));
 
-		this.btnSelectionnerImage = new JButton( "Selectionner Image" );
+		this.labelInstructions = new JLabel("Sélectionnez une image à superposer");
+		this.labelInstructions.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-		this.add( this.btnSelectionnerImage, BorderLayout.CENTER );
+		this.btnSelectionnerImage = new JButton( "Charger l'image de fusion (PNG)" );
+		
+		this.btnSelectionnerImage.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		Dimension preferredSize = this.btnSelectionnerImage.getPreferredSize();
+		this.btnSelectionnerImage.setMaximumSize(new Dimension(preferredSize.width + 50, preferredSize.height));
+
+		this.add( Box.createVerticalStrut(15) ); 
+
+		this.add( this.labelInstructions );
+		
+		this.add( Box.createVerticalStrut(10) );
+
+		this.add( this.btnSelectionnerImage );
+		
+		this.add( Box.createVerticalGlue() );
 
 		this.btnSelectionnerImage.addActionListener( this );
 	}
@@ -47,7 +70,7 @@ public class PanelFusionParametres extends JPanel implements ActionListener
 		{
 			JFileChooser fileChooser = new JFileChooser();
 			fileChooser.setCurrentDirectory(new java.io.File("."));
-			fileChooser.setDialogTitle("Choisir une image");
+			fileChooser.setDialogTitle("Choisir une image à fusionner (PNG)");
 			fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 			fileChooser.setAcceptAllFileFilterUsed(false);
 
@@ -55,9 +78,12 @@ public class PanelFusionParametres extends JPanel implements ActionListener
 			
 			if (result == JFileChooser.APPROVE_OPTION) 
 			{
-
 				String selectedFilePath = fileChooser.getSelectedFile().getAbsolutePath();
+				
 				this.ctrl.setChemin(selectedFilePath);
+
+				String fileName = fileChooser.getSelectedFile().getName();
+				this.labelInstructions.setText("2. Image chargée : " + fileName );
 			};
 		}
 	}

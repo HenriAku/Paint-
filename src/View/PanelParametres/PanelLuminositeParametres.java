@@ -2,14 +2,18 @@ package View.PanelParametres;
 
 import Main.Controller;
 
-import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Component;
 
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JLabel;
+import javax.swing.BoxLayout;
+import javax.swing.Box;
 
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+import javax.swing.border.EmptyBorder;
 
 /**
  * Panel des parametres de luminosite
@@ -29,24 +33,29 @@ public class PanelLuminositeParametres extends JPanel implements ChangeListener
 	{
 		this.ctrl = ctrl;
 
-		this.setLayout( new BorderLayout() );
+		this.setLayout( new BoxLayout(this, BoxLayout.Y_AXIS) );
+		this.setBorder(new EmptyBorder(15, 15, 15, 15));
+
+		this.labelLuminosite = new JLabel( "Ajuster la luminosité", JLabel.CENTER );
+		this.labelLuminosite.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 		this.sliderLuminosite = new JSlider( -100, 100, 0 );
 
-		this.sliderLuminosite.setMajorTickSpacing( 50 );
-		this.sliderLuminosite.setMinorTickSpacing( 10 );
+		this.sliderLuminosite.setMajorTickSpacing( 100 );
+		this.sliderLuminosite.setMinorTickSpacing( 25 );
 
 		this.sliderLuminosite.setPaintTicks ( true );
 		this.sliderLuminosite.setPaintLabels( true );
 
 		this.sliderLuminosite.setName( "Luminosite" );
-
 		this.sliderLuminosite.addChangeListener( this );
+		this.sliderLuminosite.setAlignmentX(Component.CENTER_ALIGNMENT); 
+		this.sliderLuminosite.setMaximumSize(new Dimension(300, 50));
 
-		this.labelLuminosite = new JLabel( "Ajuster la luminosité", JLabel.CENTER );
-
-		this.add( this.labelLuminosite,  BorderLayout.NORTH  );
-		this.add( this.sliderLuminosite, BorderLayout.CENTER );
+		this.add( this.labelLuminosite );
+		this.add( Box.createVerticalStrut(10) );
+		this.add( this.sliderLuminosite );
+		this.add( Box.createVerticalGlue() );
 	}
 
 	/**
@@ -57,7 +66,7 @@ public class PanelLuminositeParametres extends JPanel implements ChangeListener
 	{
 		if ( e.getSource() == this.sliderLuminosite )
 		{
-			int valeurLuminosite = (int) this.sliderLuminosite.getValue();
+			int valeurLuminosite = this.sliderLuminosite.getValue();
 			this.ctrl.adjustBrightness( valeurLuminosite );
 		}
 	}

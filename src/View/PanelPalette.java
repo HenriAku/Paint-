@@ -43,7 +43,7 @@ public class PanelPalette extends JPanel implements ActionListener
 		this.setLayout( new BoxLayout(this, BoxLayout.Y_AXIS) );
 		this.setBorder( BorderFactory.createEmptyBorder( 10,10,10,10) );
 
-		Dimension buttonSize = new Dimension(120, 35);
+		Dimension buttonSize = new Dimension(150, 35);
 		
 		for( String toolName : TOOL_NAMES ) 
 		{

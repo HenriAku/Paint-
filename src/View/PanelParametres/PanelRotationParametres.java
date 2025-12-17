@@ -2,11 +2,15 @@ package View.PanelParametres;
 
 import Main.Controller;
 
-import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
 
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JLabel;
+import javax.swing.BoxLayout;
+import javax.swing.Box;
+import javax.swing.border.EmptyBorder;
 
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
@@ -29,24 +33,30 @@ public class PanelRotationParametres extends JPanel implements ChangeListener
 	{
 		this.ctrl = ctrl;
 
-		this.setLayout( new BorderLayout() );
+		this.setLayout( new BoxLayout(this, BoxLayout.Y_AXIS) );
+		this.setBorder(new EmptyBorder(15, 15, 15, 15));
+
+		this.labelRotation = new JLabel( "Ajuster la rotation (-180° à +180°)", JLabel.CENTER );
+		this.labelRotation.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 		this.sliderRotation = new JSlider( -180, 180, 0 );
 
-		this.sliderRotation.setMajorTickSpacing( 60 );
-		this.sliderRotation.setMinorTickSpacing( 15 );
+		this.sliderRotation.setMajorTickSpacing( 90 );
+		this.sliderRotation.setMinorTickSpacing( 30 );
 
 		this.sliderRotation.setPaintTicks ( true );
 		this.sliderRotation.setPaintLabels( true );
 
 		this.sliderRotation.setName( "Rotation" );
-
 		this.sliderRotation.addChangeListener( this );
+		
+		this.sliderRotation.setAlignmentX(Component.CENTER_ALIGNMENT); 
+		this.sliderRotation.setMaximumSize(new Dimension(300, 50));
 
-		this.labelRotation = new JLabel( "Ajuster la rotation", JLabel.CENTER );
-
-		this.add( this.labelRotation,  BorderLayout.NORTH  );
-		this.add( this.sliderRotation, BorderLayout.CENTER );
+		this.add( this.labelRotation );
+		this.add( Box.createVerticalStrut(10) );
+		this.add( this.sliderRotation );
+		this.add( Box.createVerticalGlue() );
 	}
 
 	/**
@@ -57,7 +67,7 @@ public class PanelRotationParametres extends JPanel implements ChangeListener
 	{
 		if ( e.getSource() == this.sliderRotation )
 		{
-			int valeurRotation = (int) this.sliderRotation.getValue();
+			double valeurRotation = (double) this.sliderRotation.getValue();
 			this.ctrl.rotation( valeurRotation );
 		}
 	}
