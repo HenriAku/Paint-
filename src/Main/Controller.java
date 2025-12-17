@@ -350,8 +350,7 @@ public class Controller
 	public void appliquerText( int x, int y )
 	{
 		String chemin = "ressources/textures/" + this.currentTextTexture;
-		String texteImg = "ressources/textes/" + currentTextContent;
-		this.textTool.appliquer(this.getBufferedImage(), chemin, texteImg, x, y);
+		this.textTool.appliquer(this.getBufferedImage(), chemin, this.currentTextContent, x, y);
 		this.imageLoader.setOriginalImage(this.getBufferedImage());
 		this.updateDessin();
 	}

@@ -5,12 +5,19 @@ import Main.Controller;
 import javax.swing.JPanel;
 
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.awt.event.ActionEvent;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JColorChooser;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
@@ -28,6 +35,8 @@ public class PanelTexteParametres extends JPanel implements ActionListener
 
 	private JLabel labelTexte;
 	private JTextField  textFieldTexte;
+
+	private JButton btnSelectionnerTexture;
 
 	/**
 	 * Constructeur du panel des parametres de texte
@@ -49,6 +58,9 @@ public class PanelTexteParametres extends JPanel implements ActionListener
 
 		this.textFieldTexte = new JTextField( 20 );
 
+		this.btnSelectionnerTexture  = new JButton( "Selectionner une Texture" );
+
+		this.btnSelectionnerTexture.addActionListener( this );
 		this.textFieldTexte.addActionListener( this );
 		this.textureComboBox.addActionListener( this );
 
@@ -57,6 +69,7 @@ public class PanelTexteParametres extends JPanel implements ActionListener
 
 		this.add( Box.createVerticalStrut( 10 ) );
 		
+		this.add( this.btnSelectionnerTexture );
 		this.add( this.labelTexture    );
 		this.add( this.textureComboBox );
 	}
@@ -68,6 +81,7 @@ public class PanelTexteParametres extends JPanel implements ActionListener
 			String texte = this.textFieldTexte.getText();
 			this.ctrl.setCurrentTextContent(texte);
 		}
+		
 		if ( e.getSource() == this.textureComboBox )
 		{
 			String texture = (String) this.textureComboBox.getSelectedItem();

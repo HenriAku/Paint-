@@ -1,5 +1,14 @@
 package Model;
 
+import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.TexturePaint;
+import java.awt.FontMetrics;
+import java.awt.RenderingHints;
+import java.awt.Shape;
+import java.awt.geom.Rectangle2D;
+import java.awt.font.FontRenderContext;
+import java.awt.font.GlyphVector;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
@@ -30,44 +39,39 @@ public class TextTool
 	 * @param x Coordonnée x du texte
 	 * @param y Coordonnée y du texte 
 	 */
-	public void appliquer(BufferedImage cible,String cheminTexture,String cheminTexteImage, int x,int y)
+	public void appliquer( BufferedImage cible, String cheminTexture, String texte, int x, int y )
     {
+        if (cible == null || texte == null || texte.isEmpty()) return;
+
         try {
+            // Charger la texture
             BufferedImage texture = ImageIO.read(new File(cheminTexture));
-            BufferedImage texte   = ImageIO.read(new File(cheminTexteImage));
+            if (texture == null) return;
 
-            if (texture == null || texte == null || cible == null) return;
+            Graphics2D g2 = cible.createGraphics();
 
-            int w = texte.getWidth();
-            int h = texte.getHeight();
+            // Qualité de rendu
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-            for (int j = 0; j < h; j++) {
-                for (int i = 0; i < w; i++) {
+            // Police (modifiable)
+            Font font = new Font("Arial", Font.BOLD, 72);
+            g2.setFont(font);
 
-                    int maskPx = texte.getRGB(i, j);
-                    int alpha  = (maskPx >>> 24);
+            // Créer la forme du texte
+            FontRenderContext frc = g2.getFontRenderContext();
+            GlyphVector gv = font.createGlyphVector(frc, texte);
+            Shape textShape = gv.getOutline(x, y);
 
-                    // pixel hors lettre
-                    if (alpha == 0) continue;
+            // Texture répétée
+            Rectangle2D rect = new Rectangle2D.Double(0, 0, texture.getWidth(), texture.getHeight());
 
-                    int dx = x + i;
-                    int dy = y + j;
+            TexturePaint texturePaint = new TexturePaint(texture, rect);
+            g2.setPaint(texturePaint);
 
-                    if (dx < 0 || dx >= cible.getWidth()
-                    || dy < 0 || dy >= cible.getHeight()) continue;
+            // Dessiner le texte texturé
+            g2.fill(textShape);
 
-                    // répétition de la texture
-                    int tx = i % texture.getWidth();
-                    int ty = j % texture.getHeight();
-
-                    int texPx = texture.getRGB(tx, ty);
-
-                    // conserver alpha du texte
-                    int rgb = (alpha << 24) | (texPx & 0x00FFFFFF);
-
-                    cible.setRGB(dx, dy, rgb);
-                }
-            }
+            g2.dispose();
 
         } catch (Exception e) {
             e.printStackTrace();
