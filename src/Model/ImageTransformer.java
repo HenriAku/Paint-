@@ -160,11 +160,11 @@ public class ImageTransformer
 	 * @param posX Position X où coller l'image à superposer
 	 * @param posY Position Y où coller l'image à superposer
 	 */
-	public void fusionner( BufferedImage fond, String dessusPath, int couleurTransparente, int posX, int posY )
+	public void fusionner( BufferedImage fond, String cheminImage2, int couleurTransparente, int posX, int posY )
 	{		
 		BufferedImage imageDessus = null;
         try {
-			File file = new File(dessusPath);
+			File file = new File(cheminImage2);
 
 			if ( file.getName().toLowerCase().endsWith(".png") ) 
 			{
