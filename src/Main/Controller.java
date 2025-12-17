@@ -299,7 +299,7 @@ public class Controller
 
 	public void antiAliasing()
 	{
-		this.imageTransformer.antiAliasing     ( this.getBufferedImage() );
+		this.imageTransformer.antiAliasing( this.getBufferedImage() );
 		this.imageLoader     .setBufferedImage ( this.getBufferedImage() );
 		this.imageLoader     .setOriginalImage ( this.getBufferedImage() );
 		this.updateDessin();

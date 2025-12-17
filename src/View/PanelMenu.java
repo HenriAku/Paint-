@@ -5,9 +5,12 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
+import javax.swing.ImageIcon;
 
 import Main.Controller;
 import java.awt.event.ActionListener;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 
 public class PanelMenu extends JPanel implements ActionListener
 {
@@ -29,7 +32,10 @@ public class PanelMenu extends JPanel implements ActionListener
 		//Initialisation des attributs
 		this.controller = ctrl;
 
+		this.setLayout(new BorderLayout());
+
 		JMenuBar menuBar = new JMenuBar();
+		menuBar.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
 		this.menuOuvrirImage   = new JMenuItem("Ouvrir Image"  );
 		this.menuSauvegarder   = new JMenuItem("Sauvegarder"   );
