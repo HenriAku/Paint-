@@ -18,6 +18,7 @@ public class PanelMenu extends JPanel implements ActionListener
 	private JMenuItem menuRetourArriere;
 	private JMenuItem menuRetourAvant  ;
 	private JMenuItem menuAnnulerAction;
+	private JMenuItem menuAntiAliasing ;
 
 	/**
 	 * Constructeur du PanelMenu.
@@ -35,6 +36,7 @@ public class PanelMenu extends JPanel implements ActionListener
 		this.menuRetourArriere = new JMenuItem("Retour Arrière");
 		this.menuRetourAvant   = new JMenuItem("Retour Avant"  );
 		this.menuAnnulerAction = new JMenuItem("Annuler Action");
+		this.menuAntiAliasing  = new JMenuItem("Anti-Aliasing" );
 
 		//Ajout composants au JPanel
 		this.add(menuBar);
@@ -44,6 +46,7 @@ public class PanelMenu extends JPanel implements ActionListener
 		menuBar.add(this.menuRetourArriere);
 		menuBar.add(this.menuRetourAvant  );
 		menuBar.add(this.menuAnnulerAction);
+		menuBar.add(this.menuAntiAliasing );
 
 		//Activation des composants
 		this.menuOuvrirImage  .addActionListener(this);
@@ -51,6 +54,7 @@ public class PanelMenu extends JPanel implements ActionListener
 		this.menuRetourArriere.addActionListener(this);
 		this.menuRetourAvant  .addActionListener(this);
 		this.menuAnnulerAction.addActionListener(this);
+		this.menuAntiAliasing .addActionListener(this);
 	}
 
 	public void actionPerformed(java.awt.event.ActionEvent e)
@@ -82,6 +86,11 @@ public class PanelMenu extends JPanel implements ActionListener
 		if (e.getSource() == this.menuAnnulerAction)
 		{
 			this.controller.removeMouseDessin();
+		}
+
+		if (e.getSource() == this.menuAntiAliasing)
+		{
+			this.controller.antiAliasing();
 		}
 	}
 

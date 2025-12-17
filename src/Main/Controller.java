@@ -297,6 +297,14 @@ public class Controller
 		this.updateDessin();
 	}
 
+	public void antiAliasing()
+	{
+		this.imageTransformer.antiAliasing     ( this.getBufferedImage() );
+		this.imageLoader     .setBufferedImage ( this.getBufferedImage() );
+		this.imageLoader     .setOriginalImage ( this.getBufferedImage() );
+		this.updateDessin();
+	}
+
 	public void appliquerText(BufferedImage img, String cheminTexte, int x, int y)
 	{
 		this.textTool.appliquer(img, cheminTexte, x, y);

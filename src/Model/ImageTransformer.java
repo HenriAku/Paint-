@@ -397,49 +397,47 @@ public class ImageTransformer
 		int width  = src.getWidth ();
 		int height = src.getHeight();
 		
-		for ( int y = 0; y < height / 2; y++ ) 
+		for ( int y = 0; y < height; y++ ) 
 		{
 			for ( int x = 0; x < width; x++ ) 
 			{
 				int colorPixel = src.getRGB( x, y );
+				int alpha = (colorPixel >> 24) & 0xFF;
 
-				if (colorPixel == 00000000) {
-					// Vérifier les pixels voisins
+				// Appliquer l'anti-aliasing aux pixels semi-transparents
+				if (alpha > 0 && alpha < 255) {
 					int count = 0;
-					int rTotal = 0, gTotal = 0, bTotal = 0, aTotal = 0;
+					int rTotal = 0, gTotal = 0, bTotal = 0;
 
 					// Parcourir les pixels voisins
-					for (int j = -1; j <= 1; j++) {
-						for (int i = -1; i <= 1; i++) {
-							//Pixel central
+					for (int j = -2; j <= 2; j++) {
+						for (int i = -2; i <= 2; i++) {
 							if (i == 0 && j == 0) continue;
 
 							int neighborX = x + i;
 							int neighborY = y + j;
 
-							// Vérifier les limites
 							if (neighborX >= 0 && neighborX < width && neighborY >= 0 && neighborY < height) {
 								int neighborColor = src.getRGB(neighborX, neighborY);
-								if (neighborColor != 00000000) {
+								int neighborAlpha = (neighborColor >> 24) & 0xFF;
+								
+								if (neighborAlpha > 0) {
 									Color c = new Color(neighborColor, true);
 									rTotal += c.getRed();
 									gTotal += c.getGreen();
 									bTotal += c.getBlue();
-									aTotal += c.getAlpha();
 									count++;
 								}
 							}
 						}
 					}
 
-					// Calculer la couleur moyenne des voisins
 					if (count > 0) {
 						int rAvg = rTotal / count;
 						int gAvg = gTotal / count;
 						int bAvg = bTotal / count;
-						int aAvg = aTotal / count;
-
-						Color avgColor = new Color(rAvg, gAvg, bAvg, aAvg);
+						
+						Color avgColor = new Color(rAvg, gAvg, bAvg, alpha);
 						src.setRGB(x, y, avgColor.getRGB());
 					}
 				}
