@@ -135,7 +135,7 @@ public class PanelMenu extends JPanel implements ActionListener
 						out.write(buffer, 0, bytesRead);
 					}
 
-					// this.controller.ajoutTextures();
+					this.controller.ajoutTextures();
 				} catch (IOException ex) {
 					ex.printStackTrace();
 				}
