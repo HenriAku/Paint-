@@ -386,6 +386,10 @@ public class ImageTransformer
 		return tmp;
 	}
 
+	/**
+	 * Applique un anti-aliasing simple en lissant les pixels transparents autour des pixels non transparents
+	 * @param src Image à modifier
+	 */
 	public void antiAliasing( BufferedImage src )
 	{
 		if ( src == null ) return;
