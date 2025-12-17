@@ -59,7 +59,6 @@ public class PanelDessin extends JPanel implements MouseListener
 
 	public void mouseClicked( MouseEvent e ) 
 	{
-		System.out.println( "Clic detecte dans PanelDessin" );
 		int mouseX = e.getX();
 		int mouseY = e.getY();
 
