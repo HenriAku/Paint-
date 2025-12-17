@@ -163,7 +163,7 @@ public class ImageTransformer
 	public void fusionner( BufferedImage imageFond, String cheminimage2, int couleurTransparente, int posX, int posY )
 	{		
 		BufferedImage image2 = null;
-        try {
+		try {
 			File file = new File(cheminimage2);
 
 			if ( file.getName().toLowerCase().endsWith(".png") ) 
@@ -171,31 +171,31 @@ public class ImageTransformer
 				image2 = ImageIO.read(file);
 			}
 
-            //Vérification de la position de l'image à superposer
-            if ( image2.getWidth() + posX > imageFond.getWidth() ||
-                 image2.getHeight() + posY > imageFond.getHeight() ) 
+			//Vérification de la position de l'image à superposer
+			if ( image2.getWidth() + posX > imageFond.getWidth() ||
+				 image2.getHeight() + posY > imageFond.getHeight() ) 
 			{
-                System.out.println("Erreur : l'image à superposer dépasse les limites de l'image de imageFond.");
-                return;
-            }
+				System.out.println("Erreur : l'image à superposer dépasse les limites de l'image de imageFond.");
+				return;
+			}
 
-            //Parcourir l'image pour envoyer la couleur de tout les pixels au imageFond si la couleur n'est pas transparente 
-            for ( int y = 0; y < image2.getHeight(); y++ ) 
+			//Parcourir l'image pour envoyer la couleur de tout les pixels au imageFond si la couleur n'est pas transparente 
+			for ( int y = 0; y < image2.getHeight(); y++ ) 
 			{
-                for ( int x = 0; x < image2.getWidth(); x++ ) 
+				for ( int x = 0; x < image2.getWidth(); x++ ) 
 				{
-                    int pixel = image2.getRGB(x, y) & 0xFFFFFF;
-                    if ( pixel != couleurTransparente ) 
+					int pixel = image2.getRGB(x, y) & 0xFFFFFF;
+					if ( pixel != couleurTransparente ) 
 						{
-                        imageFond.setRGB( posX + x, posY + y, image2.getRGB(x, y) );
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return;
-        }
-    }
+						imageFond.setRGB( posX + x, posY + y, image2.getRGB(x, y) );
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return;
+		}
+	}
 
 	/**
 	 * Rotation de l'image d'un angle spécifié
@@ -217,7 +217,7 @@ public class ImageTransformer
 			
 			//Pour les rotations de 90° et -90°, inverser largeur et hauteur
 			if (Math.abs(angle - 90) < 0.01 || Math.abs(angle + 90) < 0.01 || 
-			    Math.abs(angle - 270) < 0.01 || Math.abs(angle + 270) < 0.01) 
+				Math.abs(angle - 270) < 0.01 || Math.abs(angle + 270) < 0.01) 
 			{
 				largeur = origHeight;
 				hauteur = origWidth;
@@ -348,7 +348,7 @@ public class ImageTransformer
 		if ( src == null ) return null;
 
 		int srcWidth  = src.getWidth ();
-        int srcHeight = src.getHeight();
+		int srcHeight = src.getHeight();
 
 		BufferedImage tmp = new BufferedImage( largeur, hauteur, BufferedImage.TYPE_INT_ARGB );
 
