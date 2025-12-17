@@ -94,7 +94,6 @@ public class PanelDessin extends JPanel implements MouseListener
 					
 			case ToolType.TEXTE:
 					this.controller.appliquerText( imageX, imageY );
-					this.controller.removeMouseDessin();
 				break;
 			default:
 				break;

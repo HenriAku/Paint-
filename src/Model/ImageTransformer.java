@@ -194,7 +194,8 @@ public class ImageTransformer
 
 					int pixel = image2.getRGB(x, y) & 0xFFFFFF;
 
-					if (pixel != couleurTransparente) {
+					if (pixel != couleurTransparente) 
+					{
 						imageFond.setRGB(destX, destY, image2.getRGB(x, y));
 					}
 				}
