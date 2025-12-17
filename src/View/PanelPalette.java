@@ -9,6 +9,8 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.Box;
+import java.awt.Dimension;
 
 import Main.Controller;
 import Main.ToolType;
@@ -38,15 +40,22 @@ public class PanelPalette extends JPanel implements ActionListener
 
 		this.toolButtons = new ArrayList<JButton>();
 
-		this.setLayout( new BoxLayout( this, BoxLayout.Y_AXIS) );
+		this.setLayout( new BoxLayout(this, BoxLayout.Y_AXIS) );
 		this.setBorder( BorderFactory.createEmptyBorder( 10,10,10,10) );
 
+		Dimension buttonSize = new Dimension(120, 35);
+		
 		for( String toolName : TOOL_NAMES ) 
 		{
 			JButton button = new JButton( toolName );
+			button.setMaximumSize( buttonSize );
+			button.setPreferredSize( buttonSize );
+			button.setMinimumSize( buttonSize );
+			button.setAlignmentX( LEFT_ALIGNMENT );
 			button.addActionListener( this );
 			this.toolButtons.add( button );
 			this.add( button );
+			this.add( Box.createVerticalStrut(5) );
 		}
 	}
 
