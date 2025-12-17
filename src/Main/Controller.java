@@ -363,7 +363,7 @@ public class Controller
 	/**
 	 * Prévient qu'une texture a été ajoutée pour pouvoir rafraichir le JComboBox 
 	 */
-	public void ajoutTextures() { this.panelTexteParametres.refreshTextures(); }
+	public void ajoutTextures() { this.framePrincipale.refreshTextures(); }
 
 
 	/**

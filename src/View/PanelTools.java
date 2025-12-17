@@ -37,4 +37,5 @@ public class PanelTools extends JPanel
 	}
 
 	public void updateColorDisplay(){this.panelParametres.updateColorDisplay();}
+	public void refreshTextures   (){this.panelParametres.refreshTextures(); }
 }

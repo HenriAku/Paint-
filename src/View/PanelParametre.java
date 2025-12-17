@@ -96,4 +96,5 @@ public class PanelParametre extends JPanel
 	}
 
 	public void updateColorDisplay() {this.panelPipette.updateColorDisplay();}
+	public void refreshTextures()    {this.panelTexte.refreshTextures();}
 }
