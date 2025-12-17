@@ -11,7 +11,6 @@ public class ImageLoader
 {
 	private BufferedImage src;
 	private BufferedImage srcOriginal; // Image originale pour les transformations
-	private BufferedImage src2;
 	private List<BufferedImage> imagesHistoriqueArriere;
 	private List<BufferedImage> imagesHistoriqueAvant;
 
@@ -26,38 +25,15 @@ public class ImageLoader
 		}
 
 		this.imagesHistoriqueArriere = new ArrayList<BufferedImage>();
-		this.imagesHistoriqueAvant = new ArrayList<BufferedImage>();
-	}
-
-	/**
-	 * Constructeur pour charger une image depuis le chemin spécifié
-	 * @param chemin
-	 */
-	public ImageLoader(String chemin)
-	{
-		try {
-			File file = new File(chemin);
-
-			if (file.getName().toLowerCase().endsWith(".png")) {
-				this.src = ImageIO.read(file);
-				this.srcOriginal = this.src; // Sauvegarder l'image originale
-			}
-			
-		} catch (IOException e) {
-			System.out.println(e);
-		}
-
-		this.imagesHistoriqueArriere = new ArrayList<BufferedImage>();
-		this.imagesHistoriqueAvant = new ArrayList<BufferedImage>();
+		this.imagesHistoriqueAvant   = new ArrayList<BufferedImage>();
 	}
 
 	/**
 	 * Retourne l'image chargée
 	 * @return BufferedImage
 	 */
-	public BufferedImage getBufferedImage (){return this.src ;}
-	public BufferedImage getBufferedImage2(){return this.src2;}
-	public BufferedImage getOriginalImage(){return this.srcOriginal;}
+	public BufferedImage getBufferedImage (){return this.src        ;}
+	public BufferedImage getOriginalImage (){return this.srcOriginal;}
 
 	/**
 	 * Retourne la liste des images de l'historique
@@ -79,6 +55,10 @@ public class ImageLoader
 		return this.src;
 	}
 
+	/**
+	 * Retourne la prochaine image de l'historique
+	 * @return BufferedImage
+	 */
 	public BufferedImage getNextImageHistoriqueAvant()
 	{
 		BufferedImage img = this.imagesHistoriqueAvant.get(this.imagesHistoriqueAvant.size() - 1);
@@ -98,16 +78,8 @@ public class ImageLoader
 	 * Remplace l'image source par une nouvelle image
 	 * @param newImage
 	 */
-	public void setBufferedImage(BufferedImage newImage)
-	{
-		this.src = newImage;
-	}
-
-	public void setOriginalImage(BufferedImage newImage)
-	{
-		this.srcOriginal = newImage;
-	}	
-
+	public void setBufferedImage(BufferedImage newImage){this.src         = newImage;}
+	public void setOriginalImage(BufferedImage newImage){this.srcOriginal = newImage;}	
 
 	/**
 	 * Charge une image depuis le chemin spécifié
@@ -121,19 +93,6 @@ public class ImageLoader
 			if (file.getName().toLowerCase().endsWith(".png")) {
 				this.src = ImageIO.read(file);
 				this.srcOriginal = this.src; // Mettre à jour l'image originale
-			}
-		} catch (IOException e) {
-			System.out.println(e);
-		}
-	}
-
-	public void loadImage2(String chemin)
-	{
-		try {
-			File file = new File(chemin);
-
-			if (file.getName().toLowerCase().endsWith(".png")) {
-				this.src2 = ImageIO.read(file);
 			}
 		} catch (IOException e) {
 			System.out.println(e);

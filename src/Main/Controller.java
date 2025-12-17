@@ -161,11 +161,8 @@ public class Controller
 	 */
 	public void fusionner( int x, int y )
 	{
-		this.imageLoader.loadImage2( this.chemin );
 		BufferedImage baseImg   = this.imageLoader.getBufferedImage ();
-		BufferedImage imgDessus = this.imageLoader.getBufferedImage2();
-
-		this.imageTransformer.fusionner( baseImg, imgDessus, 0xFFFFFF, x, y );
+		this.imageTransformer.fusionner( baseImg, this.chemin, 0xFFFFFF, x, y );
 		
 		this.imageLoader.setOriginalImage( this.getBufferedImage() );
 	}

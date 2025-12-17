@@ -2,6 +2,8 @@ package Model;
 
 import java.awt.image.BufferedImage;
 import java.awt.Color;
+import java.io.File;
+import javax.imageio.ImageIO;
 
 /**
  * Classe utilitaire pour la transformation d'images
@@ -158,25 +160,34 @@ public class ImageTransformer
 	 * @param posX Position X où coller l'image à superposer
 	 * @param posY Position Y où coller l'image à superposer
 	 */
-	public void fusionner( BufferedImage fond, BufferedImage dessus, int couleurTransparente, int posX, int posY ){
+	public void fusionner( BufferedImage fond, String dessusPath, int couleurTransparente, int posX, int posY )
+	{		
+		BufferedImage imageDessus = null;
         try {
+			File file = new File(dessusPath);
+
+			if ( file.getName().toLowerCase().endsWith(".png") ) 
+			{
+				imageDessus = ImageIO.read(file);
+			}
+
             //Vérification de la position de l'image à superposer
-            if ( dessus.getWidth() + posX > fond.getWidth() ||
-                 dessus.getHeight() + posY > fond.getHeight() ) 
+            if ( imageDessus.getWidth() + posX > fond.getWidth() ||
+                 imageDessus.getHeight() + posY > fond.getHeight() ) 
 			{
                 System.out.println("Erreur : l'image à superposer dépasse les limites de l'image de fond.");
                 return;
             }
 
             //Parcourir l'image pour envoyer la couleur de tout les pixels au fond si la couleur n'est pas transparente 
-            for ( int y = 0; y < dessus.getHeight(); y++ ) 
+            for ( int y = 0; y < imageDessus.getHeight(); y++ ) 
 			{
-                for ( int x = 0; x < dessus.getWidth(); x++ ) 
+                for ( int x = 0; x < imageDessus.getWidth(); x++ ) 
 				{
-                    int pixel = dessus.getRGB(x, y) & 0xFFFFFF;
+                    int pixel = imageDessus.getRGB(x, y) & 0xFFFFFF;
                     if ( pixel != couleurTransparente ) 
 						{
-                        fond.setRGB( posX + x, posY + y, dessus.getRGB(x, y) );
+                        fond.setRGB( posX + x, posY + y, imageDessus.getRGB(x, y) );
                     }
                 }
             }
