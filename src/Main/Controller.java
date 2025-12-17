@@ -175,6 +175,7 @@ public class Controller
 	{
 		this.imageTransformer.adjustContrast( this.getBufferedImage(), contrastLevel );
 		this.imageLoader.setOriginalImage( this.getBufferedImage() );
+		this.updateDessin();
 	}
 
 	/**
