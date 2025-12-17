@@ -254,9 +254,9 @@ public class Controller
 	/**
 	 * Obtient les fichiers de texture disponibles pour l'outil texte.
 	 */
-	public void getTextureFiles()
+	public String[] getTextureFiles()
 	{
-		this.textTool.getTextureFiles();
+		return this.textTool.getTextureFiles();
 	}
 
 	/**
