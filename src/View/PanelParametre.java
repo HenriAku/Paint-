@@ -11,7 +11,7 @@ import View.PanelParametres.PanelLuminositeParametres;
 import View.PanelParametres.PanelTeinteParametres;
 import View.PanelParametres.PanelTexteParametres;
 import View.PanelParametres.PanelMiroirParametres;
-import View.PanelParametres.PanelFusionParametres;
+import View.PanelParametres.PanelSuperposerParametres;
 import View.PanelParametres.PanelRedimensionParametres;
 import View.PanelParametres.PanelPipetteParametres;
 
@@ -29,7 +29,7 @@ public class PanelParametre extends JPanel
 	private PanelTeinteParametres        panelTeinte       ;
 	private PanelTexteParametres         panelTexte        ;
 	private PanelMiroirParametres        panelMiroir       ;
-	private PanelFusionParametres        panelFusion       ;
+	private PanelSuperposerParametres    panelSuperposer   ;
 	private PanelRedimensionParametres   panelRedimension  ;
 	private PanelPipetteParametres       panelPipette      ;
 
@@ -74,8 +74,8 @@ public class PanelParametre extends JPanel
 
 
 		// Fusion
-		this.panelFusion = new PanelFusionParametres( this.controller );
-		this.add( this.panelFusion, "Fusion" );
+		this.panelSuperposer = new PanelSuperposerParametres( this.controller );
+		this.add( this.panelSuperposer, "Superposer" );
 
 		// Redimension
 		this.panelRedimension = new PanelRedimensionParametres( this.controller );

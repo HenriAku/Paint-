@@ -160,7 +160,7 @@ public class ImageTransformer
 	 * @param posX Position X où coller l'image à superposer
 	 * @param posY Position Y où coller l'image à superposer
 	 */
-	public void fusionner( BufferedImage imageFond, String cheminimage2, int couleurTransparente, int posX, int posY )
+	public void superposer( BufferedImage imageFond, String cheminimage2, int couleurTransparente, int posX, int posY )
 	{		
 		BufferedImage image2 = null;
 		try {

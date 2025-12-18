@@ -269,11 +269,11 @@ public class Controller
 	 * @param x La coordonnée x où fusionner l'image.
 	 * @param y La coordonnée y où fusionner l'image.
 	 */
-	public void fusionner( int x, int y )
+	public void superposer( int x, int y )
 	{
 		BufferedImage baseImg   = this.imageLoader.getBufferedImage ();
 
-		this.imageTransformer.fusionner       ( baseImg, this.chemin, 0xFFFFFF, x, y );
+		this.imageTransformer.superposer      ( baseImg, this.chemin, 0xFFFFFF, x, y );
 		this.imageLoader     .setOriginalImage( this.getBufferedImage() );
 		this.updateDessin();
 	}

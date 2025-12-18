@@ -3,16 +3,13 @@ package View.PanelParametres;
 import Main.Controller;
 
 import java.awt.Dimension;
-import java.awt.Color;
 import java.awt.Component;
-
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.BoxLayout;
 import javax.swing.Box;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.border.EmptyBorder;
@@ -20,7 +17,7 @@ import javax.swing.border.EmptyBorder;
 /**
  * Panel des parametres de fusion
  */
-public class PanelFusionParametres extends JPanel implements ActionListener
+public class PanelSuperposerParametres extends JPanel implements ActionListener
 {
 	private Controller ctrl;
 
@@ -31,7 +28,7 @@ public class PanelFusionParametres extends JPanel implements ActionListener
 	 * Constructeur du panel des parametres de fusion
 	 * @param ctrl Le controller de l'application
 	 */
-	public PanelFusionParametres( Controller ctrl )
+	public PanelSuperposerParametres( Controller ctrl )
 	{
 		this.ctrl = ctrl;
 
@@ -44,7 +41,7 @@ public class PanelFusionParametres extends JPanel implements ActionListener
 		this.labelInstructions = new JLabel("Sélectionnez une image à superposer");
 		this.labelInstructions.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-		this.btnSelectionnerImage = new JButton( "Charger l'image de fusion (PNG)" );
+		this.btnSelectionnerImage = new JButton( "Charger l'image de superposition (PNG)" );
 		
 		this.btnSelectionnerImage.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
@@ -74,7 +71,7 @@ public class PanelFusionParametres extends JPanel implements ActionListener
 		{
 			JFileChooser fileChooser = new JFileChooser();
 			fileChooser.setCurrentDirectory(new java.io.File("."));
-			fileChooser.setDialogTitle("Choisir une image à fusionner (PNG)");
+			fileChooser.setDialogTitle("Choisir une image à superposer (PNG)");
 			fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 			fileChooser.setAcceptAllFileFilterUsed(false);
 

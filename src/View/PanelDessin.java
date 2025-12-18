@@ -83,7 +83,7 @@ public class PanelDessin extends JPanel implements MouseListener
 				break;
 
 			case ToolType.FUSION:
-					this.controller.fusionner( imageX, imageY );
+					this.controller.superposer( imageX, imageY );
 					this.controller.removeMouseDessin();
 				break;
 
