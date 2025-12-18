@@ -122,6 +122,9 @@ public class PanelSuperposerParametres extends JPanel implements ActionListener
 		}
 	}
 
+	/**
+	 * Sélectionne l'image à superposer sur l'image actuelle
+	 */
 	private void selectionnerImage() {
 		UIManager.put("FileChooser.cancelButtonText", "Annuler");
 		JFileChooser fileChooser = new JFileChooser();
@@ -144,6 +147,9 @@ public class PanelSuperposerParametres extends JPanel implements ActionListener
 		}
 	}
 
+	/**
+	 * Met à jour l'affichage de la couleur de la pipette
+	 */
 	public void updatePipetteColor()
 	{
 		int pipetteRGB = this.ctrl.getPipetteColorRGB();
