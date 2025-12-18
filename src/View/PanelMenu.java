@@ -1,19 +1,21 @@
 package View;
 
+import Main.Controller;
+
+import java.awt.event.ActionListener;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+
 import javax.swing.JFileChooser;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
-import Main.Controller;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 
 public class PanelMenu extends JPanel implements ActionListener
 {
@@ -70,6 +72,10 @@ public class PanelMenu extends JPanel implements ActionListener
 		this.menuTexture      .addActionListener(this);
 	}
 
+	/**
+	 * Methode appelee lors d'un clic sur un bouton
+	 * @param e L'evenement de clic
+	 */
 	public void actionPerformed(java.awt.event.ActionEvent e)
 	{
 		if (e.getSource() == this.menuOuvrirImage)

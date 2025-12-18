@@ -1,20 +1,19 @@
 package View;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import Main.Controller;
+import Main.ToolType;
 
 import java.util.ArrayList;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.Box;
-import java.awt.Dimension;
-
-import Main.Controller;
-import Main.ToolType;
-
 
 /**
  * Panel contenant les outils de l'application Paint.

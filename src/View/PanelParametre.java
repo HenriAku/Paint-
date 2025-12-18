@@ -1,7 +1,5 @@
 package View;
 
-import java.awt.CardLayout;
-
 import Main.Controller;
 
 import View.PanelParametres.PanelContrasteParametres;
@@ -15,6 +13,8 @@ import View.PanelParametres.PanelSuperposerParametres;
 import View.PanelParametres.PanelRedimensionParametres;
 import View.PanelParametres.PanelPipetteParametres;
 import View.PanelParametres.PanelFusionParametres;
+
+import java.awt.CardLayout;
 
 import javax.swing.JPanel;
 
