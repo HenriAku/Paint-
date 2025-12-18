@@ -108,15 +108,30 @@ public class PanelMenu extends JPanel implements ActionListener
 
 		if (e.getSource() == this.menuTexture)
 		{
+			UIManager.put("FileChooser.cancelButtonText", "Annuler");
+			UIManager.put("FileChooser.cancelButtonToolTipText", "Fermer la fenêtre");
+
 			JFileChooser fileChooser = new JFileChooser();
 			fileChooser.setDialogTitle("Ajouter une texture");
 			fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+			fileChooser.setCurrentDirectory(new java.io.File("."));
+			fileChooser.setApproveButtonText("Ouvrir");
+			fileChooser.setAcceptAllFileFilterUsed(false);
+
+			// Ajouter un filtre pour les fichiers PNG uniquement
+			javax.swing.filechooser.FileNameExtensionFilter filter = 
+				new javax.swing.filechooser.FileNameExtensionFilter("Images PNG (*.png)", "png");
+			fileChooser.addChoosableFileFilter(filter);
 
 			int result = fileChooser.showOpenDialog(this);
 
 			if (result == JFileChooser.APPROVE_OPTION)
-			{
+			{	
 				File selectedFile = fileChooser.getSelectedFile();
+
+				if (!selectedFile.getName().toLowerCase().endsWith(".png")) {
+					return;
+				}
 
 				File textureDir = new File("ressources/textures/");
 				if (!textureDir.exists())
@@ -141,7 +156,6 @@ public class PanelMenu extends JPanel implements ActionListener
 				}
 			}
 		}
-
 	}
 
 	/**
