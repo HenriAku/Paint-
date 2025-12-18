@@ -2,12 +2,10 @@ package View;
 
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
-
 import Main.Controller;
 import Main.ToolType;
-
-import java.awt.event.MouseEvent;
 
 public class PanelDessin extends JPanel implements MouseListener
 {
@@ -24,6 +22,9 @@ public class PanelDessin extends JPanel implements MouseListener
 		this.setVisible( true );
 	}
 
+	/**
+	 * Redéfinition de la méthode paintComponent pour dessiner l'image
+	 */
 	public void paintComponent( java.awt.Graphics g )
 	{
 		super.paintComponent( g );
@@ -54,9 +55,19 @@ public class PanelDessin extends JPanel implements MouseListener
 		}
 	}
 
-	public void addMouse         (){ this.addMouseListener( this ); }
+	/**
+	 * Méthodes pour ajouter/enlever le MouseListener
+	 */
+	public void addMouse (){ this.addMouseListener( this ); }
+
+	/**
+	 * Méthodes pour ajouter/enlever le MouseListener
+	 */
 	public void removeMouseDessin(){ this.removeMouseListener( this ); }
 
+	/**
+	 * Gestion des événements de la souris
+	 */
 	public void mouseClicked( MouseEvent e ) 
 	{
 		int mouseX = e.getX();
@@ -77,7 +88,8 @@ public class PanelDessin extends JPanel implements MouseListener
 		int imageX = (int)( ( mouseX - this.displayX ) * image.getWidth()  / (double)this.displayWidth  );
 		int imageY = (int)( ( mouseY - this.displayY ) * image.getHeight() / (double)this.displayHeight );
 
-		switch ( this.controller.getCurrentTool() ) {
+		switch ( this.controller.getCurrentTool() ) 
+		{
 			case ToolType.BUCKET:
 					this.controller.peindre( imageX, imageY );
 				break;
@@ -100,6 +112,9 @@ public class PanelDessin extends JPanel implements MouseListener
 		}
 	}
 
+	/**
+	 * Méthodes inutilisées de l'interface MouseListener
+	 */
 	public void mouseEntered ( MouseEvent e ) {}
 	public void mouseExited  ( MouseEvent e ) {}
 	public void mousePressed ( MouseEvent e ) {}
