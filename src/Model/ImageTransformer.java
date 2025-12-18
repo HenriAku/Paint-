@@ -2,7 +2,9 @@ package Model;
 
 import java.awt.image.BufferedImage;
 import java.awt.Color;
+
 import java.io.File;
+
 import javax.imageio.ImageIO;
 
 /**
@@ -10,6 +12,7 @@ import javax.imageio.ImageIO;
  */
 public class ImageTransformer
 {
+
 	/**
 	 * Constructeur par défaut
 	 */
@@ -23,9 +26,9 @@ public class ImageTransformer
 	 */
 	private static Color contraste( Color c, int contraste )
 	{
-		int r = c.getRed();
+		int r = c.getRed  ();
 		int g = c.getGreen();
-		int b = c.getBlue();
+		int b = c.getBlue ();
 		int a = c.getAlpha();
 
 		r = (int)( r + contraste / 100.0 * (r - 127) );
@@ -50,9 +53,10 @@ public class ImageTransformer
 		int width  = image.getWidth();
 		int height = image.getHeight();
 
-		// Parcourir chaque pixel de l'image
-		for (int y = 0; y < height; y++) {
-			for (int x = 0; x < width; x++) {
+		for ( int y = 0; y < height; y++ )
+		{
+			for ( int x = 0; x < width; x++ )
+			{
 				Color originalColor = new Color( image.getRGB(x, y), true );
 				Color newColor = contraste( originalColor, (int)contrastLevel );
 				image.setRGB( x, y, newColor.getRGB() );
@@ -68,9 +72,9 @@ public class ImageTransformer
 	 */
 	private static Color luminosite( Color c, int luminosite )
 	{
-		int r = c.getRed();
+		int r = c.getRed  ();
 		int g = c.getGreen();
-		int b = c.getBlue();
+		int b = c.getBlue ();
 		int a = c.getAlpha();
 
 		r = r + luminosite;
@@ -95,9 +99,10 @@ public class ImageTransformer
 		int width = image.getWidth();
 		int height = image.getHeight();
 
-		// Parcourir chaque pixel de l'image
-		for (int y = 0; y < height; y++) {
-			for (int x = 0; x < width; x++) {
+		for ( int y = 0; y < height; y++ )
+		{
+			for ( int x = 0; x < width; x++ )
+			{
 				Color originalColor = new Color( image.getRGB(x, y), true );
 				Color newColor = luminosite( originalColor, brightnessLevel );
 				image.setRGB( x, y, newColor.getRGB() );
@@ -115,9 +120,9 @@ public class ImageTransformer
 	 */
 	private static Color teinte( Color c, int rOffset, int gOffset, int bOffset )
 	{
-		int r = c.getRed() + rOffset;
+		int r = c.getRed  () + rOffset;
 		int g = c.getGreen() + gOffset;
-		int b = c.getBlue() + bOffset;
+		int b = c.getBlue () + bOffset;
 		int a = c.getAlpha();
 
 		// S'assurer que les valeurs restent dans la plage 0-255
@@ -140,7 +145,6 @@ public class ImageTransformer
 		int width = image.getWidth();
 		int height = image.getHeight();
 
-		// Parcourir chaque pixel de l'image
 		for ( int y = 0; y < height; y++ )
 		{
 			for ( int x = 0; x < width; x++ )
@@ -182,7 +186,7 @@ public class ImageTransformer
 			//Parcourir l'image pour envoyer la couleur de tout les pixels au imageFond si la couleur n'est pas transparente 
 			for ( int y = 0; y < image2.getHeight(); y++ ) 
 			{
-				for (int x = 0; x < image2.getWidth(); x++) 
+				for ( int x = 0; x < image2.getWidth(); x++ ) 
 				{
 					int destX = posX + x;
 					int destY = posY + y;
@@ -193,15 +197,15 @@ public class ImageTransformer
 						continue;
 					}
 
-					int pixel = image2.getRGB(x, y) & 0xFFFFFF;
+					int pixel = image2.getRGB( x, y ) & 0xFFFFFF;
 
-					if (pixel != couleurTransparente) 
+					if ( pixel != couleurTransparente ) 
 					{
-						imageFond.setRGB(destX, destY, image2.getRGB(x, y));
+						imageFond.setRGB( destX, destY, image2.getRGB( x, y ) );
 					}
 				}
 			}
-		} catch (Exception e) {
+		} catch ( Exception e ) {
 			e.printStackTrace();
 			return;
 		}
@@ -216,7 +220,7 @@ public class ImageTransformer
 	public BufferedImage rotation( BufferedImage orig, double angle )
 	{
 		try {
-			int origWidth = orig.getWidth();
+			int origWidth  = orig.getWidth ();
 			int origHeight = orig.getHeight();
 			
 			angle = angle % 360;
@@ -288,8 +292,8 @@ public class ImageTransformer
 			}
 
 			return nouvelleImage;
-		} catch (Exception e) {
-			System.out.println(e);
+		} catch ( Exception e ) {
+			System.out.println( e );
 			return orig; // En cas d'erreur, retourner l'image originale
 		}
 	}
@@ -314,7 +318,7 @@ public class ImageTransformer
 				int leftPixelColor  = src.getRGB( x, y );
 				int rightPixelColor = src.getRGB( mirrorX, y );
 
-				src.setRGB( x, y, rightPixelColor      );     				
+				src.setRGB( x, y, rightPixelColor      );
 				src.setRGB( mirrorX, y, leftPixelColor );
 			}
 		}
@@ -340,7 +344,7 @@ public class ImageTransformer
 				int topPixelColor    = src.getRGB( x, y );
 				int bottomPixelColor = src.getRGB( x, mirrorY );
 
-				src.setRGB( x, y, bottomPixelColor    );     				
+				src.setRGB( x, y, bottomPixelColor    );
 				src.setRGB( x, mirrorY, topPixelColor );
 			}
 		}
@@ -404,43 +408,46 @@ public class ImageTransformer
 			for ( int x = 0; x < width; x++ ) 
 			{
 				int colorPixel = src.getRGB( x, y );
-				int alpha = (colorPixel >> 24) & 0xFF;
+				int alpha = ( colorPixel >> 24 ) & 0xFF;
 
 				// Appliquer l'anti-aliasing aux pixels semi-transparents
-				if (alpha > 0 && alpha < 255) {
+				if ( alpha > 0 && alpha < 255 )
+				{
 					int count = 0;
 					int rTotal = 0, gTotal = 0, bTotal = 0;
 
 					// Parcourir les pixels voisins
-					for (int j = -2; j <= 2; j++) {
-						for (int i = -2; i <= 2; i++) {
-							if (i == 0 && j == 0) continue;
+					for ( int j = -2; j <= 2; j++ )
+					{
+						for ( int i = -2; i <= 2; i++ )
+						{
+							if ( i == 0 && j == 0 ) continue;
 
 							int neighborX = x + i;
 							int neighborY = y + j;
 
-							if (neighborX >= 0 && neighborX < width && neighborY >= 0 && neighborY < height) {
-								int neighborColor = src.getRGB(neighborX, neighborY);
-								int neighborAlpha = (neighborColor >> 24) & 0xFF;
+							if ( neighborX >= 0 && neighborX < width && neighborY >= 0 && neighborY < height ) {
+								int neighborColor = src.getRGB( neighborX, neighborY );
+								int neighborAlpha = ( neighborColor >> 24 ) & 0xFF;
 								
-								if (neighborAlpha > 0) {
-									Color c = new Color(neighborColor, true);
-									rTotal += c.getRed();
+								if ( neighborAlpha > 0 ) {
+									Color c = new Color( neighborColor, true );
+									rTotal += c.getRed  ();
 									gTotal += c.getGreen();
-									bTotal += c.getBlue();
+									bTotal += c.getBlue ();
 									count++;
 								}
 							}
 						}
 					}
 
-					if (count > 0) {
+					if ( count > 0 ) {
 						int rAvg = rTotal / count;
 						int gAvg = gTotal / count;
 						int bAvg = bTotal / count;
 						
-						Color avgColor = new Color(rAvg, gAvg, bAvg, alpha);
-						src.setRGB(x, y, avgColor.getRGB());
+						Color avgColor = new Color( rAvg, gAvg, bAvg, alpha );
+						src.setRGB( x, y, avgColor.getRGB() );
 					}
 				}
 			}
@@ -454,55 +461,63 @@ public class ImageTransformer
 	 * @param bnd
 	 * @return
 	 */
-	public BufferedImage fusion(BufferedImage imageSrc, String cheminimage2, int bnd) 
+	public BufferedImage fusion( BufferedImage imageSrc, String cheminimage2, int bnd ) 
 	{
-		BufferedImage biImg2 = null;
+		BufferedImage biImg2   = null;
 		BufferedImage biOutput = null;
 
 		try {
-			biImg2 = ImageIO.read(new File(cheminimage2));
-		} catch (Exception e) {
+			biImg2 = ImageIO.read( new File( cheminimage2 ));
+		} catch ( Exception e ) {
 			e.printStackTrace();
 			return imageSrc; // Retourne l'original si erreur de lecture
 		}
 
-		if (biImg2.getWidth() != imageSrc.getWidth() && biImg2.getHeight() != imageSrc.getHeight()) 
+		if ( biImg2.getWidth() != imageSrc.getWidth() && biImg2.getHeight() != imageSrc.getHeight() ) 
 		{
-			biImg2 = redimensionner(biImg2, imageSrc.getHeight(), imageSrc.getWidth());
+			biImg2 = redimensionner( biImg2, imageSrc.getHeight(), imageSrc.getWidth() );
 		}
 
 		// Calcul de la taille de sortie
 		int outW = imageSrc.getWidth() + biImg2.getWidth() - bnd; // On soustrait bnd pour les superposer
-		int outH = Math.max(imageSrc.getHeight(), biImg2.getHeight());
+		int outH = Math.max( imageSrc.getHeight(), biImg2.getHeight() );
 
-		biOutput = new BufferedImage(outW, outH, BufferedImage.TYPE_INT_ARGB);
+		biOutput = new BufferedImage( outW, outH, BufferedImage.TYPE_INT_ARGB );
 
 		// 1. Dessiner la première image
-		for(int x = 0; x < imageSrc.getWidth(); x++) {
-			for(int y = 0; y < imageSrc.getHeight(); y++) {
+		for( int x = 0; x < imageSrc.getWidth(); x++ )
+		{
+			for( int y = 0; y < imageSrc.getHeight(); y++ )
+			{
 				biOutput.setRGB(x, y, imageSrc.getRGB(x, y));
 			}
 		}
 
 		// 2. Dessiner la deuxième image (décalée de la largeur de la 1ère - bnd)
 		int offset = imageSrc.getWidth() - bnd;
-		for(int x = 0; x < biImg2.getWidth(); x++) {
-			for(int y = 0; y < biImg2.getHeight(); y++) {
+		for( int x = 0; x < biImg2.getWidth(); x++ )
+		{
+			for( int y = 0; y < biImg2.getHeight(); y++ )
+			{
 				// On ne dessine que si on ne dépasse pas la largeur totale
-				if (x + offset >= 0 && x + offset < outW) {
-					biOutput.setRGB(x + offset, y, biImg2.getRGB(x, y));
+				if ( x + offset >= 0 && x + offset < outW )
+				{
+					biOutput.setRGB( x + offset, y, biImg2.getRGB(x, y) );
 				}
 			}
 		}
 
 		// 3. Appliquer le fondu (Blend) uniquement sur la zone de contact
-		for(int x = 0; x < bnd; x++) {
-			for(int y = 0; y < outH; y++) {
+		for( int x = 0; x < bnd; x++ )
+		{
+			for( int y = 0; y < outH; y++ )
+			{
 				// VERIFICATION DES BORNES pour y
-				if (y < imageSrc.getHeight() && y < biImg2.getHeight()) {
+				if ( y < imageSrc.getHeight() && y < biImg2.getHeight() )
+				{
 					
-					int rgbA = imageSrc.getRGB(imageSrc.getWidth() - bnd + x, y);
-					int rgbB = biImg2.getRGB(x, y);
+					int rgbA = imageSrc.getRGB( imageSrc.getWidth() - bnd + x, y );
+					int rgbB = biImg2.getRGB( x, y );
 
 					int aA = (rgbA >> 24) & 0xff;
 					int rA = (rgbA >> 16) & 0xff;
@@ -520,7 +535,7 @@ public class ImageTransformer
 					int b = (int) (bA * (1 - ratio) + bB * ratio);
 
 					int rgb = (0xff << 24) | (r << 16) | (g << 8) | b;
-					biOutput.setRGB(imageSrc.getWidth() - bnd + x, y, rgb);
+					biOutput.setRGB( imageSrc.getWidth() - bnd + x, y, rgb );
 				}
 			}
 		}
