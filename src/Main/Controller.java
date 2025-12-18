@@ -253,9 +253,9 @@ public class Controller
 	 */
 	public void rotation( double angle )
 	{
-		BufferedImage imageRotate = this.imageTransformer.rotation( this.imageLoader.getImageOriginale(), angle );
+		BufferedImage imageRotee = this.imageTransformer.rotation( this.imageLoader.getImageAvantModif(), angle );
 
-		this.imageLoader.setBufferedImage( imageRotate );
+		this.imageLoader.setBufferedImage( imageRotee );
 		this.updateDessin();
 
 		BufferedImage copie      = this.imageTransformer.rotation( this.imageLoader.getImageOriginale (), angle );
