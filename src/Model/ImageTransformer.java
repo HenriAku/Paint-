@@ -285,7 +285,8 @@ public class ImageTransformer
 					{
 						nouvelleImage.setRGB( i2, j2, orig.getRGB( i, j ) );
 					}
-					else {
+					else 
+					{
 						nouvelleImage.setRGB( i2, j2, 0x00000000 ); // Transparent
 					}
 				}
@@ -426,11 +427,13 @@ public class ImageTransformer
 							int neighborX = x + i;
 							int neighborY = y + j;
 
-							if ( neighborX >= 0 && neighborX < width && neighborY >= 0 && neighborY < height ) {
+							if ( neighborX >= 0 && neighborX < width && neighborY >= 0 && neighborY < height ) 
+							{
 								int neighborColor = src.getRGB( neighborX, neighborY );
 								int neighborAlpha = ( neighborColor >> 24 ) & 0xFF;
 								
-								if ( neighborAlpha > 0 ) {
+								if ( neighborAlpha > 0 ) 
+								{
 									Color c = new Color( neighborColor, true );
 									rTotal += c.getRed  ();
 									gTotal += c.getGreen();
@@ -441,7 +444,8 @@ public class ImageTransformer
 						}
 					}
 
-					if ( count > 0 ) {
+					if ( count > 0 ) 
+					{
 						int rAvg = rTotal / count;
 						int gAvg = gTotal / count;
 						int bAvg = bTotal / count;

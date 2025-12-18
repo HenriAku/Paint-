@@ -56,7 +56,8 @@ public class BucketTool
 			Point p = file.remove();
 
 			if ( p.x() >= 0 && p.x() < imageTarget.getWidth() && p.y() >= 0 && p.y() < imageTarget.getHeight() &&
-				 distance( colorOrig, imageTarget.getRGB( p.x(), p.y() ) ) < tolerance ) {
+				 distance( colorOrig, imageTarget.getRGB( p.x(), p.y() ) ) < tolerance ) 
+			{
 				imageTarget.setRGB( p.x(), p.y(), newColorRGB );
 
 				file.add( new Point( p.x() + 1, p.y() ) );
