@@ -34,11 +34,15 @@ public class PanelTools extends JPanel
 	 * Affiche le panneau de paramètres correspondant à l'outil sélectionné.
 	 * @param toolName Le nom de l'outil dont les paramètres doivent être affichés.
 	 */
-	public void showCard( String toolName )
-	{
-		this.panelParametres.showCard( toolName );
-	}
+	public void showCard( String toolName ) {this.panelParametres.showCard( toolName );}
 
-	public void updateColorDisplay(){this.panelParametres.updateColorDisplay();}
-	public void refreshTextures   (){this.panelParametres.refreshTextures(); }
+	/**
+	 * Méthodes de mise à jour des panels
+	 */
+	public void updateColorDisplay() {this.panelParametres.updateColorDisplay();}
+
+	/**
+	 * Méthodes de rafraichissement des textures
+	 */
+	public void refreshTextures (){this.panelParametres.refreshTextures(); }
 }
