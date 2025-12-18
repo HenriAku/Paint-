@@ -163,6 +163,7 @@ public class ImageTransformer
 	public void superposer( BufferedImage imageFond, String cheminimage2, int couleurTransparente, int posX, int posY )
 	{		
 		BufferedImage image2 = null;
+		System.out.println(couleurTransparente);
 		try {
 			File file = new File(cheminimage2);
 

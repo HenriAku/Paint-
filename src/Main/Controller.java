@@ -34,6 +34,8 @@ public class Controller
 	private String currentTextContent;
 	private String currentTextTexture;
 
+	private Color currentColorSuperposer;
+
 	private Color backgroundColor = new Color(200, 200, 200, 255);
 
 	/**
@@ -48,6 +50,8 @@ public class Controller
 
 		this.currentBucketColor	    = Color.WHITE;
 		this.currentBucketTolerance = 30         ;
+
+		this.currentColorSuperposer = Color.WHITE;
 
 		this.currentTextContent = "Vide";
 		this.currentTextTexture = "feu.png";
@@ -65,6 +69,18 @@ public class Controller
 
 		this.framePrincipale  = new FramePrincipale(this);
 	}
+
+	/**
+	 * Obtient la couleur courante du superposeur.
+	 * @return La couleur courante du superposeur.
+	 */
+	public Color getCurrentColorSuperposer() { return this.currentColorSuperposer; }
+
+	/**
+	 * Définit la couleur courante du superposeur.
+	 * @param color La couleur à définir.
+	 */
+	public void setCurrentColorSuperposer( Color color ) { this.currentColorSuperposer = color; }
 
 	/**
 	 * Obtient la couleur de fond actuelle.
@@ -273,7 +289,7 @@ public class Controller
 	{
 		BufferedImage baseImg   = this.imageLoader.getBufferedImage ();
 
-		this.imageTransformer.superposer      ( baseImg, this.chemin, 0xFFFFFF, x, y );
+		this.imageTransformer.superposer      ( baseImg, this.chemin, this.currentColorSuperposer.getRGB() & 0xFFFFFF, x, y );
 		this.imageLoader     .setOriginalImage( this.getBufferedImage() );
 		this.updateDessin();
 	}
