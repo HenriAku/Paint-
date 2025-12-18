@@ -34,36 +34,64 @@ public class BucketTool
 		return Math.sqrt( Math.pow( r1 - r2, 2 ) + Math.pow( g1 - g2, 2 ) + Math.pow( b1 - b2, 2 ) );
 	}
 
+
 	/**
-	 * Remplit une zone de l'image avec une nouvelle couleur
-	 * @param imageTarget Image à modifier
+	 * Peint une zone contiguë de l'image à partir du point (x, y) avec la nouvelle couleur,
+	 * @param imageTarget Image cible à modifier
 	 * @param x Coordonnée x du pixel de départ
 	 * @param y Coordonnée y du pixel de départ
 	 * @param newColorRGB Nouvelle couleur en format RGB
-	 * @param tolerance Tolérance de couleur pour le remplissage
+	 * @param tolerance Tolérance de couleur pour la sélection des pixels à peindre
 	 */
-	public void peindre(BufferedImage imageTarget, int x, int y, int newColorRGB, int tolerance)
+	public void peindre( BufferedImage imageTarget, int x, int y, int newColorRGB, int tolerance )
 	{
+		int width  = imageTarget.getWidth();
+		int height = imageTarget.getHeight();
+		
+		boolean[][] visited = new boolean[width][height];
+		
 		Queue<Point> file = new LinkedList<Point>();
-		int colorOrig;
-
-		colorOrig = imageTarget.getRGB( x, y ) & 0xFFFFFF;
-
+		int colorOrig = imageTarget.getRGB( x, y ) & 0xFFFFFF;
+		
+		// Si la couleur de départ est déjà la couleur cible, ne rien faire
+		if ( ( newColorRGB & 0xFFFFFF ) == colorOrig ) {
+			return;
+		}
+		
 		file.add( new Point( x, y ) );
-
-		while( !file.isEmpty() )
+		visited[x][y] = true;
+		
+		while ( !file.isEmpty() )
 		{
 			Point p = file.remove();
-
-			if ( p.x() >= 0 && p.x() < imageTarget.getWidth() && p.y() >= 0 && p.y() < imageTarget.getHeight() &&
-				 distance( colorOrig, imageTarget.getRGB( p.x(), p.y() ) ) < tolerance ) 
+			
+			// Vérifier les limites et la couleur
+			if ( p.x() >= 0 && p.x() < width && p.y() >= 0 && p.y() < height &&
+				 distance( colorOrig, imageTarget.getRGB( p.x(), p.y() ) & 0xFFFFFF ) < tolerance )
 			{
 				imageTarget.setRGB( p.x(), p.y(), newColorRGB );
-
-				file.add( new Point( p.x() + 1, p.y() ) );
-				file.add( new Point( p.x() - 1, p.y() ) );
-				file.add( new Point( p.x(), p.y() + 1 ) );
-				file.add( new Point( p.x(), p.y() - 1 ) );
+				
+				// Ajouter les voisins seulement s'ils n'ont pas été visités
+				if ( p.x() + 1 < width && !visited[p.x() + 1][p.y()] )
+				{
+					file.add( new Point( p.x() + 1, p.y() ) );
+					visited[p.x() + 1][p.y()] = true;
+				}
+				if ( p.x() - 1 >= 0 && !visited[p.x() - 1][p.y()] )
+				{
+					file.add( new Point( p.x() - 1, p.y() ) );
+					visited[p.x() - 1][p.y()] = true;
+				}
+				if ( p.y() + 1 < height && !visited[p.x()][p.y() + 1] )
+				{
+					file.add( new Point( p.x(), p.y() + 1 ) );
+					visited[p.x()][p.y() + 1] = true;
+				}
+				if ( p.y() - 1 >= 0 && !visited[p.x()][p.y() - 1] )
+				{
+					file.add( new Point( p.x(), p.y() - 1 ) );
+					visited[p.x()][p.y() - 1] = true;
+				}
 			}
 		}
 	}
