@@ -25,3 +25,4 @@ src/View/PanelParametres/PanelTexteParametres.java
 src/View/PanelParametres/PanelMiroirParametres.java
 src/View/PanelParametres/PanelFusionParametres.java
 src/View/PanelParametres/PanelRedimensionParametres.java
+src/View/PanelParametres/PanelSuperposerParametres.java
