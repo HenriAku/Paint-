@@ -143,7 +143,7 @@ public class PanelRotationParametres extends JPanel implements ActionListener
 
 		if ( e.getSource() == this.btn180Negatif )
 		{
-			double angle = -180.00;
+			double angle = 0;
 			this.ctrl.rotation( angle );
 		}
 	}
