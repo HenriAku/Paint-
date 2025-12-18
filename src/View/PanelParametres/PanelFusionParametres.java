@@ -24,6 +24,10 @@ public class PanelFusionParametres extends JPanel implements ActionListener
 	private JLabel     labelBound;
 	private JTextField txtBound;
 
+	/**
+	 * Constructeur du panel des parametres de fusion
+	 * @param ctrl
+	 */
 	public PanelFusionParametres( Controller ctrl )
 	{
 		this.ctrl = ctrl;
