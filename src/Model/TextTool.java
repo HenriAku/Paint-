@@ -33,7 +33,7 @@ public class TextTool
 	}
 
 	/**
-	 * Applique l'image au texte
+	 * Transforme le texte en forme vectorielle et applique une texture (créée via l'image texture) pour remplir les formes du texte sur l'image cible.
 	 * @param cible L'image à modifier.
 	 * @param cheminTexte Le chemin pour initialiser le BufferedReader.
 	 * @param texte Le texte à designer.
