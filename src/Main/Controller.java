@@ -278,6 +278,11 @@ public class Controller
 		this.updateDessin();
 	}
 
+	/**
+	 * Fusionne une image depuis le chemin spécifié avec l'image courante en utilisant une zone de fusion définie.
+	 * @param filePath
+	 * @param bound
+	 */
 	public void fusion( String filePath, int bound )
 	{
 		BufferedImage fusedImage = this.imageTransformer.fusion( this.getBufferedImage(), filePath, bound );
