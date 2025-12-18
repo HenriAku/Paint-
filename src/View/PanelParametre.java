@@ -35,6 +35,10 @@ public class PanelParametre extends JPanel
 	private PanelRedimensionParametres   panelRedimension  ;
 	private PanelPipetteParametres       panelPipette      ;
 
+	/**
+	 * Constructeur du panel des parametres
+	 * @param ctrl
+	 */
 	public PanelParametre(Controller ctrl)
 	{
 		this.controller = ctrl;
@@ -97,12 +101,19 @@ public class PanelParametre extends JPanel
 		this.showCard("Default");
 	}
 
-	// Méthode pour afficher un panneau spécifique
-	public void showCard(String cardName)
-	{
-		this.cardLayout.show(this, cardName); 
-	}
+	/**
+	 * Méthodes de redirection des appels aux panels
+	 * @param cardName
+	 */
+	public void showCard(String cardName) {this.cardLayout.show(this, cardName); }
 
+	/**
+	 * Méthodes de redirection des appels aux panels
+	 */
 	public void updateColorDisplay() {this.panelPipette.updateColorDisplay();}
-	public void refreshTextures()    {this.panelTexte.refreshTextures();}
+
+	/**
+	 * Méthodes de redirection des appels aux panels
+	 */
+	public void refreshTextures() {this.panelTexte.refreshTextures();}
 }
