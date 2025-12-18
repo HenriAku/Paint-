@@ -77,6 +77,10 @@ public class PanelTexteParametres extends JPanel implements ActionListener
 		this.add( Box.createVerticalGlue() );
 	}
 
+	/**
+	 * Gestion des actions sur les boutons
+	 * @param e L'evenement declencheur
+	 */
 	public void actionPerformed( ActionEvent e )
 	{
 		if ( e.getSource() == this.textFieldTexte )
@@ -94,6 +98,9 @@ public class PanelTexteParametres extends JPanel implements ActionListener
 		}
 	}
 
+	/**
+	 * Rafraichissement des fichiers de textures pour pouvoir actualiser le JComboBox
+	 */
 	public void refreshTextures()
 	{
 		this.textureComboBox.removeAllItems();

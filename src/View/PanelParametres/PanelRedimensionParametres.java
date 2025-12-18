@@ -98,14 +98,16 @@ public class PanelRedimensionParametres extends JPanel implements ActionListener
 	{
 		if ( e.getSource() == this.btnRedimension )
 		{
-			try {
+			try 
+			{
 				int newWidth  = Integer.parseInt(this.txtRedimensionLargeur.getText());
 				int newHeight = Integer.parseInt(this.txtRedimensionHauteur.getText());
 				
-				if (newWidth > 0 && newHeight > 0) {
+				if (newWidth > 0 && newHeight > 0) 
+				{
 					this.ctrl.redimensionner(newWidth, newHeight);
 				} else {
-					 System.err.println("Erreur: La largeur et la hauteur doivent être supérieures à zéro.");
+					System.err.println("Erreur: La largeur et la hauteur doivent être supérieures à zéro.");
 				}
 			} catch (NumberFormatException ex) {
 				System.err.println("Erreur: Veuillez entrer des valeurs numériques valides pour la largeur et la hauteur.");
