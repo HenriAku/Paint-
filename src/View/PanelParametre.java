@@ -13,6 +13,7 @@ import View.PanelParametres.PanelSuperposerParametres;
 import View.PanelParametres.PanelRedimensionParametres;
 import View.PanelParametres.PanelPipetteParametres;
 import View.PanelParametres.PanelFusionParametres;
+import View.PanelParametres.PanelFiltreParametres;
 
 import java.awt.CardLayout;
 
@@ -34,6 +35,7 @@ public class PanelParametre extends JPanel
 	private PanelSuperposerParametres    panelSuperposer   ;
 	private PanelRedimensionParametres   panelRedimension  ;
 	private PanelPipetteParametres       panelPipette      ;
+	private PanelFiltreParametres        panelFiltre       ;
 
 	/**
 	 * Constructeur du panel des parametres
@@ -94,6 +96,10 @@ public class PanelParametre extends JPanel
 		this.panelPipette = new PanelPipetteParametres( this.controller );
 		this.add( this.panelPipette, "Pipette" );
 
+		// Noir et Blanc
+		this.panelFiltre = new PanelFiltreParametres( this.controller );
+		this.add( this.panelFiltre, "Noiretblanc" );
+		
 		// Panneau par défaut
 		JPanel panelDefault = new JPanel();
 		this.add(panelDefault, "Default");

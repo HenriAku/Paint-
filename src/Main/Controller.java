@@ -413,6 +413,21 @@ public class Controller
 	}
 
 	/**
+	 * Convertit l'image courante en noir et blanc.
+	 */
+	public void noirEtBlanc()
+	{
+		BufferedImage source        = this.imageLoader.getImageOriginale();
+		BufferedImage nouvelleImage = this.imageLoader.copierImage(source);
+
+		this.imageTransformer.noirEtBlanc( nouvelleImage );
+
+		this.imageLoader.setImageAvantModif( nouvelleImage );
+		this.imageLoader.setBufferedImage  ( nouvelleImage );
+		this.updateDessin();
+	}
+
+	/**
 	 * Prévient qu'une texture a été ajoutée pour pouvoir rafraichir le JComboBox 
 	 */
 	public void ajoutTextures() { this.framePrincipale.refreshTextures(); }

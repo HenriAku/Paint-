@@ -543,7 +543,51 @@ public class ImageTransformer
 			}
 		}
 
-		return biOutput; // IMPORTANT : On retourne la nouvelle image
+		return biOutput;
+	}
+
+	/**
+	 * Calcule la luminance d'une couleur selon l'algorithme spécifié
+	 * @param coul
+	 * @param numAlgo
+	 * @return
+	 */
+	private int luminance(Color coul)
+	{
+		int r = coul.getRed();
+		int v = coul.getGreen();
+		int b = coul.getBlue();
+
+		// On calcule la luminance (ou intensité) du pixel en utilisant une somme pondérée des trois valeurs RGB.
+		int lum = (int)(0.299 * r + 0.587 * v + 0.114 * b);
+		return lum;
+	}
+
+	/**
+	 * Convertit une image en noir et blanc en utilisant la luminance
+	 * @param imageSrc
+	 */
+	public void noirEtBlanc(BufferedImage imageSrc)
+	{
+		//recup largeur et hauteur de l'image
+		int largeur = imageSrc.getWidth();
+		int hauteur = imageSrc.getHeight();
+
+		//double boucle pour parcourir tous les pixels
+		for(int y=0; y<hauteur; y++)
+		{
+			for(int x=0; x<largeur; x++)
+			{
+				int rgb = imageSrc.getRGB(x, y);
+				Color coul = new Color(rgb);
+
+				int lum = this.luminance(coul); 
+
+				Color coulNB = new Color(lum, lum, lum);
+
+				imageSrc.setRGB(x, y, coulNB.getRGB());
+			}
+		}
 	}
 }
 

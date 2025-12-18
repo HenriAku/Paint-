@@ -26,3 +26,4 @@ src/View/PanelParametres/PanelMiroirParametres.java
 src/View/PanelParametres/PanelFusionParametres.java
 src/View/PanelParametres/PanelRedimensionParametres.java
 src/View/PanelParametres/PanelSuperposerParametres.java
+src/View/PanelParametres/PanelFiltreParametres.java
