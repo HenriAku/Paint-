@@ -240,9 +240,11 @@ public class Controller
 	 */
 	public void peindre( int x, int y )
 	{
-		this.bucketTool .peindre         ( this.getBufferedImage(), x, y, this.currentBucketColor.getRGB(), this.currentBucketTolerance );
-		this.imageLoader.setOriginalImage( this.getBufferedImage() );
+		this.bucketTool .peindre           ( this.getBufferedImage(), x, y, this.currentBucketColor.getRGB(), this.currentBucketTolerance );
+		this.imageLoader.setImageAvantModif( this.getBufferedImage() );
 		this.updateDessin();
+
+		this.bucketTool .peindre( this.imageLoader.getImageOriginale(), x, y, this.currentBucketColor.getRGB(), this.currentBucketTolerance );
 	}
 
 	/**
@@ -251,10 +253,13 @@ public class Controller
 	 */
 	public void rotation( double angle )
 	{
-		BufferedImage imageRotate = this.imageTransformer.rotation( this.imageLoader.getOriginalImage(), angle );
+		BufferedImage imageRotee = this.imageTransformer.rotation( this.imageLoader.getOriginalImage(), angle );
 
-		this.imageLoader.setBufferedImage( imageRotate );
+		this.imageLoader.setBufferedImage( imageRotee );
 		this.updateDessin();
+
+		BufferedImage copie      = this.imageTransformer.rotation( this.imageLoader.getImageOriginale (), angle );
+		this.imageLoader.setOriginalImage  ( copie      );
 	}
 
 	/**
@@ -266,9 +271,11 @@ public class Controller
 	{
 		BufferedImage baseImg   = this.imageLoader.getBufferedImage ();
 
-		this.imageTransformer.superposer      ( baseImg, this.chemin, this.currentColorSuperposer.getRGB() & 0xFFFFFF, x, y );
-		this.imageLoader     .setOriginalImage( this.getBufferedImage() );
+		this.imageTransformer.superposer        ( baseImg, this.chemin, this.currentColorSuperposer.getRGB() & 0xFFFFFF, x, y );
+		this.imageLoader     .setImageAvantModif( this.getBufferedImage() );
 		this.updateDessin();
+
+		this.imageTransformer.superposer( this.imageLoader.getImageOriginale (), this.chemin, this.currentColorSuperposer.getRGB() & 0xFFFFFF, x, y );
 	}
 
 	/**
@@ -280,19 +287,28 @@ public class Controller
 	{
 		BufferedImage fusedImage = this.imageTransformer.fusion( this.getBufferedImage(), filePath, bound );
 
-		this.imageLoader     .setOriginalImage ( fusedImage );
-		this.imageLoader	 .setBufferedImage ( fusedImage );
+		this.imageLoader     .setImageAvantModif ( fusedImage );
+		this.imageLoader	 .setBufferedImage   ( fusedImage );
 		this.updateDessin();
+
+		BufferedImage fusedOriginalImage = this.imageTransformer.fusion( this.imageLoader.getImageOriginale(), filePath, bound );
+		this.imageLoader.setOriginalImage ( fusedOriginalImage );
 	}
 
 	/**
 	 * Ajuste le contraste de l'image courante.
 	 * @param contrastLevel Le niveau de contraste à appliquer.
 	 */
-	public void adjustContrast( double contrastLevel )
+	public void adjustContrast(double contrastLevel) 
 	{
-		this.imageTransformer.adjustContrast  ( this.getBufferedImage(), contrastLevel );
-		this.imageLoader     .setOriginalImage( this.getBufferedImage() );
+		BufferedImage source = this.imageLoader.getImageOriginale();
+		BufferedImage nouvelleImage = this.imageLoader.copierImage(source);
+		
+		this.imageTransformer.adjustContrast(nouvelleImage, contrastLevel);
+		
+		this.imageLoader.setBufferedImage  (nouvelleImage);    
+		this.imageLoader.setImageAvantModif(nouvelleImage);
+		
 		this.updateDessin();
 	}
 
@@ -302,8 +318,13 @@ public class Controller
 	 */
 	public void adjustBrightness( int brightnessLevel )
 	{
-		this.imageTransformer.adjustBrightness( this.getBufferedImage(), brightnessLevel );
-		this.imageLoader     .setOriginalImage( this.getBufferedImage() );
+		BufferedImage source = this.imageLoader.getImageOriginale();
+		BufferedImage nouvelleImage = this.imageLoader.copierImage(source);
+
+		this.imageTransformer.adjustBrightness  ( nouvelleImage, brightnessLevel );
+
+		this.imageLoader.setImageAvantModif( nouvelleImage );
+		this.imageLoader.setBufferedImage  ( nouvelleImage ); 
 		this.updateDessin();
 	}
 
@@ -316,8 +337,13 @@ public class Controller
 	 */
 	public void adjustHue( int rOffset, int gOffset, int bOffset )
 	{
-		this.imageTransformer.adjustHue       ( this.getBufferedImage(), rOffset, gOffset, bOffset );
-		this.imageLoader     .setOriginalImage( this.getBufferedImage() );
+		BufferedImage source = this.imageLoader.getImageOriginale();
+		BufferedImage nouvelleImage = this.imageLoader.copierImage(source);
+
+		this.imageTransformer.adjustHue ( nouvelleImage, rOffset, gOffset, bOffset );
+
+		this.imageLoader.setImageAvantModif( nouvelleImage );
+		this.imageLoader.setBufferedImage  ( nouvelleImage );
 		this.updateDessin();
 	}
 
@@ -326,9 +352,11 @@ public class Controller
 	 */
 	public void mirrorHorizontal() 
 	{
-		this.imageTransformer.mirrorHorizontal( this.getBufferedImage() );
-		this.imageLoader     .setOriginalImage( this.getBufferedImage() );
+		this.imageTransformer.mirrorHorizontal  ( this.getBufferedImage() );
+		this.imageLoader     .setImageAvantModif( this.getBufferedImage() );
 		this.updateDessin();
+
+		this.imageTransformer.mirrorHorizontal  ( this.imageLoader.getImageOriginale() );
 	}
 
 	/** 
@@ -336,9 +364,11 @@ public class Controller
 	 */
 	public void mirrorVertical() 
 	{
-		this.imageTransformer.mirrorVertical  ( this.getBufferedImage() );
-		this.imageLoader     .setOriginalImage( this.getBufferedImage() );
+		this.imageTransformer.mirrorVertical    ( this.getBufferedImage() );
+		this.imageLoader     .setImageAvantModif( this.getBufferedImage() );
 		this.updateDessin();
+
+		this.imageTransformer.mirrorVertical    ( this.imageLoader.getImageOriginale() );
 	}
 
 	/**
@@ -350,17 +380,21 @@ public class Controller
 	{
 		BufferedImage resizedImage = this.imageTransformer.redimensionner( this.getBufferedImage(), newHeight, newWidth );
 
-		this.imageLoader.setBufferedImage( resizedImage );
-		this.imageLoader.setOriginalImage( resizedImage );
+		this.imageLoader.setBufferedImage  ( resizedImage );
+		this.imageLoader.setImageAvantModif( resizedImage );
 		this.updateDessin();
+
+		BufferedImage resizedOriginalImage = this.imageTransformer.redimensionner( this.imageLoader.getImageOriginale(), newHeight, newWidth );
+		this.imageLoader.setOriginalImage  ( resizedOriginalImage );
 	}
 
 	public void antiAliasing()
 	{
-		this.imageTransformer.antiAliasing( this.getBufferedImage() );
-		this.imageLoader     .setBufferedImage ( this.getBufferedImage() );
-		this.imageLoader     .setOriginalImage ( this.getBufferedImage() );
+		this.imageTransformer.antiAliasing       ( this.getBufferedImage() );
+		this.imageLoader     .setImageAvantModif ( this.getBufferedImage() );
 		this.updateDessin();
+
+		this.imageTransformer.antiAliasing       ( this.imageLoader.getImageOriginale() );
 	}
 
 	/**
@@ -372,8 +406,10 @@ public class Controller
 	{
 		String chemin = "ressources/textures/" + this.currentTextTexture;
 		this.textTool.appliquer( this.getBufferedImage(), chemin, this.currentTextContent, x, y );
-		this.imageLoader.setOriginalImage( this.getBufferedImage() );
+		this.imageLoader.setImageAvantModif( this.getBufferedImage() );
 		this.updateDessin();
+
+		this.textTool.appliquer( this.imageLoader.getImageOriginale(), chemin, this.currentTextContent, x, y );
 	}
 
 	/**

@@ -19,6 +19,8 @@ public class ImageLoader
 	private BufferedImage imageAvantModif;
 	private List<BufferedImage> imagesHistoriqueArriere;
 	private List<BufferedImage> imagesHistoriqueAvant;
+	private BufferedImage imageOriginale;
+
 
 	/**
 	 * Constructeur
@@ -30,6 +32,7 @@ public class ImageLoader
 		try {
 			this.imageModif = new BufferedImage( largeur, hauteur, BufferedImage.TYPE_INT_ARGB );
 			this.imageAvantModif = this.imageModif;
+			this.imageOriginale = copierImage(this.imageModif);
 		} catch ( Exception e ) {
 			System.out.println(e);
 		}
@@ -39,11 +42,26 @@ public class ImageLoader
 	}
 
 	/**
+	 * Copie une image
+	 * @param source
+	 * @return BufferedImage
+	 */
+	public BufferedImage copierImage(BufferedImage source) 
+	{
+        BufferedImage b = new BufferedImage(source.getWidth(), source.getHeight(), source.getType());
+        java.awt.Graphics g = b.getGraphics();
+        g.drawImage(source, 0, 0, null);
+        g.dispose();
+        return b;
+    }
+
+	/**
 	 * Retourne l'image chargée
 	 * @return BufferedImage
 	 */
-	public BufferedImage getBufferedImage () { return this.imageModif     ; }
-	public BufferedImage getOriginalImage () { return this.imageAvantModif; }
+	public BufferedImage getBufferedImage   () { return this.imageModif     ; }
+	public BufferedImage getImageAvantModif () { return this.imageAvantModif; }
+	public BufferedImage getImageOriginale  () { return this.imageOriginale ; }
 
 	/**
 	 * Retourne la liste des images de l'historique arrière
@@ -119,7 +137,13 @@ public class ImageLoader
 	 * Remplace l'image originale par une nouvelle image
 	 * @param newImage BufferedImage
 	 */
-	public void setOriginalImage( BufferedImage newImage ) { this.imageAvantModif = newImage; }
+	public void setImageAvantModif( BufferedImage newImage ) { this.imageAvantModif = newImage; }
+
+	/**
+	 * Remplace l'image originale par une nouvelle image
+	 * @param newImage
+	 */
+	public void setOriginalImage( BufferedImage newImage ) { this.imageOriginale  = newImage; }
 
 	/**
 	 * Charge une image depuis le chemin spécifié
@@ -135,6 +159,7 @@ public class ImageLoader
 			{
 				this.imageModif = ImageIO.read( file );
 				this.imageAvantModif = this.imageModif;
+				this.imageOriginale = this.copierImage(this.imageModif);
 			}
 		} catch ( IOException e ) {
 			System.out.println(e);
