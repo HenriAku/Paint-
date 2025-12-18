@@ -1,12 +1,12 @@
 package Main;
 
+import Model.*;
+import View.*;
+
 import java.awt.image.BufferedImage;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.Color;
-
-import Model.*;
-import View.*;
 
 /**
  * Controller principale de l'application.
