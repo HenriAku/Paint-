@@ -3,14 +3,15 @@ package Model;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.TexturePaint;
-import java.awt.FontMetrics;
 import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.geom.Rectangle2D;
 import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
 import java.awt.image.BufferedImage;
+
 import java.io.File;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ import javax.imageio.ImageIO;
 /** Classe utilitaire pour le traitement de texte */
 public class TextTool
 {
-    private BufferedImage texteImage;
+	private BufferedImage texteImage;
 	private String cheminCharge;
 
 	/**
@@ -35,85 +36,79 @@ public class TextTool
 	 * Applique l'image au texte
 	 * @param cible L'image à modifier.
 	 * @param cheminTexte Le chemin pour initialiser le BufferedReader.
-     * @param texte Le texte à designer.
+	 * @param texte Le texte à designer.
 	 * @param x Coordonnée x du texte
 	 * @param y Coordonnée y du texte 
 	 */
 	public void appliquer( BufferedImage cible, String cheminTexture, String texte, int x, int y )
-    {
-        if (cible == null || texte == null || texte.isEmpty()) return;
+	{
+		if ( cible == null || texte == null || texte.isEmpty() ) return;
 
-        try {
-            // Charger la texture
-            BufferedImage texture = ImageIO.read(new File(cheminTexture));
-            if (texture == null) return;
+		try {
+			BufferedImage texture = ImageIO.read( new File(cheminTexture) );
+			if ( texture == null ) return;
 
-            Graphics2D g2 = cible.createGraphics();
+			Graphics2D g2 = cible.createGraphics();
 
-            // Qualité de rendu
-            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+			g2.setRenderingHint( RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON );
 
-            // Police (modifiable)
-            Font font = new Font("Arial", Font.BOLD, 72);
-            g2.setFont(font);
+			Font font = new Font( "Arial", Font.BOLD, 72 );
+			g2.setFont( font );
 
-            // Créer la forme du texte
-            FontRenderContext frc = g2.getFontRenderContext();
-            GlyphVector gv = font.createGlyphVector(frc, texte);
-            Shape textShape = gv.getOutline(x, y);
+			FontRenderContext frc = g2.getFontRenderContext();
+			GlyphVector gv = font.createGlyphVector( frc, texte );
+			Shape textShape = gv.getOutline( x, y );
 
-            // Texture répétée
-            Rectangle2D rect = new Rectangle2D.Double(0, 0, texture.getWidth(), texture.getHeight());
+			Rectangle2D rect = new Rectangle2D.Double( 0, 0, texture.getWidth(), texture.getHeight() );
 
-            TexturePaint texturePaint = new TexturePaint(texture, rect);
-            g2.setPaint(texturePaint);
+			TexturePaint texturePaint = new TexturePaint( texture, rect );
+			g2.setPaint( texturePaint );
 
-            // Dessiner le texte texturé
-            g2.fill(textShape);
+			g2.fill( textShape );
 
-            g2.dispose();
+			g2.dispose();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+		} catch ( Exception e ) {
+			e.printStackTrace();
+		}
+	}
 
 
 	/**
 	 * Récupérer les textures dans les dossiers prévus pour
 	 * @return Tableau de string avec le nom des textures
 	 */
-    public String[] getTextureFiles() 
-    {
-        File textureDir = new File("ressources/textures"); 
+	public String[] getTextureFiles() 
+	{
+		File textureDir = new File( "ressources/textures" ); 
 
-        if (!textureDir.exists() || !textureDir.isDirectory()) 
-        {
-            System.err.println("Erreur: Le dossier 'textures/' est introuvable ou n'est pas un répertoire.");
-            System.err.println("Chemin cherché: " + textureDir.getAbsolutePath());
-            return new String[]{"[Dossier textures/ introuvable]"}; 
-        }
+		if ( !textureDir.exists() || !textureDir.isDirectory() ) 
+		{
+			System.err.println( "Erreur: Le dossier 'textures/' est introuvable ou n'est pas un répertoire." );
+			System.err.println( "Chemin cherché: " + textureDir.getAbsolutePath() );
+			return new String[] { "[Dossier textures/ introuvable]" }; 
+		}
 
-        File[] files = textureDir.listFiles();
-        List<String> textureNames = new ArrayList<>();
+		File[] files = textureDir.listFiles();
+		List<String> textureNames = new ArrayList<>();
 
-        if (files != null) 
-        {
-            for (File file : files) 
-            {
-                // Filtrer les fichiers image courants
-                if (file.isFile() && (file.getName().toLowerCase().endsWith(".png"))) 
-                {
-                    textureNames.add(file.getName());
-                }
-            }
-        }
+		if ( files != null ) 
+		{
+			for ( File file : files ) 
+			{
+				// Filtrer les fichiers image courants
+				if ( file.isFile() && ( file.getName().toLowerCase().endsWith( ".png" ) ) ) 
+				{
+					textureNames.add( file.getName() );
+				}
+			}
+		}
 
-        if (textureNames.isEmpty()) 
-        {
-            textureNames.add("Aucune texture trouvée");
-        }
+		if ( textureNames.isEmpty() ) 
+		{
+			textureNames.add( "Aucune texture trouvée" );
+		}
 
-        return textureNames.toArray(new String[0]);
-    }
+		return textureNames.toArray( new String[0] );
+	}
 }
