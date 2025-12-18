@@ -2,6 +2,7 @@ package Model;
 
 import java.util.Queue;
 import java.util.LinkedList;
+
 import java.awt.image.BufferedImage;
 
 /**
