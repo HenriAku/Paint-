@@ -1,5 +1,8 @@
 package Model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.TexturePaint;
@@ -11,9 +14,6 @@ import java.awt.font.GlyphVector;
 import java.awt.image.BufferedImage;
 
 import java.io.File;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 

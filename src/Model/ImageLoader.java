@@ -1,14 +1,14 @@
 package Model;
 
+import java.util.List;
+import java.util.ArrayList;
+
 import java.awt.image.BufferedImage;
 
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-
-import java.util.List;
-import java.util.ArrayList;
 
 /**
  * Classe pour charger et sauvegarder des images

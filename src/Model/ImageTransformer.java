@@ -12,7 +12,6 @@ import javax.imageio.ImageIO;
  */
 public class ImageTransformer
 {
-
 	/**
 	 * Constructeur par défaut
 	 */
