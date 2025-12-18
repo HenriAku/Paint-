@@ -2,14 +2,15 @@ package View.PanelParametres;
 
 import Main.Controller;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+
 import javax.swing.JPanel;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.Box;
 import javax.swing.border.EmptyBorder;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
 
 /**
  * Panel des parametres de fusion

@@ -5,6 +5,11 @@ import Main.Controller;
 import java.awt.Dimension;
 import java.awt.Component;
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.JButton;
@@ -13,10 +18,6 @@ import javax.swing.JLabel;
 import javax.swing.BoxLayout;
 import javax.swing.Box;
 import javax.swing.JColorChooser;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 
 /**
  * Panel des parametres de fusion

@@ -1,19 +1,21 @@
 package View.PanelParametres;
 
-import javax.swing.JFileChooser;
 import Main.Controller;
+
 import java.awt.Dimension;
 import java.awt.Component;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.border.EmptyBorder;
+
 import javax.swing.JPanel;
+import javax.swing.JFileChooser;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.BoxLayout;
 import javax.swing.Box;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.border.EmptyBorder;
 
 public class PanelFusionParametres extends JPanel implements ActionListener
 {
