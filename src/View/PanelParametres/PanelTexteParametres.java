@@ -56,6 +56,9 @@ public class PanelTexteParametres extends JPanel implements ActionListener
 		this.textFieldTexte.setAlignmentX(Component.CENTER_ALIGNMENT);
 		this.textFieldTexte.addActionListener( this );
 
+		JLabel labelInstruction = new JLabel("Appuyer sur Entrée pour valider", JLabel.CENTER);
+		labelInstruction.setAlignmentX(Component.CENTER_ALIGNMENT);
+
 		this.labelTexture = new JLabel( "Choisir une texture :", JLabel.CENTER );
 		this.labelTexture.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -67,6 +70,8 @@ public class PanelTexteParametres extends JPanel implements ActionListener
 		this.add( this.labelTexte     );
 		this.add( Box.createVerticalStrut( 5 ) );
 		this.add( this.textFieldTexte );
+
+		this.add(labelInstruction);
 
 		this.add( Box.createVerticalStrut( 20 ) );
 		
