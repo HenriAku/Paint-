@@ -153,7 +153,7 @@ public class ImageTransformer
 	}
 
 	/**
-	 * Fusionne une image par-dessus une autre en respectant une couleur transparente
+	 * Supeposer une image par-dessus une autre en respectant une couleur transparente
 	 * @param imageFond Image de imageFond
 	 * @param cheminimage2 String chemin de l'image à superposer
 	 * @param couleurTransparente Couleur considérée comme transparente dans l'image à superposer
@@ -445,5 +445,86 @@ public class ImageTransformer
 			}
 		}
 	}
-	
+
+	/**
+	 * Fusionne deux images avec un fondu (blend) sur une zone spécifiée
+	 * @param imageSrc
+	 * @param cheminimage2
+	 * @param bnd
+	 * @return
+	 */
+	public BufferedImage fusion(BufferedImage imageSrc, String cheminimage2, int bnd) 
+	{
+		BufferedImage biImg2 = null;
+		BufferedImage biOutput = null;
+
+		try {
+			biImg2 = ImageIO.read(new File(cheminimage2));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return imageSrc; // Retourne l'original si erreur de lecture
+		}
+
+		if (biImg2.getWidth() != imageSrc.getWidth() && biImg2.getHeight() != imageSrc.getHeight()) 
+		{
+			biImg2 = redimensionner(biImg2, imageSrc.getHeight(), imageSrc.getWidth());
+		}
+
+		// Calcul de la taille de sortie
+		int outW = imageSrc.getWidth() + biImg2.getWidth() - bnd; // On soustrait bnd pour les superposer
+		int outH = Math.max(imageSrc.getHeight(), biImg2.getHeight());
+
+		biOutput = new BufferedImage(outW, outH, BufferedImage.TYPE_INT_ARGB);
+
+		// 1. Dessiner la première image
+		for(int x = 0; x < imageSrc.getWidth(); x++) {
+			for(int y = 0; y < imageSrc.getHeight(); y++) {
+				biOutput.setRGB(x, y, imageSrc.getRGB(x, y));
+			}
+		}
+
+		// 2. Dessiner la deuxième image (décalée de la largeur de la 1ère - bnd)
+		int offset = imageSrc.getWidth() - bnd;
+		for(int x = 0; x < biImg2.getWidth(); x++) {
+			for(int y = 0; y < biImg2.getHeight(); y++) {
+				// On ne dessine que si on ne dépasse pas la largeur totale
+				if (x + offset >= 0 && x + offset < outW) {
+					biOutput.setRGB(x + offset, y, biImg2.getRGB(x, y));
+				}
+			}
+		}
+
+		// 3. Appliquer le fondu (Blend) uniquement sur la zone de contact
+		for(int x = 0; x < bnd; x++) {
+			for(int y = 0; y < outH; y++) {
+				// VERIFICATION DES BORNES pour y
+				if (y < imageSrc.getHeight() && y < biImg2.getHeight()) {
+					
+					int rgbA = imageSrc.getRGB(imageSrc.getWidth() - bnd + x, y);
+					int rgbB = biImg2.getRGB(x, y);
+
+					int aA = (rgbA >> 24) & 0xff;
+					int rA = (rgbA >> 16) & 0xff;
+					int gA = (rgbA >> 8) & 0xff;
+					int bA = (rgbA) & 0xff;
+
+					int rB = (rgbB >> 16) & 0xff;
+					int gB = (rgbB >> 8) & 0xff;
+					int bB = (rgbB) & 0xff;
+
+					// Calcul du ratio de mélange (0.0 à 1.0)
+					double ratio = (double) x / bnd;
+					int r = (int) (rA * (1 - ratio) + rB * ratio);
+					int g = (int) (gA * (1 - ratio) + gB * ratio);
+					int b = (int) (bA * (1 - ratio) + bB * ratio);
+
+					int rgb = (0xff << 24) | (r << 16) | (g << 8) | b;
+					biOutput.setRGB(imageSrc.getWidth() - bnd + x, y, rgb);
+				}
+			}
+		}
+
+		return biOutput; // IMPORTANT : On retourne la nouvelle image
+	}
 }
+

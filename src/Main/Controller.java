@@ -278,6 +278,14 @@ public class Controller
 		this.updateDessin();
 	}
 
+	public void fusion( String filePath, int bound )
+	{
+		BufferedImage fusedImage = this.imageTransformer.fusion( this.getBufferedImage(), filePath, bound );
+		this.imageLoader     .setOriginalImage ( fusedImage );
+		this.imageLoader	 .setBufferedImage ( fusedImage );
+		this.updateDessin();
+	}
+
 	/**
 	 * Ajuste le contraste de l'image courante.
 	 * @param contrastLevel Le niveau de contraste à appliquer.

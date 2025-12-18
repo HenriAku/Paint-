@@ -14,6 +14,7 @@ import View.PanelParametres.PanelMiroirParametres;
 import View.PanelParametres.PanelSuperposerParametres;
 import View.PanelParametres.PanelRedimensionParametres;
 import View.PanelParametres.PanelPipetteParametres;
+import View.PanelParametres.PanelFusionParametres;
 
 import javax.swing.JPanel;
 
@@ -29,6 +30,7 @@ public class PanelParametre extends JPanel
 	private PanelTeinteParametres        panelTeinte       ;
 	private PanelTexteParametres         panelTexte        ;
 	private PanelMiroirParametres        panelMiroir       ;
+	private PanelFusionParametres        panelFusion       ;
 	private PanelSuperposerParametres    panelSuperposer   ;
 	private PanelRedimensionParametres   panelRedimension  ;
 	private PanelPipetteParametres       panelPipette      ;
@@ -72,8 +74,11 @@ public class PanelParametre extends JPanel
 		this.panelMiroir = new PanelMiroirParametres( this.controller );
 		this.add( this.panelMiroir, "Miroir" );
 
-
 		// Fusion
+		this.panelFusion = new PanelFusionParametres( this.controller );
+		this.add( this.panelFusion, "Fusion" );
+
+		// superposer
 		this.panelSuperposer = new PanelSuperposerParametres( this.controller );
 		this.add( this.panelSuperposer, "Superposer" );
 
