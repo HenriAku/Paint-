@@ -12,6 +12,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.Box;
 import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
@@ -27,7 +28,11 @@ public class PanelRotationParametres extends JPanel implements ActionListener
 
 	private JTextField txtAngleRotation;
 	private JButton btnApplyRotation;
-	private JButton btn90, btn90Negatif, btn180, btn180Negatif;
+
+	private JButton btn90;
+	private JButton btn90Negatif;
+	private JButton btn180;
+	private JButton btn180Negatif;
 
 	/**
 	 * Constructeur du panel des parametres de rotation
@@ -76,6 +81,7 @@ public class PanelRotationParametres extends JPanel implements ActionListener
 		this.panelBtn.add( this.btn180 );
 		this.panelBtn.add(Box.createHorizontalStrut(10));
 		this.panelBtn.add( this.btn180Negatif );
+		this.add( Box.createVerticalGlue() );
 
 		this.add( this.labelRotation );
 		this.add( Box.createVerticalStrut(10) );
