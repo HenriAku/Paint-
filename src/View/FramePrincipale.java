@@ -6,7 +6,6 @@ import Main.Controller;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Panel;
 import java.awt.Toolkit;
 
 public class FramePrincipale extends JFrame

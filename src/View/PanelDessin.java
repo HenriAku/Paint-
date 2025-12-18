@@ -82,7 +82,7 @@ public class PanelDessin extends JPanel implements MouseListener
 					this.controller.peindre( imageX, imageY );
 				break;
 
-			case ToolType.FUSION:
+			case ToolType.SUPERPOSER:
 					this.controller.superposer( imageX, imageY );
 					this.controller.removeMouseDessin();
 				break;
