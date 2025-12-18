@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Component;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.BoxLayout;
@@ -75,13 +76,23 @@ public class PanelFusionParametres extends JPanel implements ActionListener
 	{
 		if ( e.getSource() == this.btnSelectionnerImage )
 		{
-			JFileChooser fileChooser = new JFileChooser();
-			fileChooser.setCurrentDirectory(new java.io.File("."));
-			fileChooser.setDialogTitle("Choisir une image à fusionner (PNG)");
-			fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-			fileChooser.setAcceptAllFileFilterUsed(false);
+			UIManager.put("FileChooser.cancelButtonText", "Annuler");
+			UIManager.put("FileChooser.cancelButtonToolTipText", "Fermer la fenêtre");
 
-			int result = fileChooser.showOpenDialog(this);
+			JFileChooser fileChooser = new JFileChooser();
+			fileChooser.setCurrentDirectory( new java.io.File(".")  );
+			fileChooser.setFileSelectionMode( JFileChooser.FILES_ONLY );
+
+			fileChooser.setDialogTitle("Ouvrir une image");
+			fileChooser.setApproveButtonText("Ouvrir");
+			fileChooser.setAcceptAllFileFilterUsed( false );
+			
+			// Ajouter un filtre pour les fichiers PNG
+			javax.swing.filechooser.FileNameExtensionFilter filter = 
+				new javax.swing.filechooser.FileNameExtensionFilter("Images PNG (*.png)", "png");
+			fileChooser.addChoosableFileFilter(filter);
+			
+			int result = fileChooser.showOpenDialog( this );
 			
 			if (result == JFileChooser.APPROVE_OPTION) 
 			{
