@@ -1,26 +1,36 @@
 package Model;
 
 import java.awt.image.BufferedImage;
+
 import java.io.File;
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
+
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * Classe pour charger et sauvegarder des images
+ */
 public class ImageLoader 
 {
 	private BufferedImage imageModif;
-	private BufferedImage imageAvantModif; // Image originale pour les transformations
+	private BufferedImage imageAvantModif;
 	private List<BufferedImage> imagesHistoriqueArriere;
 	private List<BufferedImage> imagesHistoriqueAvant;
 
-	//Constructeur pour créer une image vide de la taille spécifiée
-	public ImageLoader(int largeur, int hauteur)
+	/**
+	 * Constructeur
+	 * @param largeur Largeur de l'image
+	 * @param hauteur Hauteur de l'image
+	 */
+	public ImageLoader( int largeur, int hauteur )
 	{
 		try {
-			this.imageModif = new BufferedImage(largeur, hauteur, BufferedImage.TYPE_INT_ARGB);
-			this.imageAvantModif = this.imageModif; // Sauvegarder l'image originale
-		} catch (Exception e) {
+			this.imageModif = new BufferedImage( largeur, hauteur, BufferedImage.TYPE_INT_ARGB );
+			this.imageAvantModif = this.imageModif;
+		} catch ( Exception e ) {
 			System.out.println(e);
 		}
 
@@ -32,15 +42,20 @@ public class ImageLoader
 	 * Retourne l'image chargée
 	 * @return BufferedImage
 	 */
-	public BufferedImage getBufferedImage (){return this.imageModif     ;}
-	public BufferedImage getOriginalImage (){return this.imageAvantModif;}
+	public BufferedImage getBufferedImage () { return this.imageModif     ; }
+	public BufferedImage getOriginalImage () { return this.imageAvantModif; }
 
 	/**
-	 * Retourne la liste des images de l'historique
+	 * Retourne la liste des images de l'historique arrière
 	 * @return List<BufferedImage>
 	 */
-	public List<BufferedImage> getImagesHistoriqueArriere(){return this.imagesHistoriqueArriere;}
-	public List<BufferedImage> getImagesHistoriqueAvant  (){return this.imagesHistoriqueAvant  ;}
+	public List<BufferedImage> getImagesHistoriqueArriere() { return this.imagesHistoriqueArriere; }
+
+	/**
+	 * Retourne la liste des images de l'historique avant
+	 * @return List<BufferedImage>
+	 */
+	public List<BufferedImage> getImagesHistoriqueAvant  () { return this.imagesHistoriqueAvant  ; }
 
 	/**
 	 * Retourne la dernière image de l'historique
@@ -48,15 +63,17 @@ public class ImageLoader
 	 */
 	public BufferedImage getLastImageHistoriqueArriere()
 	{
-		if (this.imagesHistoriqueArriere.isEmpty())
+		if ( this.imagesHistoriqueArriere.isEmpty() )
 		{
 			return this.imageModif;
 		}
 		
-		BufferedImage img = this.imagesHistoriqueArriere.get(this.imagesHistoriqueArriere.size() - 1);
-		this.imagesHistoriqueArriere.remove(this.imagesHistoriqueArriere.size() - 1);
-		this.imagesHistoriqueAvant.add(img);
+		BufferedImage img = this.imagesHistoriqueArriere.get( this.imagesHistoriqueArriere.size() - 1) ;
+
+		this.imagesHistoriqueArriere.remove( this.imagesHistoriqueArriere.size() - 1 );
+		this.imagesHistoriqueAvant.add( img );
 		this.imageModif = img;
+
 		return this.imageModif;
 	}
 
@@ -66,67 +83,77 @@ public class ImageLoader
 	 */
 	public BufferedImage getNextImageHistoriqueAvant()
 	{
-		if (this.imagesHistoriqueAvant.isEmpty())
+		if ( this.imagesHistoriqueAvant.isEmpty() )
 		{
 			return this.imageModif;
 		}
 		
-		BufferedImage img = this.imagesHistoriqueAvant.get(this.imagesHistoriqueAvant.size() - 1);
-		this.imagesHistoriqueAvant.remove(this.imagesHistoriqueAvant.size() - 1);
-		this.imagesHistoriqueArriere.add(img);
+		BufferedImage img = this.imagesHistoriqueAvant.get( this.imagesHistoriqueAvant.size() - 1 );
+
+		this.imagesHistoriqueAvant.remove( this.imagesHistoriqueAvant.size() - 1 );
+		this.imagesHistoriqueArriere.add( img );
 		this.imageModif = img;
+
 		return this.imageModif;
 	}
 
 	/**
 	 * Ajoute une image à l'historique
-	 * @param img
+	 * @param img BufferedImage
 	 */
 	public void addImageHistorique()
 	{
-		//Nouvelle image pour pas écraser l'ancienne dans l'historique
-		BufferedImage copie = new BufferedImage(this.imageModif.getWidth(), this.imageModif.getHeight(), this.imageModif.getType());
-		copie.getGraphics().drawImage(this.imageModif, 0, 0, null);
-		this.imagesHistoriqueArriere.add(copie);
+		BufferedImage copie = new BufferedImage( this.imageModif.getWidth(), this.imageModif.getHeight(), this.imageModif.getType() );
+
+		copie.getGraphics().drawImage( this.imageModif, 0, 0, null );
+		this.imagesHistoriqueArriere.add( copie );
 	}
 
 	/**
 	 * Remplace l'image source par une nouvelle image
-	 * @param newImage
+	 * @param newImage BufferedImage
 	 */
-	public void setBufferedImage(BufferedImage newImage){this.imageModif      = newImage;}
-	public void setOriginalImage(BufferedImage newImage){this.imageAvantModif = newImage;}	
+	public void setBufferedImage( BufferedImage newImage ) { this.imageModif      = newImage; }
+
+	/**
+	 * Remplace l'image originale par une nouvelle image
+	 * @param newImage BufferedImage
+	 */
+	public void setOriginalImage( BufferedImage newImage ) { this.imageAvantModif = newImage; }
 
 	/**
 	 * Charge une image depuis le chemin spécifié
-	 * @param chemin
+	 * @param chemin String
 	 */
-	public void loadImage(String chemin)
+	public void loadImage( String chemin )
 	{
-		try {
-			File file = new File(chemin);
+		try
+		{
+			File file = new File( chemin );
 
-			if (file.getName().toLowerCase().endsWith(".png")) {
-				this.imageModif = ImageIO.read(file);
-				this.imageAvantModif = this.imageModif; // Mettre à jour l'image originale
+			if ( file.getName().toLowerCase().endsWith(".png") )
+			{
+				this.imageModif = ImageIO.read( file );
+				this.imageAvantModif = this.imageModif;
 			}
-		} catch (IOException e) {
+		} catch ( IOException e ) {
 			System.out.println(e);
 		}
-		this.imagesHistoriqueArriere.add(imageModif);
+		this.imagesHistoriqueArriere.add( imageModif );
 	}
 
 	/**
 	 * Sauvegarde l'image courante vers le chemin spécifié
-	 * @param chemin
+	 * @param chemin String
 	 */
-	public void sauvegarder(String chemin)
+	public void sauvegarder( String chemin )
 	{
-		try {
-			File file = new File(chemin);
-			ImageIO.write(this.imageModif, "png", file);
-		} catch (IOException e) {
-			System.out.println(e);
+		try
+		{
+			File file = new File( chemin );
+			ImageIO.write( this.imageModif, "png", file );
+		} catch ( IOException e ) {
+			System.out.println( e );
 		}
 	}
 }
