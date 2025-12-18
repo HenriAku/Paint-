@@ -1,9 +1,7 @@
 package View;
 
 import javax.swing.JFrame;
-
 import Main.Controller;
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -20,6 +18,10 @@ public class FramePrincipale extends JFrame
 	protected int width ;
 	protected int height;
 
+	/**
+	 * Constructeur de la FramePrincipale
+	 * @param ctrl Le controller de l'application
+	 */
 	public FramePrincipale(Controller ctrl)
 	{
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -43,13 +45,33 @@ public class FramePrincipale extends JFrame
 		this.setVisible(true);
 	}
 
-	public void repaint          (){this.panelDessin.repaint           ();}
-	public void updateColorDisplay(){this.panelTools.updateColorDisplay();}
-	public void refreshTextures    (){this.panelTools.refreshTextures(); }
-	public void addMouseDessin   (){this.panelDessin.addMouse          ();}
-	public void removeMouseDessin(){this.panelDessin.removeMouseDessin ();}
-	public void showParametrePanel(String toolName)
-	{
-		this.panelTools.showCard(toolName);
-	}
+	/**
+	 * Méthodes de mise à jour des panels
+	 */
+	public void repaint (){this.panelDessin.repaint();}
+
+	/**
+	 * Méthodes de redirection des appels aux panels
+	 */
+	public void updateColorDisplay (){this.panelTools.updateColorDisplay();}
+
+	/**
+	 * Méthodes de redirection des appels aux panels
+	 */
+	public void refreshTextures (){this.panelTools.refreshTextures();}
+
+	/**
+	 * Méthodes de redirection des appels aux panels
+	 */
+	public void addMouseDessin (){this.panelDessin.addMouse();}
+
+	/**
+	 * Méthodes de redirection des appels aux panels
+	 */
+	public void removeMouseDessin (){this.panelDessin.removeMouseDessin();}
+
+	/**
+	 * Méthodes de redirection des appels aux panels
+	 */
+	public void showParametrePanel(String toolName) {this.panelTools.showCard(toolName);}
 }	
