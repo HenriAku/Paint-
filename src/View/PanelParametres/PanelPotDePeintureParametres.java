@@ -85,7 +85,7 @@ public class PanelPotDePeintureParametres extends JPanel implements ActionListen
 		this.add( Box.createVerticalStrut(5) );
 		this.add( this.textTolerance ); 
 		
-		// 🌟 Pousser le contenu vers le haut
+		// Pousser le contenu vers le haut
 		this.add( Box.createVerticalGlue() );
 	}
 
