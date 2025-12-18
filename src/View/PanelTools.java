@@ -1,9 +1,10 @@
 package View;
 
-import java.awt.BorderLayout;
-import javax.swing.JPanel;
-
 import Main.Controller;
+
+import java.awt.BorderLayout;
+
+import javax.swing.JPanel;
 
 /**
  * PanelTools est le panneau latéral de l'application Paint qui regroupe les outils de dessin et les paramètres associés.
