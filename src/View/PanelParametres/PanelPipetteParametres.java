@@ -33,26 +33,26 @@ public class PanelPipetteParametres extends JPanel
 
 
 		this.setLayout( new BoxLayout( this, BoxLayout.Y_AXIS ) );
-		this.setBorder(new EmptyBorder(20, 20, 20, 20));
+		this.setBorder( new EmptyBorder( 20, 20, 20, 20 ) );
 
-		this.labelInstructions = new JLabel("Cliquez sur l'image");
-		this.labelInstructions.setAlignmentX(Component.CENTER_ALIGNMENT);
+		this.labelInstructions = new JLabel( "Cliquez sur l'image" );
+		this.labelInstructions.setAlignmentX( Component.CENTER_ALIGNMENT );
 
 		this.colorSamplePanel = new JPanel();
-		this.colorSamplePanel.setPreferredSize(new Dimension(80, 40)); 
-		this.colorSamplePanel.setMaximumSize(new Dimension(100, 50));
-		this.colorSamplePanel.setOpaque(true);
-		this.colorSamplePanel.setBackground(Color.WHITE);
-		this.colorSamplePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		this.colorSamplePanel.setPreferredSize( new Dimension( 80, 40 ) ); 
+		this.colorSamplePanel.setMaximumSize( new Dimension( 100, 50 ) );
+		this.colorSamplePanel.setOpaque( true );
+		this.colorSamplePanel.setBackground( Color.WHITE );
+		this.colorSamplePanel.setAlignmentX( Component.CENTER_ALIGNMENT );
 
-		this.labelCouleurAffichee = new JLabel("#FFFFFF");
-		this.labelCouleurAffichee.setAlignmentX(Component.CENTER_ALIGNMENT);
+		this.labelCouleurAffichee = new JLabel( "#FFFFFF" );
+		this.labelCouleurAffichee.setAlignmentX( Component.CENTER_ALIGNMENT );
 		
-		this.add(this.labelInstructions);
+		this.add( this.labelInstructions );
 		this.add( Box.createVerticalStrut( 15 ) );
-		this.add(this.colorSamplePanel);
+		this.add( this.colorSamplePanel );
 		this.add( Box.createVerticalStrut( 5 ) );
-		this.add(this.labelCouleurAffichee);
+		this.add( this.labelCouleurAffichee );
 		this.add( Box.createVerticalGlue() );
 	}
 
@@ -63,12 +63,12 @@ public class PanelPipetteParametres extends JPanel
 	{
 		int rgb = this.ctrl.getPipetteColorRGB();
 		
-		Color selectedColor = new Color(rgb);
+		Color selectedColor = new Color( rgb );
 
-		this.colorSamplePanel.setBackground(selectedColor);
+		this.colorSamplePanel.setBackground( selectedColor );
 		
-		String hex = String.format("#%06X", (0xFFFFFF & rgb));
-		this.labelCouleurAffichee.setText(hex);
+		String hex = String.format( "#%06X", (0xFFFFFF & rgb) );
+		this.labelCouleurAffichee.setText( hex );
 		
 		this.repaint();
 	}
