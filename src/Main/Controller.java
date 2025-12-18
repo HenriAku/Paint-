@@ -36,7 +36,7 @@ public class Controller
 
 	private Color currentColorSuperposer;
 
-	private Color backgroundColor = new Color(200, 200, 200, 255);
+	private Color backgroundColor = new Color( 200, 200, 200, 255 );
 
 	/**
 	 * Constructeur du Controller.
@@ -61,13 +61,13 @@ public class Controller
 		this.width  = (int) screenSize.getWidth ();
 		this.height = (int) screenSize.getHeight();
 
-		this.imageLoader      = new ImageLoader(this.width, this.height);
+		this.imageLoader      = new ImageLoader( this.width, this.height );
 		
 		this.imageTransformer = new ImageTransformer();
 		this.bucketTool       = new BucketTool();
 		this.textTool         = new TextTool();
 
-		this.framePrincipale  = new FramePrincipale(this);
+		this.framePrincipale  = new FramePrincipale( this );
 	}
 
 	/**
@@ -92,73 +92,49 @@ public class Controller
 	 * Obtient la couleur courante du pot de peinture.
 	 * @param color La couleur à définir.
 	 */
-	public void setCurrentBucketColor( Color color )
-	{
-		this.currentBucketColor = color;
-	}
+	public void setCurrentBucketColor( Color color ) { this.currentBucketColor = color; }
 
 	/**
 	 * Obtient la couleur courante du pot de peinture.
 	 * @param tolerance La tolérance à définir.
 	 */
-	public void setCurrentBucketTolerance( int tolerance )
-	{
-		this.currentBucketTolerance = tolerance;
-	}
+	public void setCurrentBucketTolerance( int tolerance ) { this.currentBucketTolerance = tolerance; }
 
 	/**
 	 * Obtient la couleur courante du pot de peinture.
 	 * @return La couleur courante du pot de peinture.
 	 */
-	public Color getCurrentBucketColor()
-	{
-		return this.currentBucketColor;
-	}
+	public Color getCurrentBucketColor() { return this.currentBucketColor; }
 
 	/**
 	 * Obtient la tolérance courante du pot de peinture.
 	 * @return La tolérance courante du pot de peinture.
 	 */
-	public int getCurrentBucketTolerance()
-	{
-		return this.currentBucketTolerance;
-	}
+	public int getCurrentBucketTolerance() { return this.currentBucketTolerance; }
 
 	/**
 	 * Obtient le contenu du texte courant de l'éditeur de texte.
 	 * @param texte Le texte à définir.
 	 */
-	public void setCurrentTextContent( String texte )
-	{
-		this.currentTextContent = texte;
-	}
+	public void setCurrentTextContent( String texte ) { this.currentTextContent = texte; }
 
 	/**
 	 * Obtient la texture courante de l'éditeur de texte.
 	 * @param texture La texture à définir.
 	 */
-	public void setCurrentTextTexture( String texture )
-	{
-		this.currentTextTexture = texture;
-	}
+	public void setCurrentTextTexture( String texture ) { this.currentTextTexture = texture; }
 
 	/**
 	 * Obtient le contenu du texte courant de l'éditeur de texte.
 	 * @return Le texte à définir.
 	 */
-	public String getCurrentTextContent()
-	{
-		return this.currentTextContent;
-	}
+	public String getCurrentTextContent() { return this.currentTextContent; }
 
 	/**
 	 * Obtient la texture courante de l'éditeur de texte.
 	 * @return La texture à définir.
 	 */
-	public String getCurrentTextTexture()
-	{
-		return this.currentTextTexture;
-	}
+	public String getCurrentTextTexture() { return this.currentTextTexture; }
 
 	/**
 	 * Obtient la largeur de l'écran.
@@ -182,7 +158,8 @@ public class Controller
 	 * Définit l'outil courant.
 	 * @param tool L'outil à définir comme courant.
 	 */
-	public void setCurrentTool( ToolType tool ){
+	public void setCurrentTool( ToolType tool )
+	{
 		this.currentTool = tool;
 		this.imageLoader.addImageHistorique();
 	}
@@ -302,6 +279,7 @@ public class Controller
 	public void fusion( String filePath, int bound )
 	{
 		BufferedImage fusedImage = this.imageTransformer.fusion( this.getBufferedImage(), filePath, bound );
+
 		this.imageLoader     .setOriginalImage ( fusedImage );
 		this.imageLoader	 .setBufferedImage ( fusedImage );
 		this.updateDessin();
@@ -370,7 +348,8 @@ public class Controller
 	 */
 	public void redimensionner( int newWidth, int newHeight )
 	{
-		BufferedImage resizedImage = this.imageTransformer.redimensionner( this.getBufferedImage(), newHeight, newWidth);
+		BufferedImage resizedImage = this.imageTransformer.redimensionner( this.getBufferedImage(), newHeight, newWidth );
+
 		this.imageLoader.setBufferedImage( resizedImage );
 		this.imageLoader.setOriginalImage( resizedImage );
 		this.updateDessin();
@@ -392,8 +371,8 @@ public class Controller
 	public void appliquerText( int x, int y )
 	{
 		String chemin = "ressources/textures/" + this.currentTextTexture;
-		this.textTool.appliquer(this.getBufferedImage(), chemin, this.currentTextContent, x, y);
-		this.imageLoader.setOriginalImage(this.getBufferedImage());
+		this.textTool.appliquer( this.getBufferedImage(), chemin, this.currentTextContent, x, y );
+		this.imageLoader.setOriginalImage( this.getBufferedImage() );
 		this.updateDessin();
 	}
 
@@ -406,10 +385,7 @@ public class Controller
 	/**
 	 * Obtient les fichiers de texture disponibles pour l'outil texte.
 	 */
-	public String[] getTextureFiles()
-	{
-		return this.textTool.getTextureFiles();
-	}
+	public String[] getTextureFiles() { return this.textTool.getTextureFiles(); }
 
 	/**
 	 * Met à jour le dessin dans l'interface utilisateur.
@@ -419,7 +395,7 @@ public class Controller
 	/**
 	 * Met à jour le panneau pipette dans l'interface utilisateur.
 	 */
-	public void updateColorDisplay(){this.framePrincipale.updateColorDisplay();}
+	public void updateColorDisplay(){ this.framePrincipale.updateColorDisplay(); }
 
 	/**
 	 * Ajoute les écouteurs de souris pour le dessin.
@@ -435,10 +411,7 @@ public class Controller
 	 * Gère la sélection d'un outil et affiche le panneau de paramètres correspondant.
 	 * @param toolName Le nom de l'outil sélectionné.
 	 */
-	public void toolSelected( String toolName )
-	{
-		this.framePrincipale.showParametrePanel( toolName );
-	}
+	public void toolSelected( String toolName ) { this.framePrincipale.showParametrePanel( toolName ); }
 
 	/**
 	 * Point d'entrée principal de l'application.
